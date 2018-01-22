@@ -1,0 +1,26 @@
+{
+  "name": "transformer",
+  "version": "0.0.1",
+  "description": "DTO transformer library with fluid API, built in permissions, and asynchronous transformations",
+  "main": "index.js",
+  "scripts": {
+    "build": "babel src --out-dir dist",
+    "prepublish": "npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "transformer",
+    "dto",
+    "permissions"
+  ],
+  "author": "Tyler Hall",
+  "license": "MIT",
+  "dependencies": {
+    "bluebird": "^3.5.1",
+    "debug": "^3.1.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1"
+  }
+}
