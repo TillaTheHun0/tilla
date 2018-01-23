@@ -1,14 +1,15 @@
 {
-  "name": "transformer",
+  "name": "tilla",
   "version": "0.0.1",
-  "description": "DTO transformer library with fluid API, built in permissions, and asynchronous transformations",
   "main": "index.js",
+  "description": "DTO transformer library with fluid API, built in permission levels, and asynchronous transformations",
   "scripts": {
     "build": "babel src --out-dir dist",
     "prepublish": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
+    "transformation",
     "transformer",
     "dto",
     "permissions"
