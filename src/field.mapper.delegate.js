@@ -17,7 +17,7 @@ class FieldMapperDelegate {
   always () {
     this.always = true
     // doesn't matter what we set permission to since builder will be copied across all lvls
-    this.curPermissionLvl = PermissionRanking[0]
+    this.curPermissionLvl = this.permissionRanking[0]
     return this
   }
   passthrough () {
@@ -50,17 +50,17 @@ class FieldMapperDelegate {
      * to transform the child object using the provided permissionLvl
      */
     if (permissionLvl) {
-      if (PermissionRanking.indexOf(permissionLvl) === -1) {
+      if (this.permissionRanking.indexOf(permissionLvl) === -1) {
         throw new Error('Invalid permission lvl provided')
       }
       let mapper = new SubTransformFieldMapper(transformerKey, permissionLvl)
-      PermissionRanking.forEach(function (curPermissionLvl) {
+      this.permissionRanking.forEach((curPermissionLvl) => {
         // Using same mapper for each lvl on parent
         self.delegate[curPermissionLvl] = mapper
       })
     } else {
       // use parents permission lvl
-      PermissionRanking.forEach(function (curPermissionLvl) {
+      this.permissionRanking.forEach((curPermissionLvl) => {
         self.delegate[curPermissionLvl] = new SubTransformFieldMapper(transformerKey, curPermissionLvl)
       })
     }
@@ -86,7 +86,7 @@ class FieldMapperDelegate {
   checkAlways () {
     if (this.always) {
       // Set the delegate for each permission lvl to the same delegate
-      PermissionRanking.forEach((permission) => {
+      this.permissionRanking.forEach((permission) => {
         this.delegate[permission] = this.delegate[this.curPermissionLvl]
       })
       this.always = null
@@ -99,12 +99,12 @@ class FieldMapperDelegate {
    */
   restrict (fieldMapper) {
     if (this.restriction !== null && this.restriction !== undefined) {
-      for (let i = 0; i < PermissionRanking.length; i++) {
+      for (let i = 0; i < this.permissionRanking.length; i++) {
         if (i < this.restriction) {
-          this.delegate[PermissionRanking[i]] = null
+          this.delegate[this.permissionRanking[i]] = null
           continue
         }
-        this.delegate[PermissionRanking[i]] = fieldMapper
+        this.delegate[this.permissionRanking[i]] = fieldMapper
       }
     }
   }
@@ -127,26 +127,65 @@ class FieldMapperDelegate {
     // Lacking permissions
     return Promise.resolve()
   }
-}
 
-// Dynamically add all of the permission methods to the FieldMapperDelegate Class
-PermissionRanking.forEach((permission, index) => {
-  let capitalize = (str) => {
-    return str.charAt(0).toUpperCase() + str.toLowerCase().slice(1)
+  when (permission) {
+    this.curPermissionLvl = permission
+    return this
   }
 
-  // Add all restirctTo_____ methods
-  FieldMapperDelegate.prototype[`${restrictTo}${capitalize(permission)}`] = function () {
+  restrictTo (permission) {
+    let index = this.permissionRanking.indexOf(permission)
+    if (index === -1) {
+      throw new Error('Permission Lvl Not Found')
+    }
     this.restriction = index
     this.curPermissionLvl = permission
     return this
   }
 
-  // Add all when_____ methods
-  FieldMapperDelegate.prototype[`${when}${capitalize(permission)}`] = function () {
-    this.curPermissionLvl = permission
-    return this
+  setPermissionRanking (permissionRanking) {
+    this.clearPermissionMethods()
+    FieldMapperDelegate.prototype.permissionRanking = permissionRanking
+    this.buildPermissionMethods()
   }
-})
+
+  buildPermissionMethods () {
+    if (!FieldMapperDelegate.prototype.permissionRanking) {
+      return
+    }
+    // Dynamically add all of the permission methods to the FieldMapperDelegate Class
+    FieldMapperDelegate.prototype.permissionRanking.forEach((permission, index) => {
+      let capitalize = (str) => {
+        return str.charAt(0).toUpperCase() + str.toLowerCase().slice(1)
+      }
+
+      // Add all restrictTo_____ methods
+      FieldMapperDelegate.prototype[`${restrictTo}${capitalize(permission)}`] = function () {
+        return this.restrictTo(permission)
+      }
+
+      // Add all when_____ methods
+      FieldMapperDelegate.prototype[`${when}${capitalize(permission)}`] = function () {
+        return this.when(permission)
+      }
+    })
+  }
+
+  clearPermissionMethods () {
+    FieldMapperDelegate.prototype.permissionRanking.forEach((permission, index) => {
+      let capitalize = (str) => {
+        return str.charAt(0).toUpperCase() + str.toLowerCase().slice(1)
+      }
+      // Remove all restirctTo_____ methods
+      delete this.prototype[`${restrictTo}${capitalize(permission)}`]
+      // Remove all when_____ methods
+      delete this.prototype[`${when}${capitalize(permission)}`]
+    })
+  }
+}
+
+// Set default permission ranking and build default methods
+FieldMapperDelegate.prototype.permissionRanking = PermissionRanking
+FieldMapperDelegate.prototype.buildPermissionMethods()
 
 export { FieldMapperDelegate }

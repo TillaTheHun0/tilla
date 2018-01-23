@@ -1,5 +1,7 @@
 'use strict'
 
+import Promise from 'bluebird'
+
 import { FieldMapper } from './field.mapper'
 
 /**
@@ -19,6 +21,7 @@ import { FieldMapper } from './field.mapper'
 class SubTransformFieldMapper extends FieldMapper {
   constructor (transformKey, permission) {
     super()
+    this.transformer = null
     this.transformKey = transformKey
     this.permission = permission
   }
@@ -34,7 +37,7 @@ class SubTransformFieldMapper extends FieldMapper {
       if (!list) {
         return Promise.resolve(list)
       }
-      return Promise.map(list, function (cur) {
+      return Promise.map(list, (cur) => {
         // check if value at this key is another Instance and must call get
         if (typeof cur.get === 'function') {
           return this.transformer.transform(this.permission, cur.get())

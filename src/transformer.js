@@ -15,25 +15,26 @@ class Transformer {
     this.mapping[key] = fieldMapperDelegate
   }
   transform (permission, instance) {
-    const self = this
-
     let dto = {}
-    let transformations = Promise.map(Object.keys(this.mapping), function (dtoKey) {
-      return self.mapping[dtoKey].transform(permission, instance).then(function (value) {
+    let transformations = Promise.map(Object.keys(this.mapping), (dtoKey) => {
+      return this.mapping[dtoKey].transform(permission, instance).then((value) => {
         if (value !== undefined) {
           dto[dtoKey] = value
         }
       })
     })
 
-    let defaultsSet = new Promise(function (resolve, reject) {
-      if (!self.hasDefault) {
+    let defaultsSet = new Promise((resolve, reject) => {
+      if (!this.hasDefault) {
         resolve()
       }
       // Attach any defaulted attributes to Dto
-      if (self.defaultMask === PASSTHROUGH) {
-        Object.keys(self.defaultAttributes).forEach(function (key) {
-          if (!self.mapping[key]) {
+      if (this.defaultMask === PASSTHROUGH) {
+        if (!this.defaultAttributes || !this.defaultAttributes.length) {
+          return resolve()
+        }
+        this.defaultAttributes.forEach((key) => {
+          if (!this.mapping[key]) {
             dto[key] = instance[key]
           }
         })
@@ -41,10 +42,10 @@ class Transformer {
       }
 
       // Run each default attribute through provided builder
-      if (self.defaultMask === BUILD_WITH) {
-        return Promise.map(self.defaultAttributes, function (key) {
-          if (!self.mapping[key]) {
-            return this.defaultBuilder(instance, key).then(function (value) {
+      if (this.defaultMask === BUILD_WITH) {
+        return Promise.map(this.defaultAttributes, (key) => {
+          if (!this.mapping[key]) {
+            return this.defaultBuilder(instance, key).then((value) => {
               dto[key] = value
             })
           }
@@ -54,7 +55,7 @@ class Transformer {
     })
 
     // await transformations to finish before dto is returned
-    return Promise.join(transformations, defaultsSet, function () {
+    return Promise.join(transformations, defaultsSet, () => {
       return dto
     })
   }
@@ -64,7 +65,7 @@ class Transformer {
    * @param {Array<Instance>} instances
    */
   transformAsList (permission, instances) {
-    return Promise.map(instances, function (instance) {
+    return Promise.map(instances, (instance) => {
       if (typeof instance.get === 'function') {
         return this.transform(permission, instance.get())
       }
