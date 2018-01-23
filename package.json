@@ -2,6 +2,8 @@
   "name": "tilla",
   "version": "0.0.1",
   "description": "DTO transformer library with fluid API, built in permission levels, and asynchronous transformations",
+  "repository": "https://github.com/TillaTheHun0/tilla",
+  "bugs": "https://github.com/TillaTheHun0/tilla/issues",
   "main": "./dist/index.js",
   "scripts": {
     "build:dev": "npm run build -- -s",
