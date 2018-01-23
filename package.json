@@ -1,12 +1,13 @@
 {
   "name": "tilla",
   "version": "0.0.1",
-  "main": "index.js",
   "description": "DTO transformer library with fluid API, built in permission levels, and asynchronous transformations",
+  "main": "./dist/index.js",
   "scripts": {
+    "build:dev": "npm run build -- -s",
     "build": "babel src --out-dir dist",
     "prepublish": "npm run build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "standard \"src/**/*.js\""
   },
   "keywords": [
     "transformation",
@@ -17,11 +18,12 @@
   "author": "Tyler Hall",
   "license": "MIT",
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
     "bluebird": "^3.5.1",
     "debug": "^3.1.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.6.1"
+    "babel-preset-env": "^1.6.1",
   }
 }
