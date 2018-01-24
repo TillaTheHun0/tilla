@@ -38,6 +38,7 @@ You can think of a `Transformer` as a collection of `FieldDelegates` that are us
 on a `Transformer` and provide the permission lvl and object to transform. This will return a `Promise` that will resolve with the transformed object
 
 ```javascript
+
 // ES6 Modules
 import { Transformer } from 'tilla'
 // Or
@@ -79,6 +80,7 @@ personTransformer.transform(FieldPermissionLvl.PUBLIC, person).then((personDto) 
   }
   */
 })
+
 ```
 
 `Tilla` also ships with a utility instance to slightly reduce verboseness
@@ -108,6 +110,7 @@ By default `Tilla` ships with 4 permission levels: `PUBLIC`, `PRIVILEGED`, `PRIV
 `FieldMapperDelegate`s can set multiple masking levels for each field, based on `permissions` and their chainable API makes it easy to set up complex mappings for each field on a `Transformer`. In the example above, `always()` was used for each field, which indicates a single builder for any kind of transformation and all permission levels -- "'Always' use this method to transform the value provided". We can specify multiple methods like so:
 
 ```javascript
+
 let { Transformer, Utils: fieldDelegate } = require('tilla')
 
 let oldPersonTransformer = new Transformer({
@@ -120,11 +123,13 @@ let oldPersonTransformer = new Transformer({
   }),
   ssn: fieldDelegate('ssn').restrictToPrivate().passthrough() // only transformations at PRIVATE and above permission lvls will have this field
 })
+
 ```
 
 You can specify your own permission ranking and `Tilla` will dynamically rebuild the `permission` API on `FieldDelegate` instances. For example, you could specify a ranking of [`USER`, `EMPLOYEE`, `MANAGER`] and `Tilla` will add API's `whenUser()`, `restrictToUser()`, `whenEmployee()`, `restrictToEmployee()`, `whenManager()` and `restrictToManager()`. Specify a ranking like so:
 
 ```javascript
+
 let { Transformer, setPermissionRanking } = require('tilla')
 
 let ranking = ['USER', 'EMPLOYEE', 'MANAGER']
@@ -141,6 +146,7 @@ let oldPersonTransformer = new Transformer({
   }),
   ssn: fieldDelegate('ssn').restrictToManager().passthrough() // only transformations at PRIVATE and above permission lvls will have this field
 })
+
 ```
 
 NOTE: If you choose to use your own permission ranking, do it before creating any `FieldDelegates`, since the old API will be removed from the `prototype` of the class and the new ranking api will be dynamcially added to the `prototype`.
@@ -150,6 +156,7 @@ NOTE: If you choose to use your own permission ranking, do it before creating an
 It's a common use case to want to use another `Transformer` for some key on a source object being transformed, especially with eargerly loaded associations. Basically to use a `Transformer` as a field builder. For example, a `Person` may have an eagerly loaded `Address`. With `Tilla` you can specify each of these `Transformer`'s and then specify a `SubTransformation` in the `Person` `Transformer` for the key, `address`. To do this you must add the `Transformer` being used to subtransform to the `registry` provided by `Tilla`.
 
 ```javascript
+
 let { Transformer, Utils: fieldDelegate, registry, FieldPermissionLvl } = require('tilla')
 
 let personTransformer = new Transformer({
@@ -219,6 +226,7 @@ personTransformer.transform(FieldPermissionLvl.PRIVATE, person).then((privatePer
 All the permission APIs work the same with `SubTransforms`. This means that you can choose to transform the field differenty for each position lvl. Notice that the *permissions for the parent propogated down to the `SubTransformation`*. This is the default behavior. To override this, you can specify a permission lvl to use for the `SubTransformation` when defining the transformer.
 
 ```javascript
+
 let { Transformer, Utils: fieldDelegate, registry, FieldPermissionLvl } = require('tilla')
 
 let personTransformer = new Transformer({
@@ -290,7 +298,8 @@ personTransformer.transform(FieldPermissionLvl.PRIVATE, person).then((privatePer
 
 It is common to have a list of common objects to transform. For example, a `Person` could have multiple `Car`s that are eagerly loaded. To specify a list of objects to transform with a common `Transformer`, simply call `asList()` on the `FieldDelegate`.
 
-```javascript
+``` javascript
+
 let personTransformer = new Transformer({
   age: fieldDelegate('age').always().passthrough(),
   name: fieldDelegate().always().buildWith((src) => {
@@ -300,6 +309,58 @@ let personTransformer = new Transformer({
   address: fieldDelegate('address').always().subTransform('address', FieldPermissionLvl.PUBLIC),
   cars: fieldDelegate('cars').always().subTransform('car').asList() // will transform each object in the list with the Transformer registerd at 'car' in the registry
 })
+
+```
+
+### By Default
+
+A common use case is to transform only certain fields and then treat all other fields the same. `Transformers` have a method `byDefault()` that will accept an Array of attributes. You can then specify how all of those attributes will be transformed. A common case is just mark all those fields as `passthrough`.
+
+```javascript
+
+let { Transformer } = require('tilla')
+
+let personTransformer = new Transformer({
+  // Special transformation cases here
+  name: new FieldMapperDelegate().always().buildWith((src) => {
+    return `${src.firstName} ${src.lastName}`
+  }),
+  city: new FieldMapperDelegate('homeCity').always().passthrough()
+  state: new FieldMapperDelegate('address').always().buildWith((src, key) => {
+    let address = src[key]
+    return address ? address.state : address
+  })
+}).byDefault(['age', 'height']).PASSTHROUGH() // .BUILD_WITH() can also be used and follows the same builder API as customer field builders
+
+```
+
+### Extend A Transformer
+
+A common case is to have different objects with similar transformations. You can extend an exisiting `Transformer` by calling `transformer.extend()` and passing a map just like you would a normal `Transformer`. This will merge the two mappings and return a new `Transformer` instance.
+
+``` javascript
+
+let { Transformer } = require('tilla')
+
+let personTransformer = new Transformer({
+  // Special transformation cases here
+  name: new FieldMapperDelegate().always().buildWith((src) => {
+    return `${src.firstName} ${src.lastName}`
+  }),
+  city: new FieldMapperDelegate('homeCity').always().passthrough()
+  state: new FieldMapperDelegate('address').always().buildWith((src, key) => {
+    let address = src[key]
+    return address ? address.state : address
+  })
+}).byDefault(['age', 'height']).PASSTHROUGH()
+
+let childTransformer = personTransformer.extend({
+  favoriteToy: fieldDelegate('favoriteToy').always().passthrough()
+  name: fieldDelegate('name').always().buildWith((src) => {
+    return `Lil' ${src.firstName}`
+  })
+}) // childTransformer will have all attributes of personTransformer, add a favoriteToy fieldDelegate, and override the name transformer
+
 ```
 
 
@@ -307,7 +368,8 @@ let personTransformer = new Transformer({
 
 As mentioned earlier, `Tilla` comes with an instantiated instance of the `TransformRegistry`. The `registry` is a great way to manage all of `Transformers` and then pass them around your app as needed. For example, you can easily incorporate in `Express` middleware.
 
-```javascript
+``` javascript
+
 { registry } = require('tilla')
 
 let attachTransformer = (transformerKey) => {
@@ -317,6 +379,7 @@ let attachTransformer = (transformerKey) => {
     next()
   }
 }
+
 ```
 
 ## TODO
