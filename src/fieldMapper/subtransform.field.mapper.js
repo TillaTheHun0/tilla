@@ -3,6 +3,7 @@
 import Promise from 'bluebird'
 
 import { FieldMapper } from './field.mapper'
+import { Transformer } from '../transformer'
 
 /**
  * transform the field on the instance, using another transformer. This can be used when transforming
@@ -10,11 +11,14 @@ import { FieldMapper } from './field.mapper'
  * we would like to transform using a prebuilt transform. In other words, it doesn't
  * have to be an Instance.
  *
- * If the value being transformed is an Instance, we call its
- * get() method to invoke all getters on fields and strip other sequelize stuff off of
+ * If the value being transformed is an Instance (Sequelize), we call its
+ * get() method to invoke all getters on fields and strip other Sequelize stuff off of
  * the data before transforming it
  *
- * @param {String} transformKey - the key to locate the transform in the transformer registry
+ * @param {String | Transformer | Function } transformKey
+ *  - The key, as a string, to locate the transform in the transformer registry
+ *  - The Transformer instance to use to perform the transformation
+ *  - A function which returns a Promise<Transformer>
  * @param {FieldPermissionLvl} permission - the permission to bind to the
  * transformer function on the dto
  */
@@ -27,34 +31,60 @@ class SubTransformFieldMapper extends FieldMapper {
   }
 
   builder (instance, key, isList) {
-    // Transformer binds once at runtime (lazy load and cache)
-    if (!this.transformer) {
-      const { registry } = require('../index') // transformer registry
-      this.transformer = registry.getTransformer(this.transformKey)
-    }
-    if (isList) {
-      let list = instance[key]
-      if (!list) {
-        return Promise.resolve(list)
+    // Transformer binds once at runtime
+    return new Promise((resolve) => {
+      if (!this.transformer) {
+        resolve(this._setTransformer())
+        return
       }
-      return Promise.map(list, (cur) => {
-        // check if value at this key is another Instance and must call get
-        if (typeof cur.get === 'function') {
-          return this.transformer.transform(this.permission, cur.get())
+      resolve()
+    }).then(() => {
+      if (isList) {
+        let list = instance[key]
+        if (!list) {
+          return Promise.resolve(list)
         }
-        return this.transformer.transform(this.permission, cur)
-      })
-    }
-    // Key may not be on the instance
-    if (!instance[key]) {
-      return Promise.resolve(instance[key])
+        return Promise.map(list, (cur) => {
+          // check if value at this key is another Instance and must call get
+          if (typeof cur.get === 'function') {
+            return this.transformer.transform(this.permission, cur.get())
+          }
+          return this.transformer.transform(this.permission, cur)
+        })
+      }
+      // Key may not be on the instance
+      if (!instance[key]) {
+        return Promise.resolve(instance[key])
+      }
+
+      // check if value at this key is another Instance and must call get
+      if (typeof instance[key].get === 'function') {
+        return this.transformer.transform(this.permission, instance[key].get())
+      }
+      return this.transformer.transform(this.permission, instance[key])
+    })
+  }
+
+  _setTransformer () {
+    // Using registry
+    if (typeof this.transformKey === 'string') {
+      const { registry } = require('../index') // kind of weird
+      this.transformer = registry.getTransformer(this.transformKey)
+      return Promise.resolve()
     }
 
-    // check if value at this key is another Instance and must call get
-    if (typeof instance[key].get === 'function') {
-      return this.transformer.transform(this.permission, instance[key].get())
+    // Passed Transformer directly
+    if (this.transformKey instanceof Transformer) {
+      this.transformer = this.transformKey
+      return Promise.resolve()
     }
-    return this.transformer.transform(this.permission, instance[key])
+
+    // Passed thunk which returns Promise<Transformer>
+    if (typeof this.transformKey === 'function') {
+      return this.transformKey().then((transformer) => {
+        this.transformer = transformer
+      })
+    }
   }
 }
 
