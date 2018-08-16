@@ -61,19 +61,6 @@ class Transformer {
       return dto
     })
   }
-  /**
-   * @deprecated
-   * @param {FieldPermissionLvl} permission
-   * @param {Array<Instance>} instances
-   */
-  transformAsList (permission, instances) {
-    return Promise.map(instances, (instance) => {
-      if (typeof instance.get === 'function') {
-        return this.transform(permission, instance.get())
-      }
-      return this.transform(permission, instance)
-    })
-  }
 
   /**
    * Specify attributes to transform by default. This allows us to
