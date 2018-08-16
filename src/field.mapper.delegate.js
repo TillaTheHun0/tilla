@@ -1,7 +1,7 @@
 'use strict'
 
-const { PassthroughFieldMapper, CustomFieldMapper, SubTransformFieldMapper } = require('./fieldMapper')
-const { PermissionRanking } = require('./permission')
+import { PassthroughFieldMapper, CustomFieldMapper, SubTransformFieldMapper } from './fieldMapper'
+import { PermissionRanking } from './permission'
 
 const restrictTo = 'restrictTo'
 const when = 'when'

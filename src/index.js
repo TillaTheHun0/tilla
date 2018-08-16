@@ -3,7 +3,7 @@
 import 'babel-polyfill'
 
 import { TransformerRegistry } from './transformer.registry'
-import FieldMapper from './fieldMapper'
+import * as FieldMapper from './fieldMapper'
 import { FieldMapperDelegate } from './field.mapper.delegate'
 import { Transformer } from './transformer'
 import { PermissionRanking, FieldPermissionLvl } from './permission'

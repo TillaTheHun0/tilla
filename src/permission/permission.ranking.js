@@ -1,5 +1,5 @@
 'use strict'
 
-const { PUBLIC, PRIVILEGED, PRIVATE, ADMIN } = require('./field.permission.lvl')
+import { PUBLIC, PRIVILEGED, PRIVATE, ADMIN } from './field.permission.lvl'
 
-module.exports = [PUBLIC, PRIVILEGED, PRIVATE, ADMIN]
+export const defaultRankings = [PUBLIC, PRIVILEGED, PRIVATE, ADMIN]

@@ -1,7 +1,7 @@
 'use strict'
 
-const FieldPermissionLvl = require('./field.permission.lvl')
-const PermissionRanking = require('./permission.ranking')
+import * as FieldPermissionLvl from './field.permission.lvl'
+import { defaultRankings as PermissionRanking } from './permission.ranking'
 
 export {
   FieldPermissionLvl,
