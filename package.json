@@ -10,6 +10,7 @@
     "build": "babel src --out-dir dist",
     "prepublish": "npm run build",
     "test": "standard \"src/**/*.js\""
+    "standard": "standard \"**/*.js\"",
   },
   "keywords": [
     "transformation",
@@ -27,6 +28,7 @@
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.6.1",
+    "pre-commit": "^1.2.2",
     "standard": "^10.0.3"
   }
 }
