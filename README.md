@@ -3,7 +3,7 @@
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 [![npm version](https://img.shields.io/npm/v/tilla.svg)](https://www.npmjs.com/package/tilla)
 
-Tilla is an asynchronous object transformation library. It has a fluid API, highly composable, promised based transformations, sub-transformations and supports permission masking at the object field level. It also provides a registry to register all transformers
+Tilla is an asynchronous object transformation library. It has a fluid API, highly composable, promised based transformations, sub-transformations and supports permission masking at the object field level. It also provides a registry to register all transformers that is tied directly into the library.
 
 ## Table of Contents
 - [Installation](#installation)
