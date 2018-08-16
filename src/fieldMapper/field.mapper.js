@@ -18,6 +18,7 @@ class FieldMapper {
     }
     return Promise.resolve(this.builder(instance, key, isList))
   }
+
   builder (instance, key, isList) {
     throw new Error('This Must Be Implemented')
   }

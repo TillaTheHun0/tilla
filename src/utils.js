@@ -6,9 +6,12 @@ class TransformUtils {
   fieldDelegate (sourceKey) {
     return new FieldMapperDelegate(sourceKey)
   }
+
+  // Mainly for
   getColumnsFromModel (Model) {
     return Object.keys(Model.rawAttributes)
   }
+
   getKeys (obj) {
     return Object.keys(obj)
   }

@@ -16,9 +16,10 @@ import { FieldMapper } from './field.mapper'
 class CustomFieldMapper extends FieldMapper {
   constructor (builder) {
     super()
-    // Wrap with Promise.method to ensure promise is returned
+
     this._builder = builder
   }
+
   builder (instance, key, isList) {
     return this._builder(instance, key, isList)
   }

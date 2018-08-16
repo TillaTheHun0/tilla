@@ -11,9 +11,11 @@ class Transformer {
     this.defaultBuilder = undefined
     this.defaultMask = undefined
   }
+
   addFieldMapping (key, fieldMapperDelegate) {
     this.mapping[key] = fieldMapperDelegate
   }
+
   transform (permission, instance) {
     let dto = {}
     let transformations = Promise.map(Object.keys(this.mapping), (dtoKey) => {
@@ -72,6 +74,7 @@ class Transformer {
       return this.transform(permission, instance)
     })
   }
+
   /**
    * Specify attributes to transform by default. This allows us to
    * whitelist any attributes. This is great for excluding association
@@ -85,6 +88,7 @@ class Transformer {
     this.hasDefault = true
     return this
   }
+
   PASSTHROUGH () {
     if (!this.hasDefault) {
       throw new Error('Default flag not set')
@@ -92,6 +96,7 @@ class Transformer {
     this.defaultMask = PASSTHROUGH
     return this
   }
+
   BUILD_WITH (builder) {
     if (!this.hasDefault) {
       throw new Error('Default flag not set')
@@ -100,6 +105,7 @@ class Transformer {
     this.defaultBuilder = builder
     return this
   }
+
   /**
    * Creates a new Transformer, derived from this transformer.
    * the passed in mapper will be merged into this transformer

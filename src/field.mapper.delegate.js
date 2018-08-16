@@ -11,15 +11,18 @@ class FieldMapperDelegate {
     this.sourceKey = sourceKey
     this.delegate = {}
   }
+
   getMapper (permission) {
     return this.delegate[permission]
   }
+
   always () {
     this.always = true
     // doesn't matter what we set permission to since builder will be copied across all lvls
     this.curPermissionLvl = this.permissionRanking[0]
     return this
   }
+
   passthrough () {
     this.delegate[this.curPermissionLvl] = new PassthroughFieldMapper()
     this.checkAlways()
@@ -27,6 +30,7 @@ class FieldMapperDelegate {
     this.curPermissionLvl = null
     return this
   }
+
   buildWith (builder) {
     this.delegate[this.curPermissionLvl] = new CustomFieldMapper(builder)
     this.checkAlways()
@@ -34,6 +38,7 @@ class FieldMapperDelegate {
     this.curPermissionLvl = null
     return this
   }
+
   /**
    * Using the provided key and optional permissionLvl, retrieve the transformer
    * from the registry and use this transformer and permissionLvl to transform the field.
@@ -74,11 +79,13 @@ class FieldMapperDelegate {
     this.curPermissionLvl = null
     return this
   }
+
   // Indicate transforming list of models ie. 1:M or M:M associations
   asList () {
     this.isList = true
     return this
   }
+
   /**
    * Set all permission lvls to call the same field mapper
    * ie. its always used to map that field
@@ -92,6 +99,7 @@ class FieldMapperDelegate {
       this.always = null
     }
   }
+
   /**
    * Restrict access to fields less than the specified restriction
    * and reset flag
@@ -108,6 +116,7 @@ class FieldMapperDelegate {
       }
     }
   }
+
   /**
    * Grab the value from the instance and transform it using
    * the specified fieldMapper
@@ -154,7 +163,7 @@ class FieldMapperDelegate {
       return
     }
     // Dynamically add all of the permission methods to the FieldMapperDelegate Class
-    FieldMapperDelegate.prototype.permissionRanking.forEach((permission, index) => {
+    FieldMapperDelegate.prototype.permissionRanking.forEach((permission) => {
       let capitalize = (str) => {
         return str.charAt(0).toUpperCase() + str.toLowerCase().slice(1)
       }
@@ -172,7 +181,7 @@ class FieldMapperDelegate {
   }
 
   clearPermissionMethods () {
-    FieldMapperDelegate.prototype.permissionRanking.forEach((permission, index) => {
+    FieldMapperDelegate.prototype.permissionRanking.forEach((permission) => {
       let capitalize = (str) => {
         return str.charAt(0).toUpperCase() + str.toLowerCase().slice(1)
       }
