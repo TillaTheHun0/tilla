@@ -30,11 +30,13 @@ class Transformer {
       if (!this.hasDefault) {
         resolve()
       }
+      // No attributes specified
+      if (!this.defaultAttributes || !this.defaultAttributes.length) {
+        return resolve()
+      }
+
       // Attach any defaulted attributes to Dto
       if (this.defaultMask === PASSTHROUGH) {
-        if (!this.defaultAttributes || !this.defaultAttributes.length) {
-          return resolve()
-        }
         this.defaultAttributes.forEach((key) => {
           if (!this.mapping[key]) {
             dto[key] = instance[key]
@@ -47,7 +49,7 @@ class Transformer {
       if (this.defaultMask === BUILD_WITH) {
         return Promise.map(this.defaultAttributes, (key) => {
           if (!this.mapping[key]) {
-            return this.defaultBuilder(instance, key).then((value) => {
+            return Promise.method(() => this.defaultBuilder(instance, key))().then((value) => {
               dto[key] = value
             })
           }
