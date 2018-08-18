@@ -18,6 +18,11 @@ class TransformerRegistry {
   transformer (key) {
     return this.getTransformer(key)
   }
+
+  clear () {
+    delete this.registry
+    this.registry = {}
+  }
 }
 
 export { TransformerRegistry }
