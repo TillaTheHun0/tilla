@@ -20,7 +20,7 @@ class FieldMapper {
   }
 
   builder (instance, key, isList) {
-    throw new Error('This Must Be Implemented')
+    return Promise.reject(new Error('This Must Be Implemented'))
   }
 }
 
