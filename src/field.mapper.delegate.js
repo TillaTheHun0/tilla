@@ -17,7 +17,7 @@ class FieldMapperDelegate {
   }
 
   always () {
-    this.always = true
+    this._always = true
     // doesn't matter what we set permission to since builder will be copied across all lvls
     this.curPermissionLvl = this.permissionRanking[0]
     return this
@@ -70,7 +70,7 @@ class FieldMapperDelegate {
       })
     }
     // reset always flag, since all lvls are set above
-    this.always = null
+    this._always = null
     /**
      * Restrict transforming if needed. This will go back and null out some lvls we just set
      * if that is desired.
@@ -91,12 +91,12 @@ class FieldMapperDelegate {
    * ie. its always used to map that field
    */
   checkAlways () {
-    if (this.always) {
+    if (this._always) {
       // Set the delegate for each permission lvl to the same delegate
       this.permissionRanking.forEach((permission) => {
         this.delegate[permission] = this.delegate[this.curPermissionLvl]
       })
-      this.always = null
+      this._always = null
     }
   }
 
