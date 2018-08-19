@@ -69,6 +69,16 @@ function subTransformWithPermission () {
   expect(fMDelegate.curPermissionLvl).to.be.equal(null)
 }
 
+function subTransformWithPermissionInvalidErr (done) {
+  let fMDelegate = new FieldMapperDelegate('woop')
+
+  try {
+    fMDelegate.always().subTransform('something', 'INVALID')
+  } catch (err) {
+    done()
+  }
+}
+
 function subTransformWithoutPermission () {
   let fMDelegate = new FieldMapperDelegate('woop')
 
@@ -162,6 +172,14 @@ function setPermissionRanking () {
 
   let fMDelegate = new FieldMapperDelegate('woop', permissions)
 
+  console.log(fMDelegate)
+
+  expect(fMDelegate.restrictToLow).to.not.be.equal(undefined)
+  expect(fMDelegate.whenMedium).to.not.be.equal(undefined)
+
+  fMDelegate.restrictToLow().passthrough()
+  fMDelegate.whenMedium().passthrough()
+
   expect(fMDelegate.permissionRanking).has.members(permissions)
 }
 
@@ -188,12 +206,18 @@ function buildPermissionMethods () {
 }
 
 function oldApiThrowsErr () {
+  let permissions = ['low', 'medium', 'high']
+  let fMDelegate = new FieldMapperDelegate('woop', permissions)
+
   try {
-    let permissions = ['low', 'medium', 'high']
-
-    let fMDelegate = new FieldMapperDelegate('woop', permissions)
-
     fMDelegate.whenPrivate()
+    throw new Error('Should have thrown error using old API')
+  } catch (err) {
+    expect(err).to.not.be.equal(null)
+  }
+
+  try {
+    fMDelegate.restrictToPrivate()
     throw new Error('Should have thrown error using old API')
   } catch (err) {
     expect(err).to.not.be.equal(null)
@@ -207,6 +231,7 @@ export {
   buildWithAlways,
   subTransformWithPermission,
   subTransformWithoutPermission,
+  subTransformWithPermissionInvalidErr,
   asList,
   checkAlways,
   restrict,

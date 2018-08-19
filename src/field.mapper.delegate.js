@@ -10,18 +10,14 @@ class FieldMapperDelegate {
   constructor (sourceKey, permissionRanking) {
     this.permissionRanking = permissionRanking || PermissionRanking
 
-    if (permissionRanking) {
-      this.setPermissionRanking()
-    } else {
+    if (!permissionRanking) {
       this._defaultPermissionRanking = true
     }
 
+    this.setPermissionRanking()
+
     this.sourceKey = sourceKey
     this.delegate = {}
-  }
-
-  getMapper (permission) {
-    return this.delegate[permission]
   }
 
   always () {
