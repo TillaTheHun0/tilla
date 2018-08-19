@@ -7,6 +7,8 @@ describe('FieldMapperDelegate', () => {
   it('should set all the permission lvls and reset flag', tests.alwaysSetsAllLvls)
   it('should set each permission lvl to passthrough and clear cur permission lvl', tests.passthroughAlways)
   it('should set each permission lvl to the custom builder and clear cur permission lvl', tests.buildWithAlways)
+  it('should use subtransformer and provided permission lvl', tests.subTransformWithPermission)
+  it('should use subtransformer and parents permission lvl', tests.subTransformWithoutPermission)
   it('should set the is List flag', tests.asList)
   it('should set all permission lvls', tests.checkAlways)
   it('should set lower permissions to null', tests.restrict)

@@ -84,6 +84,22 @@ function setTransformerFromThunk (done) {
   })
 }
 
+function setTransformerErr (done) {
+  let subFieldTransformer = new SubTransformFieldMapper(null, FieldPermissionLvl.PUBLIC)
+
+  let obj = {
+    sub: {
+      value: 1,
+      secret: 100
+    }
+  }
+
+  subFieldTransformer.map(obj, 'sub').catch((err) => {
+    expect(err).to.not.be.equal(null)
+    done()
+  })
+}
+
 function setPublicField (done) {
   setup()
 
@@ -247,6 +263,7 @@ export {
   setTransformerFromRegistry,
   setTransformerDirectly,
   setTransformerFromThunk,
+  setTransformerErr,
   setPublicField,
   setPrivateField,
   transformList,

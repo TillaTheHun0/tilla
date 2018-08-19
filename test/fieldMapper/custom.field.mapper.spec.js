@@ -18,6 +18,8 @@ function wrapsBuilder () {
 
   let result = customMapper.builder(obj, 'value', false)
 
+  expect(customMapper._builder).to.not.be.equal(null)
+
   expect(result).to.be.equal(2)
 
   result = customMapper.builder(obj, 'value', true)

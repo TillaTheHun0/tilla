@@ -57,7 +57,6 @@ class FieldMapperDelegate {
    * lvl the parent is being transformed.
    */
   subTransform (transformerKey, permissionLvl) {
-    const self = this
     /**
      * Set all permission lvls on this transform
      * to transform the child object using the provided permissionLvl
@@ -69,12 +68,12 @@ class FieldMapperDelegate {
       let mapper = new SubTransformFieldMapper(transformerKey, permissionLvl)
       this.permissionRanking.forEach((curPermissionLvl) => {
         // Using same mapper for each lvl on parent
-        self.delegate[curPermissionLvl] = mapper
+        this.delegate[curPermissionLvl] = mapper
       })
     } else {
       // use parents permission lvl
       this.permissionRanking.forEach((curPermissionLvl) => {
-        self.delegate[curPermissionLvl] = new SubTransformFieldMapper(transformerKey, curPermissionLvl)
+        this.delegate[curPermissionLvl] = new SubTransformFieldMapper(transformerKey, curPermissionLvl)
       })
     }
     // reset always flag, since all lvls are set above

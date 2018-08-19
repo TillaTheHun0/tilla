@@ -85,6 +85,8 @@ class SubTransformFieldMapper extends FieldMapper {
         this.transformer = transformer
       })
     }
+
+    throw new Error('No transformKey provided')
   }
 }
 

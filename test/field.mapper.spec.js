@@ -25,6 +25,7 @@ describe('FieldMapper', () => {
     it('should lazily set the transformer from registry', tests.setTransformerFromRegistry)
     it('should lazily set the transformer directly', tests.setTransformerDirectly)
     it('should lazily set the transformer from thunk that returns Promise', tests.setTransformerFromThunk)
+    it('should throw error when no transformer can be set', tests.setTransformerErr)
     it('should set the public field, but not the private field', tests.setPublicField)
     it('should set both the public field and the private field', tests.setPrivateField)
     it('should transform each instance in list with subtransform', tests.transformList)

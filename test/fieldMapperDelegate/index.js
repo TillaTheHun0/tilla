@@ -2,7 +2,7 @@
 
 import { expect } from 'chai'
 import { FieldPermissionLvl } from '../../src'
-import { PassthroughFieldMapper, CustomFieldMapper } from '../../src/fieldMapper'
+import { PassthroughFieldMapper, CustomFieldMapper, SubTransformFieldMapper } from '../../src/fieldMapper'
 import { FieldMapperDelegate } from '../../src/field.mapper.delegate'
 
 function always () {
@@ -50,6 +50,34 @@ function buildWithAlways () {
 
   fMDelegate.permissionRanking.forEach((p) => {
     expect(fMDelegate.delegate[p] instanceof CustomFieldMapper).to.be.equal(true)
+  })
+
+  expect(fMDelegate.curPermissionLvl).to.be.equal(null)
+}
+
+function subTransformWithPermission () {
+  let fMDelegate = new FieldMapperDelegate('woop')
+
+  fMDelegate.always().subTransform('something', FieldPermissionLvl.PUBLIC)
+
+  fMDelegate.permissionRanking.forEach((p) => {
+    let trans = fMDelegate.delegate[p]
+    expect(fMDelegate.delegate[p] instanceof SubTransformFieldMapper).to.be.equal(true)
+    expect(trans.permission).to.be.equal(FieldPermissionLvl.PUBLIC)
+  })
+
+  expect(fMDelegate.curPermissionLvl).to.be.equal(null)
+}
+
+function subTransformWithoutPermission () {
+  let fMDelegate = new FieldMapperDelegate('woop')
+
+  fMDelegate.always().subTransform('something')
+
+  fMDelegate.permissionRanking.forEach((p) => {
+    let trans = fMDelegate.delegate[p]
+    expect(fMDelegate.delegate[p] instanceof SubTransformFieldMapper).to.be.equal(true)
+    expect(trans.permission).to.be.equal(p)
   })
 
   expect(fMDelegate.curPermissionLvl).to.be.equal(null)
@@ -177,6 +205,8 @@ export {
   alwaysSetsAllLvls,
   passthroughAlways,
   buildWithAlways,
+  subTransformWithPermission,
+  subTransformWithoutPermission,
   asList,
   checkAlways,
   restrict,
