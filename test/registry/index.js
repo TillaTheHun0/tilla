@@ -18,6 +18,7 @@ function getTransformer () {
   registry.register('key', transformer)
 
   expect(registry.getTransformer('key')).to.be.equal(transformer)
+  expect(registry.transformer('key')).to.be.equal(transformer)
 }
 
 function clearRegistry () {
