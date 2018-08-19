@@ -4,9 +4,11 @@ const { expect } = require('chai')
 
 const { utils } = require('../../src/utils')
 
+let delegate = utils.fieldDelegate()
+
 function fieldDelegate () {
   const key = 'someKey'
-  const fieldDelegate = utils.fieldDelegate(key)
+  const fieldDelegate = delegate(key)
 
   expect(fieldDelegate.sourceKey).to.be.eql(key)
   expect(fieldDelegate.delegate).to.be.eql({})

@@ -5,13 +5,15 @@ import { expect } from 'chai'
 import { SubTransformFieldMapper } from '../../src/fieldMapper'
 import { registry, Transformer, utils, FieldPermissionLvl } from '../../src'
 
+let delegate = utils.fieldDelegate()
+
 const subTransformerKey = 'subTransformer'
 
 function setup () {
   registry.clear()
   let subTransformer = new Transformer({
-    value: utils.fieldDelegate('value').always().passthrough(),
-    secret: utils.fieldDelegate('secret').restrictToPrivate().passthrough()
+    value: delegate('value').always().passthrough(),
+    secret: delegate('secret').restrictToPrivate().passthrough()
   })
 
   // Add to registry
@@ -40,8 +42,8 @@ function setTransformerFromRegistry (done) {
 
 function setTransformerDirectly (done) {
   let subTransformer = new Transformer({
-    value: utils.fieldDelegate('value').always().passthrough(),
-    secret: utils.fieldDelegate('secret').restrictToPrivate().passthrough()
+    value: delegate('value').always().passthrough(),
+    secret: delegate('secret').restrictToPrivate().passthrough()
   })
 
   let subFieldTransformer = new SubTransformFieldMapper(subTransformer, FieldPermissionLvl.PUBLIC)
@@ -61,8 +63,8 @@ function setTransformerDirectly (done) {
 
 function setTransformerFromThunk (done) {
   let subTransformer = new Transformer({
-    value: utils.fieldDelegate('value').always().passthrough(),
-    secret: utils.fieldDelegate('secret').restrictToPrivate().passthrough()
+    value: delegate('value').always().passthrough(),
+    secret: delegate('secret').restrictToPrivate().passthrough()
   })
 
   let subFieldTransformer = new SubTransformFieldMapper(() => {
