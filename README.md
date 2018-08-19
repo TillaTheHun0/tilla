@@ -1,6 +1,6 @@
 # Tilla
 
-[![Coverage Status](https://coveralls.io/repos/github/TillaTheHun0/tilla/badge.svg?branch=development)](https://coveralls.io/github/TillaTheHun0/tilla?branch=development) [![Build Status](https://travis-ci.org/TillaTheHun0/tilla.svg?branch=development)](https://travis-ci.org/TillaTheHun0/tilla?branch=development) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com) [![npm version](https://img.shields.io/npm/v/tilla.svg)](https://www.npmjs.com/package/tilla)
+[![Coverage Status](https://coveralls.io/repos/github/TillaTheHun0/tilla/badge.svg?branch=development)](https://coveralls.io/github/TillaTheHun0/tilla?branch=development) [![Build Status](https://travis-ci.org/TillaTheHun0/tilla.svg?branch=development)](https://travis-ci.org/TillaTheHun0/tilla?branch=development) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com) [![npm version](https://img.shields.io/npm/v/tilla.svg)](https://www.npmjs.com/package/tilla) [![License](https://img.shields.io/npm/l/tilla.svg?maxAge=2592000?style=plastic)](https://github.com/TillaTheHun0/tilla/blob/master/LICENSE)
 
 Tilla is an asynchronous object transformation library. It has a fluid API, highly composable, promised based transformations, sub-transformations and supports permission masking at the object field level. It also provides a registry to register all transformers that is tied directly into the library.
 
