@@ -2,6 +2,8 @@
 
 [![Coverage Status](https://coveralls.io/repos/github/TillaTheHun0/tilla/badge.svg?branch=development)](https://coveralls.io/github/TillaTheHun0/tilla?branch=development)
 
+[![Build Status](https://travis-ci.org/TillaTheHun0/tilla.svg?branch=development)](https://travis-ci.org/TillaTheHun0/tilla?branch=development)
+
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 [![npm version](https://img.shields.io/npm/v/tilla.svg)](https://www.npmjs.com/package/tilla)
 
