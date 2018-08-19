@@ -10,8 +10,8 @@
     "build": "babel src --out-dir dist",
     "prepare": "npm run build",
     "standard": "node ./node_modules/standard/bin/cmd.js \"**/*.js\"",
-    "test": "npm run standard && npm run build && nyc mocha --require babel-core/register",
-    "report-coverage": "cat ./coverage/lcov.info | coveralls"
+    "test": "npm run standard && nyc mocha --require babel-core/register",
+    "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "keywords": [
     "transformation",
