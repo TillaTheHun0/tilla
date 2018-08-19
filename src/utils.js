@@ -3,8 +3,10 @@
 import { FieldMapperDelegate } from './field.mapper.delegate'
 
 class TransformUtils {
-  fieldDelegate (sourceKey) {
-    return new FieldMapperDelegate(sourceKey)
+  fieldDelegate (permissionRanking) {
+    return (sourceKey) => {
+      return new FieldMapperDelegate(sourceKey, permissionRanking)
+    }
   }
 
   // Mainly for
