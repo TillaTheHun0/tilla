@@ -383,10 +383,10 @@ let attachTransformer = (transformerKey) => {
 
 ## TODO
 
-- API Documentation
-- Tests
-- Make registry agnostic, so user can leverage any registry paradigm they'd like
-- Don't require SubTransformations to use the Tilla registry
+- Rewrite API Documentation
+- ~Tests~
+- ~Make registry agnostic, so user can leverage any registry paradigm they'd like~
+- ~Don't require SubTransformations to use the Tilla registry~
 
 ## Contribute
 
