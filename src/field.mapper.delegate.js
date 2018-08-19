@@ -7,7 +7,15 @@ const restrictTo = 'restrictTo'
 const when = 'when'
 
 class FieldMapperDelegate {
-  constructor (sourceKey) {
+  constructor (sourceKey, permissionRanking) {
+    this.permissionRanking = permissionRanking || PermissionRanking
+
+    if (permissionRanking) {
+      this.setPermissionRanking()
+    } else {
+      this._defaultPermissionRanking = true
+    }
+
     this.sourceKey = sourceKey
     this.delegate = {}
   }
@@ -152,49 +160,57 @@ class FieldMapperDelegate {
     return this
   }
 
-  setPermissionRanking (permissionRanking) {
-    this.clearPermissionMethods()
-    FieldMapperDelegate.prototype.permissionRanking = permissionRanking
+  setPermissionRanking () {
     this.buildPermissionMethods()
   }
 
   buildPermissionMethods () {
-    if (!FieldMapperDelegate.prototype.permissionRanking) {
+    if (!this.permissionRanking) {
       return
     }
     // Dynamically add all of the permission methods to the FieldMapperDelegate Class
-    FieldMapperDelegate.prototype.permissionRanking.forEach((permission) => {
+    this.permissionRanking.forEach((permission) => {
       let capitalize = (str) => {
         return str.charAt(0).toUpperCase() + str.toLowerCase().slice(1)
       }
 
       // Add all restrictTo_____ methods
-      FieldMapperDelegate.prototype[`${restrictTo}${capitalize(permission)}`] = function () {
+      this[`${restrictTo}${capitalize(permission)}`] = () => {
         return this.restrictTo(permission)
       }
 
       // Add all when_____ methods
-      FieldMapperDelegate.prototype[`${when}${capitalize(permission)}`] = function () {
+      this[`${when}${capitalize(permission)}`] = () => {
         return this.when(permission)
       }
     })
   }
-
-  clearPermissionMethods () {
-    FieldMapperDelegate.prototype.permissionRanking.forEach((permission) => {
-      let capitalize = (str) => {
-        return str.charAt(0).toUpperCase() + str.toLowerCase().slice(1)
-      }
-      // Remove all restirctTo_____ methods
-      delete this.prototype[`${restrictTo}${capitalize(permission)}`]
-      // Remove all when_____ methods
-      delete this.prototype[`${when}${capitalize(permission)}`]
-    })
-  }
 }
 
-// Set default permission ranking and build default methods
-FieldMapperDelegate.prototype.permissionRanking = PermissionRanking
-FieldMapperDelegate.prototype.buildPermissionMethods()
+/**
+ * To prevent having mulitple duplicate default functions in memory for the default API
+ * we add them on the prototype and check if they have been overwritten
+ */
+PermissionRanking.forEach((permission) => {
+  let capitalize = (str) => {
+    return str.charAt(0).toUpperCase() + str.toLowerCase().slice(1)
+  }
+
+  // Add all restrictTo_____ methods
+  FieldMapperDelegate.prototype[`${restrictTo}${capitalize(permission)}`] = function () {
+    if (!this._defaultPermissionRanking) {
+      throw new Error('Cannot use overwritten default permission ranking API')
+    }
+    return this.restrictTo(permission)
+  }
+
+  // Add all when_____ methods
+  FieldMapperDelegate.prototype[`${when}${capitalize(permission)}`] = function () {
+    if (!this._defaultPermissionRanking) {
+      throw new Error('Cannot use overwritten default permission ranking API')
+    }
+    return this.when(permission)
+  }
+})
 
 export { FieldMapperDelegate }
