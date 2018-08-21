@@ -172,8 +172,6 @@ function setPermissionRanking () {
 
   let fMDelegate = new FieldMapperDelegate('woop', permissions)
 
-  console.log(fMDelegate)
-
   expect(fMDelegate.restrictToLow).to.not.be.equal(undefined)
   expect(fMDelegate.whenMedium).to.not.be.equal(undefined)
 

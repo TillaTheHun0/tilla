@@ -6,6 +6,9 @@ const PASSTHROUGH = 'PASSTHROUGH'
 const BUILD_WITH = 'BUILD_WITH'
 
 class Transformer {
+  /**
+   * @param {Object} mapping - the mapping object where each key is a FieldMapperDelegate instance
+   */
   constructor (mapping) {
     this.mapping = mapping || {}
     this.defaultBuilder = undefined
@@ -16,6 +19,16 @@ class Transformer {
     this.mapping[key] = fieldMapperDelegate
   }
 
+  /**
+   * Perform the transformation at the provided permission level for each field
+   * provided in the mapping. If any defaultAttributes and making is provided,
+   * it will transform all defaultAttributes use the defaultMasking method.
+   *
+   * @param {string} permission - The permission level to perform the transformation
+   * @param {Object} instance - the source object
+   *
+   * @return {Promise} a Promise that resolves to the transformed object
+   */
   transform (permission, instance) {
     let dto = {}
     let transformations = Promise.map(Object.keys(this.mapping), (dtoKey) => {
@@ -65,11 +78,9 @@ class Transformer {
   }
 
   /**
-   * Specify attributes to transform by default. This allows us to
-   * whitelist any attributes. This is great for excluding association
-   * records that have been attached to the instance.
+   * Specify attributes to transform by default. This allows whitelisting any attributes.
    *
-   * @param {Array} attributes - array of attribute names
+   * @param {Array<string>} attributes - array of attribute names
    * to transform by default
    */
   byDefault (attributes) {
@@ -78,6 +89,9 @@ class Transformer {
     return this
   }
 
+  /**
+   * Set the defaultMask for each field in defaultAttributes to a PassthroughFieldMapper
+   */
   PASSTHROUGH () {
     if (!this.hasDefault) {
       throw new Error('Default flag not set')
@@ -86,6 +100,13 @@ class Transformer {
     return this
   }
 
+  /**
+   * Set the defaultMask for each field in defaultAttributes to a CustomFieldMapper using the provided
+   * builder
+   *
+   * @param {function (instance: Object, key: string, isList: boolean)} builder - the builder function
+   * to use in the CustomFieldMapper
+   */
   BUILD_WITH (builder) {
     if (!this.hasDefault) {
       throw new Error('Default flag not set')
@@ -96,12 +117,14 @@ class Transformer {
   }
 
   /**
-   * Creates a new Transformer, derived from this transformer.
-   * the passed in mapper will be merged into this transformer
+   * Creates a new Transformer, derived from this Transformer.
+   * the passed in mapper will be merged into this transformer's
    * mapping.
    *
    * @param {Object} mapping - the mapping object to merge
    * with this transformers mapper
+   *
+   * @return {Transformer} a new Tranformer with the merged mapping
    */
   extend (mapping) {
     let mergedMapping = Object.assign({}, this.mapping, mapping)

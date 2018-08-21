@@ -6,23 +6,16 @@ import { FieldMapper } from './field.mapper'
 import { Transformer } from '../transformer'
 
 /**
- * transform the field on the instance, using another transformer. This can be used when transforming
- * eargerly loaded relations on an instance ie. Family -> Person or obviously values
- * we would like to transform using a prebuilt transform. In other words, it doesn't
- * have to be an Instance.
- *
- * If the value being transformed is an Instance (Sequelize), we call its
- * get() method to invoke all getters on fields and strip other Sequelize stuff off of
- * the data before transforming it
- *
- * @param {String | Transformer | Function } transformKey
- *  - The key, as a string, to locate the transform in the transformer registry
- *  - The Transformer instance to use to perform the transformation
- *  - A function which returns a Promise<Transformer>
- * @param {FieldPermissionLvl} permission - the permission to bind to the
- * transformer function on the dto
+ * A FieldMapper that uses a Transformer to map the field
  */
 class SubTransformFieldMapper extends FieldMapper {
+  /**
+  * @param {string | Transformer | function (): Promise<Transformer> } transformKey -
+  *  If a string, it should be a key to locate the Transformer in the TransformerRegistry
+  *  - The Transformer instance to use to perform the transformation
+  *  - A function which returns a Promise<Transformer>
+  * @param {FieldPermissionLvl} permission - the permission to bind to the transformer function on the dto.
+  */
   constructor (transformKey, permission) {
     super()
     this.transformer = null
@@ -30,6 +23,21 @@ class SubTransformFieldMapper extends FieldMapper {
     this.permission = permission
   }
 
+  /**
+  * Transform the field on the instance, using another {@link Transformer}. This can be used when transforming
+  * eargerly loaded relations on an instance ie. Family -> Person or obviously values
+  * we would like to transform using a prebuilt {@link Transformer}.
+  *
+  * If the value being transformed is an Instance (Sequelize), we call its
+  * get() method to invoke all getters on fields and strip other Sequelize stuff off of
+  * the data before transforming it. @see http://docs.sequelizejs.com/class/lib/model.js~Model.html#instance-method-get
+  *
+  * @param {Object} instance - the source object.
+  * @param {?string} key - a key on the source object that can be used to retrieve the field value.
+  * @param {?boolean} isList - whether the value being transformed should be iterated into the builder.
+  *
+  * @return {Promise} a Promise that resolves to the transformed value.
+  */
   builder (instance, key, isList) {
     // Transformer binds once at runtime
     return new Promise((resolve) => {

@@ -6,7 +6,16 @@ import { PermissionRanking } from './permission'
 const restrictTo = 'restrictTo'
 const when = 'when'
 
+/**
+ * FieldMapperDelegates provide the API for orchaestrating and arranging
+ * FieldMappers on a Transformer. They should typically be used through the util module
+ */
 class FieldMapperDelegate {
+  /**
+   * @param {string} [sourceKey] - the key on the source object.
+   * @param {Array<string>} permissionRanking - a custom permission ranking to use to build
+   * the permission api.
+   */
   constructor (sourceKey, permissionRanking) {
     this.permissionRanking = permissionRanking || PermissionRanking
 
@@ -20,6 +29,9 @@ class FieldMapperDelegate {
     this.delegate = {}
   }
 
+  /**
+   * Indicate the following action should be used for every permission level
+   */
   always () {
     this._always = true
     // doesn't matter what we set permission to since builder will be copied across all lvls
@@ -27,30 +39,62 @@ class FieldMapperDelegate {
     return this
   }
 
-  passthrough () {
-    this.delegate[this.curPermissionLvl] = new PassthroughFieldMapper()
-    this.checkAlways()
-    this.restrict(this.delegate[this.curPermissionLvl])
-    this.curPermissionLvl = null
+  /**
+   * Indicate the following action should be used for the indicated permission level
+   *
+   * @param {string} permission - the permission level
+   */
+  when (permission) {
+    this.curPermissionLvl = permission
     return this
   }
 
-  buildWith (builder) {
-    this.delegate[this.curPermissionLvl] = new CustomFieldMapper(builder)
-    this.checkAlways()
-    this.restrict(this.delegate[this.curPermissionLvl])
+  /**
+   * Indicate the following action should be used for this permission level and above
+   *
+   * @param {string} permission - the permission level
+   */
+  restrictTo (permission) {
+    let index = this.permissionRanking.indexOf(permission)
+    if (index === -1) {
+      throw new Error('Permission Lvl Not Found')
+    }
+    this.restriction = index
+    this.curPermissionLvl = permission
+    return this
+  }
+
+  /**
+   * Assigns a PassthroughFieldMapper to the current permission masking
+   */
+  passthrough () {
+    this.delegate[this.curPermissionLvl] = new PassthroughFieldMapper()
+    this._checkAlways()
+    this._restrict(this.delegate[this.curPermissionLvl])
     this.curPermissionLvl = null
     return this
   }
 
   /**
-   * Using the provided key and optional permissionLvl, retrieve the transformer
-   * from the registry and use this transformer and permissionLvl to transform the field.
+   * Assign a CustomFieldMapper to the current permission masking
    *
-   * @param {String} transformerKey - the key where the transform is registered
-   * @param {FieldPermissionLvl} *optional* permissionLvl - an optional permissionLvl. This can
-   * be used to set an overall permission for transforming the child object, no matter what permission
-   * lvl the parent is being transformed.
+   * @param {function (instance: Object, key: string, isList: boolean)} builder - the builder function to use when building this field
+   */
+  buildWith (builder) {
+    this.delegate[this.curPermissionLvl] = new CustomFieldMapper(builder)
+    this._checkAlways()
+    this._restrict(this.delegate[this.curPermissionLvl])
+    this.curPermissionLvl = null
+    return this
+  }
+
+  /**
+   * Assign a SubtransformFieldMapper, indicated by @param transformerKey
+   * to the current permission masking.
+   *
+   * @param {string | Transformer | function (): any } transformerKey - the Transformer provider.
+   * @param {string} [permissionLvl] - If provided, the permission level is used to perform the subtransformation.
+   * By the default the parents permission level is used.
    */
   subTransform (transformerKey, permissionLvl) {
     /**
@@ -78,22 +122,23 @@ class FieldMapperDelegate {
      * Restrict transforming if needed. This will go back and null out some lvls we just set
      * if that is desired.
      */
-    this.restrict(this.delegate[this.curPermissionLvl])
+    this._restrict(this.delegate[this.curPermissionLvl])
     this.curPermissionLvl = null
     return this
   }
 
-  // Indicate transforming list of models ie. 1:M or M:M associations
+  /**
+   * Set the isList falg to be passed to the FieldMapper ie. 1:M or M:M associations
+   */
   asList () {
     this.isList = true
     return this
   }
 
   /**
-   * Set all permission lvls to call the same field mapper
-   * ie. its always used to map that field
+   * Set all permission lvls to use the same field mapper if the always flag is set
    */
-  checkAlways () {
+  _checkAlways () {
     if (this._always) {
       // Set the delegate for each permission lvl to the same delegate
       this.permissionRanking.forEach((permission) => {
@@ -105,10 +150,10 @@ class FieldMapperDelegate {
 
   /**
    * Restrict access to fields less than the specified restriction
-   * and reset flag
-   * @param {Function} builder - the builder function
+   *
+   * @param {FieldMapper} fieldMapper - the FieldMapper instance
    */
-  restrict (fieldMapper) {
+  _restrict (fieldMapper) {
     if (this.restriction !== null && this.restriction !== undefined) {
       for (let i = 0; i < this.permissionRanking.length; i++) {
         if (i < this.restriction) {
@@ -121,13 +166,12 @@ class FieldMapperDelegate {
   }
 
   /**
-   * Grab the value from the instance and transform it using
-   * the specified fieldMapper
+   * Perform the field transformation at the provided permission level
    *
-   * @param {FieldPermissionLvl} permission - the indicated permission
-   * used to specify the builder to transform the field
-   * @param {Instance} instance - the instance that is currently
-   * being transformed.
+   * @param {string} permission - The permission level to perform the transformation
+   * @param {Object} instance - the source object
+   *
+   * @return {Promise} the transformed value
    */
   transform (permission, instance) {
     let fieldMapper = this.delegate[permission]
@@ -140,25 +184,13 @@ class FieldMapperDelegate {
     return Promise.resolve()
   }
 
-  when (permission) {
-    this.curPermissionLvl = permission
-    return this
-  }
-
-  restrictTo (permission) {
-    let index = this.permissionRanking.indexOf(permission)
-    if (index === -1) {
-      throw new Error('Permission Lvl Not Found')
-    }
-    this.restriction = index
-    this.curPermissionLvl = permission
-    return this
-  }
-
   setPermissionRanking () {
     this.buildPermissionMethods()
   }
 
+  /**
+   * Build the permission API for the provided permission ranking on the FieldMapperDelegate instance
+   */
   buildPermissionMethods () {
     if (!this.permissionRanking) {
       return
