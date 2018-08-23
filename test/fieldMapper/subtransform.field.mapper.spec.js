@@ -3,7 +3,7 @@
 import { expect } from 'chai'
 
 import { SubTransformFieldMapper } from '../../src/fieldMapper'
-import { registry, Transformer, utils, FieldPermissionLvl } from '../../src'
+import { registry, Transformer, utils, PermissionLvl } from '../../src'
 
 let delegate = utils.fieldDelegate()
 
@@ -13,7 +13,7 @@ function setup () {
   registry.clear()
   let subTransformer = new Transformer({
     value: delegate('value').always().passthrough(),
-    secret: delegate('secret').restrictToPrivate().passthrough()
+    secret: delegate('secret').atOrAbovePrivate().passthrough()
   })
 
   // Add to registry
@@ -23,7 +23,7 @@ function setup () {
 function setTransformerFromRegistry (done) {
   setup()
 
-  let subFieldTransformer = new SubTransformFieldMapper(subTransformerKey, FieldPermissionLvl.PUBLIC)
+  let subFieldTransformer = new SubTransformFieldMapper(subTransformerKey, PermissionLvl.PUBLIC)
 
   let obj = {
     sub: {
@@ -43,10 +43,10 @@ function setTransformerFromRegistry (done) {
 function setTransformerDirectly (done) {
   let subTransformer = new Transformer({
     value: delegate('value').always().passthrough(),
-    secret: delegate('secret').restrictToPrivate().passthrough()
+    secret: delegate('secret').atOrAbovePrivate().passthrough()
   })
 
-  let subFieldTransformer = new SubTransformFieldMapper(subTransformer, FieldPermissionLvl.PUBLIC)
+  let subFieldTransformer = new SubTransformFieldMapper(subTransformer, PermissionLvl.PUBLIC)
 
   let obj = {
     sub: {
@@ -64,12 +64,12 @@ function setTransformerDirectly (done) {
 function setTransformerFromThunk (done) {
   let subTransformer = new Transformer({
     value: delegate('value').always().passthrough(),
-    secret: delegate('secret').restrictToPrivate().passthrough()
+    secret: delegate('secret').atOrAbovePrivate().passthrough()
   })
 
   let subFieldTransformer = new SubTransformFieldMapper(() => {
     return Promise.resolve(subTransformer)
-  }, FieldPermissionLvl.PUBLIC)
+  }, PermissionLvl.PUBLIC)
 
   let obj = {
     sub: {
@@ -85,7 +85,7 @@ function setTransformerFromThunk (done) {
 }
 
 function setTransformerErr (done) {
-  let subFieldTransformer = new SubTransformFieldMapper(null, FieldPermissionLvl.PUBLIC)
+  let subFieldTransformer = new SubTransformFieldMapper(null, PermissionLvl.PUBLIC)
 
   let obj = {
     sub: {
@@ -103,7 +103,7 @@ function setTransformerErr (done) {
 function setPublicField (done) {
   setup()
 
-  let subFieldTransformer = new SubTransformFieldMapper(subTransformerKey, FieldPermissionLvl.PUBLIC)
+  let subFieldTransformer = new SubTransformFieldMapper(subTransformerKey, PermissionLvl.PUBLIC)
 
   let obj = {
     sub: {
@@ -122,7 +122,7 @@ function setPublicField (done) {
 function setPrivateField (done) {
   setup()
 
-  let subFieldTransformer = new SubTransformFieldMapper(subTransformerKey, FieldPermissionLvl.PRIVATE)
+  let subFieldTransformer = new SubTransformFieldMapper(subTransformerKey, PermissionLvl.PRIVATE)
 
   let obj = {
     sub: {
@@ -141,7 +141,7 @@ function setPrivateField (done) {
 function transformList (done) {
   setup()
 
-  let subFieldTransformer = new SubTransformFieldMapper(subTransformerKey, FieldPermissionLvl.PRIVATE)
+  let subFieldTransformer = new SubTransformFieldMapper(subTransformerKey, PermissionLvl.PRIVATE)
 
   let obj = {
     sub: [
@@ -170,7 +170,7 @@ function transformList (done) {
 function callGet (done) {
   setup()
 
-  let subFieldTransformer = new SubTransformFieldMapper(subTransformerKey, FieldPermissionLvl.PRIVATE)
+  let subFieldTransformer = new SubTransformFieldMapper(subTransformerKey, PermissionLvl.PRIVATE)
 
   let obj = {
     sub: {
@@ -193,7 +193,7 @@ function callGet (done) {
 function callGetOnList (done) {
   setup()
 
-  let subFieldTransformer = new SubTransformFieldMapper(subTransformerKey, FieldPermissionLvl.PRIVATE)
+  let subFieldTransformer = new SubTransformFieldMapper(subTransformerKey, PermissionLvl.PRIVATE)
 
   let obj = {
     sub: [
@@ -230,7 +230,7 @@ function callGetOnList (done) {
 function resolveFalsey (done) {
   setup()
 
-  let subFieldTransformer = new SubTransformFieldMapper(subTransformerKey, FieldPermissionLvl.PRIVATE)
+  let subFieldTransformer = new SubTransformFieldMapper(subTransformerKey, PermissionLvl.PRIVATE)
 
   let obj = {
     sub: [

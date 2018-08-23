@@ -16,7 +16,7 @@ describe('FieldMapperDelegate', () => {
   it('should transform the field on the object', tests.transformAtLvl)
   it('should not transform the field and return undefined', tests.transformBelowLvl)
   it('should set the cur permission lvl', tests.when)
-  it('should set the cur permission lvl and restriction', tests.restrictTo)
+  it('should set the cur permission lvl and restriction', tests.atOrAbove)
   it('should set the permission ranking on the prototype', tests.setPermissionRanking)
   it('should build the new permission API on the prototype', tests.buildPermissionMethods)
   it('should throw error if old API is used when permission ranking is provided', tests.oldApiThrowsErr)

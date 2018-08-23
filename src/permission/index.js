@@ -1,9 +1,9 @@
 'use strict'
 
-import * as FieldPermissionLvl from './field.permission.lvl'
+import * as PermissionLvl from './field.permission.lvl'
 import { defaultRankings as PermissionRanking } from './permission.ranking'
 
 export {
-  FieldPermissionLvl,
+  PermissionLvl,
   PermissionRanking
 }

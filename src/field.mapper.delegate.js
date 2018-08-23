@@ -3,7 +3,7 @@
 import { PassthroughFieldMapper, CustomFieldMapper, SubTransformFieldMapper } from './fieldMapper'
 import { PermissionRanking } from './permission'
 
-const restrictTo = 'restrictTo'
+const atOrAbove = 'atOrAbove'
 const when = 'when'
 
 /**
@@ -54,7 +54,7 @@ class FieldMapperDelegate {
    *
    * @param {string} permission - the permission level
    */
-  restrictTo (permission) {
+  atOrAbove (permission) {
     let index = this.permissionRanking.indexOf(permission)
     if (index === -1) {
       throw new Error('Permission Lvl Not Found')
@@ -201,9 +201,9 @@ class FieldMapperDelegate {
         return str.charAt(0).toUpperCase() + str.toLowerCase().slice(1)
       }
 
-      // Add all restrictTo_____ methods
-      this[`${restrictTo}${capitalize(permission)}`] = () => {
-        return this.restrictTo(permission)
+      // Add all atOrAbove_____ methods
+      this[`${atOrAbove}${capitalize(permission)}`] = () => {
+        return this.atOrAbove(permission)
       }
 
       // Add all when_____ methods
@@ -223,12 +223,12 @@ PermissionRanking.forEach((permission) => {
     return str.charAt(0).toUpperCase() + str.toLowerCase().slice(1)
   }
 
-  // Add all restrictTo_____ methods
-  FieldMapperDelegate.prototype[`${restrictTo}${capitalize(permission)}`] = function () {
+  // Add all atOrAbove_____ methods
+  FieldMapperDelegate.prototype[`${atOrAbove}${capitalize(permission)}`] = function () {
     if (!this._defaultPermissionRanking) {
       throw new Error('Cannot use overwritten default permission ranking API')
     }
-    return this.restrictTo(permission)
+    return this.atOrAbove(permission)
   }
 
   // Add all when_____ methods

@@ -2,14 +2,14 @@
 
 import { expect } from 'chai'
 
-import { Transformer, utils, FieldPermissionLvl } from '../../src'
+import { Transformer, utils, PermissionLvl } from '../../src'
 
 let delegate = utils.fieldDelegate()
 
 function byDefault () {
   let transformer = new Transformer({
     value: delegate('value').always().passthrough(),
-    secret: delegate('secret').restrictToPrivate().passthrough()
+    secret: delegate('secret').atOrAbovePrivate().passthrough()
   })
 
   expect(transformer.defaultAttributes).to.be.equal(undefined)
@@ -24,7 +24,7 @@ function byDefault () {
 function passthrough () {
   let transformer = new Transformer({
     value: delegate('value').always().passthrough(),
-    secret: delegate('secret').restrictToPrivate().passthrough()
+    secret: delegate('secret').atOrAbovePrivate().passthrough()
   })
 
   transformer.byDefault().PASSTHROUGH()
@@ -36,7 +36,7 @@ function passthroughErr () {
   try {
     let transformer = new Transformer({
       value: delegate('value').always().passthrough(),
-      secret: delegate('secret').restrictToPrivate().passthrough()
+      secret: delegate('secret').atOrAbovePrivate().passthrough()
     })
     transformer.PASSTHROUGH()
   } catch (err) {
@@ -47,7 +47,7 @@ function passthroughErr () {
 function buildWith () {
   let transformer = new Transformer({
     value: delegate('value').always().passthrough(),
-    secret: delegate('secret').restrictToPrivate().passthrough()
+    secret: delegate('secret').atOrAbovePrivate().passthrough()
   })
 
   let builder = () => {
@@ -64,7 +64,7 @@ function buildWithErr () {
   try {
     let transformer = new Transformer({
       value: delegate('value').always().passthrough(),
-      secret: delegate('secret').restrictToPrivate().passthrough()
+      secret: delegate('secret').atOrAbovePrivate().passthrough()
     })
     transformer.BUILD_WITH(() => {})
   } catch (err) {
@@ -75,7 +75,7 @@ function buildWithErr () {
 function transformNoDefault (done) {
   let transformer = new Transformer({
     value: delegate('value').always().passthrough(),
-    secret: delegate('secret').restrictToPrivate().passthrough()
+    secret: delegate('secret').atOrAbovePrivate().passthrough()
   })
 
   let obj = {
@@ -84,7 +84,7 @@ function transformNoDefault (done) {
     otherValue: 200 // field ignored by transformer
   }
 
-  transformer.transform(FieldPermissionLvl.PRIVATE, obj).then((dto) => {
+  transformer.transform(PermissionLvl.PRIVATE, obj).then((dto) => {
     expect(dto.value).to.be.equal(1)
     expect(dto.secret).to.be.equal(100)
     expect(dto.otherValue).to.be.equal(undefined)
@@ -95,7 +95,7 @@ function transformNoDefault (done) {
 function transformWithDefault (done) {
   let transformer = new Transformer({
     value: delegate('value').always().passthrough(),
-    secret: delegate('secret').restrictToPrivate().passthrough()
+    secret: delegate('secret').atOrAbovePrivate().passthrough()
   }).byDefault(['otherValue']).PASSTHROUGH()
 
   let obj = {
@@ -104,7 +104,7 @@ function transformWithDefault (done) {
     otherValue: 200
   }
 
-  transformer.transform(FieldPermissionLvl.PRIVATE, obj).then((dto) => {
+  transformer.transform(PermissionLvl.PRIVATE, obj).then((dto) => {
     expect(dto.value).to.be.equal(1)
     expect(dto.secret).to.be.equal(100)
     expect(dto.otherValue).to.be.equal(200)
@@ -115,7 +115,7 @@ function transformWithDefault (done) {
 function transformWithDefaultNoAttributes (done) {
   let transformer = new Transformer({
     value: delegate('value').always().passthrough(),
-    secret: delegate('secret').restrictToPrivate().passthrough()
+    secret: delegate('secret').atOrAbovePrivate().passthrough()
   }).byDefault().PASSTHROUGH()
 
   let obj = {
@@ -124,7 +124,7 @@ function transformWithDefaultNoAttributes (done) {
     otherValue: 200 // field ignored by transformer
   }
 
-  transformer.transform(FieldPermissionLvl.PRIVATE, obj).then((dto) => {
+  transformer.transform(PermissionLvl.PRIVATE, obj).then((dto) => {
     expect(dto.value).to.be.equal(1)
     expect(dto.secret).to.be.equal(100)
     expect(dto.otherValue).to.be.equal(undefined)
@@ -135,7 +135,7 @@ function transformWithDefaultNoAttributes (done) {
 function transformWithDefaultBuildWith (done) {
   let transformer = new Transformer({
     value: delegate('value').always().passthrough(),
-    secret: delegate('secret').restrictToPrivate().passthrough()
+    secret: delegate('secret').atOrAbovePrivate().passthrough()
   }).byDefault(['otherValue']).BUILD_WITH((instance, key) => {
     return instance[key] + 1
   })
@@ -146,7 +146,7 @@ function transformWithDefaultBuildWith (done) {
     otherValue: 200
   }
 
-  transformer.transform(FieldPermissionLvl.PRIVATE, obj).then((dto) => {
+  transformer.transform(PermissionLvl.PRIVATE, obj).then((dto) => {
     expect(dto.value).to.be.equal(1)
     expect(dto.secret).to.be.equal(100)
     expect(dto.otherValue).to.be.equal(201)
@@ -157,7 +157,7 @@ function transformWithDefaultBuildWith (done) {
 function transformWithDefaultBuildWithNoAttributes (done) {
   let transformer = new Transformer({
     value: delegate('value').always().passthrough(),
-    secret: delegate('secret').restrictToPrivate().passthrough()
+    secret: delegate('secret').atOrAbovePrivate().passthrough()
   }).byDefault().BUILD_WITH((instance, key) => {
     return instance[key] + 1
   })
@@ -168,7 +168,7 @@ function transformWithDefaultBuildWithNoAttributes (done) {
     otherValue: 200
   }
 
-  transformer.transform(FieldPermissionLvl.PRIVATE, obj).then((dto) => {
+  transformer.transform(PermissionLvl.PRIVATE, obj).then((dto) => {
     expect(dto.value).to.be.equal(1)
     expect(dto.secret).to.be.equal(100)
     expect(dto.otherValue).to.be.equal(undefined)
@@ -179,7 +179,7 @@ function transformWithDefaultBuildWithNoAttributes (done) {
 function transformWithDefaultNoMaskErr (done) {
   let transformer = new Transformer({
     value: delegate('value').always().passthrough(),
-    secret: delegate('secret').restrictToPrivate().passthrough()
+    secret: delegate('secret').atOrAbovePrivate().passthrough()
   }).byDefault(['otherValue']) // missing mask here
 
   let obj = {
@@ -188,7 +188,7 @@ function transformWithDefaultNoMaskErr (done) {
     otherValue: 200
   }
 
-  transformer.transform(FieldPermissionLvl.PRIVATE, obj).catch(() => {
+  transformer.transform(PermissionLvl.PRIVATE, obj).catch(() => {
     done()
   })
 }
@@ -196,11 +196,11 @@ function transformWithDefaultNoMaskErr (done) {
 function extend (done) {
   let transformer = new Transformer({
     value: delegate('value').always().passthrough(),
-    secret: delegate('secret').restrictToPrivate().passthrough()
+    secret: delegate('secret').atOrAbovePrivate().passthrough()
   })
 
   let extension = transformer.extend({
-    value: delegate('value').restrictToAdmin().passthrough(),
+    value: delegate('value').atOrAboveAdmin().passthrough(),
     otherValue: delegate('otherValue').always().buildWith((instance, key) => {
       return instance[key] + 1
     }),
@@ -215,7 +215,7 @@ function extend (done) {
     otherValue: 200
   }
 
-  extension.transform(FieldPermissionLvl.PRIVATE, obj).then((dto) => {
+  extension.transform(PermissionLvl.PRIVATE, obj).then((dto) => {
     expect(dto.value).to.be.equal(undefined)
     expect(dto.secret).to.be.equal(100)
     expect(dto.computed).to.be.equal(500)

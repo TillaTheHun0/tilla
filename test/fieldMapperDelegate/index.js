@@ -1,7 +1,7 @@
 'use strict'
 
 import { expect } from 'chai'
-import { FieldPermissionLvl } from '../../src'
+import { PermissionLvl } from '../../src'
 import { PassthroughFieldMapper, CustomFieldMapper, SubTransformFieldMapper } from '../../src/fieldMapper'
 import { FieldMapperDelegate } from '../../src/field.mapper.delegate'
 
@@ -58,12 +58,12 @@ function buildWithAlways () {
 function subTransformWithPermission () {
   let fMDelegate = new FieldMapperDelegate('woop')
 
-  fMDelegate.always().subTransform('something', FieldPermissionLvl.PUBLIC)
+  fMDelegate.always().subTransform('something', PermissionLvl.PUBLIC)
 
   fMDelegate.permissionRanking.forEach((p) => {
     let trans = fMDelegate.delegate[p]
     expect(fMDelegate.delegate[p] instanceof SubTransformFieldMapper).to.be.equal(true)
-    expect(trans.permission).to.be.equal(FieldPermissionLvl.PUBLIC)
+    expect(trans.permission).to.be.equal(PermissionLvl.PUBLIC)
   })
 
   expect(fMDelegate.curPermissionLvl).to.be.equal(null)
@@ -113,8 +113,8 @@ function checkAlways () {
 function restrict () {
   let fMDelegate = new FieldMapperDelegate('woop')
 
-  let index = fMDelegate.permissionRanking.indexOf(FieldPermissionLvl.PRIVATE)
-  fMDelegate.restrictToPrivate().passthrough()
+  let index = fMDelegate.permissionRanking.indexOf(PermissionLvl.PRIVATE)
+  fMDelegate.atOrAbovePrivate().passthrough()
 
   fMDelegate.permissionRanking.forEach((p, i) => {
     if (i < index) {
@@ -131,9 +131,9 @@ function transformAtLvl () {
     woop: 200
   }
 
-  fMDelegate.restrictToPrivate().passthrough()
+  fMDelegate.atOrAbovePrivate().passthrough()
 
-  fMDelegate.transform(FieldPermissionLvl.PRIVATE, obj).then((value) => {
+  fMDelegate.transform(PermissionLvl.PRIVATE, obj).then((value) => {
     expect(value).to.be.equal(200)
   })
 }
@@ -144,9 +144,9 @@ function transformBelowLvl () {
     woop: 200
   }
 
-  fMDelegate.restrictToPrivate().passthrough()
+  fMDelegate.atOrAbovePrivate().passthrough()
 
-  fMDelegate.transform(FieldPermissionLvl.PUBLIC, obj).then((value) => {
+  fMDelegate.transform(PermissionLvl.PUBLIC, obj).then((value) => {
     expect(value).to.be.equal(undefined)
   })
 }
@@ -154,16 +154,16 @@ function transformBelowLvl () {
 function when () {
   let fMDelegate = new FieldMapperDelegate('woop').whenPrivate()
 
-  expect(fMDelegate.curPermissionLvl).to.be.equal(FieldPermissionLvl.PRIVATE)
+  expect(fMDelegate.curPermissionLvl).to.be.equal(PermissionLvl.PRIVATE)
 }
 
-function restrictTo () {
+function atOrAbove () {
   let fMDelegate = new FieldMapperDelegate('woop')
 
-  let index = fMDelegate.permissionRanking.indexOf(FieldPermissionLvl.PRIVATE)
-  fMDelegate.restrictToPrivate()
+  let index = fMDelegate.permissionRanking.indexOf(PermissionLvl.PRIVATE)
+  fMDelegate.atOrAbovePrivate()
 
-  expect(fMDelegate.curPermissionLvl).to.be.equal(FieldPermissionLvl.PRIVATE)
+  expect(fMDelegate.curPermissionLvl).to.be.equal(PermissionLvl.PRIVATE)
   expect(index).to.be.equal(fMDelegate.restriction)
 }
 
@@ -172,10 +172,10 @@ function setPermissionRanking () {
 
   let fMDelegate = new FieldMapperDelegate('woop', permissions)
 
-  expect(fMDelegate.restrictToLow).to.not.be.equal(undefined)
+  expect(fMDelegate.atOrAboveLow).to.not.be.equal(undefined)
   expect(fMDelegate.whenMedium).to.not.be.equal(undefined)
 
-  fMDelegate.restrictToLow().passthrough()
+  fMDelegate.atOrAboveLow().passthrough()
   fMDelegate.whenMedium().passthrough()
 
   expect(fMDelegate.permissionRanking).has.members(permissions)
@@ -191,7 +191,7 @@ function buildPermissionMethods () {
   }
 
   permissions.forEach((p) => {
-    let m = fMDelegate[`restrictTo${capitalize(p)}`]
+    let m = fMDelegate[`atOrAbove${capitalize(p)}`]
     expect(m).to.not.be.equal(null)
     expect(m).to.not.be.equal(undefined)
   })
@@ -215,7 +215,7 @@ function oldApiThrowsErr () {
   }
 
   try {
-    fMDelegate.restrictToPrivate()
+    fMDelegate.atOrAbovePrivate()
     throw new Error('Should have thrown error using old API')
   } catch (err) {
     expect(err).to.not.be.equal(null)
@@ -236,7 +236,7 @@ export {
   transformAtLvl,
   transformBelowLvl,
   when,
-  restrictTo,
+  atOrAbove,
   setPermissionRanking,
   buildPermissionMethods,
   oldApiThrowsErr
