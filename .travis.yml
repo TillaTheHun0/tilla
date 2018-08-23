@@ -1,8 +1,16 @@
 language: node_js
 node_js:
-  - node
+- node
 cache:
   directories:
-    - node_modules
+  - node_modules
 after_success:
-  - npm run coverage
+- npm run coverage
+deploy:
+  provider: npm
+  email: 0tillathehun0@gmail.com
+  api_key:
+    secure: tFSyHK2B+dxesWbG96CE+5+ctTaoB735IPb9Scz13fNE704R99iBph7dE2XXBGCamrsa1BoVaoLs96a952bm89w9QRriEUpyrKrtME3t58VXQD4X5KTYS6JGSMEYbnxMPaQKBcghpE0mTmQPNficTi0sElSGQ0GbM9OVJpmIRk5ftTMfrwnTNamEAbJOxNbj+ygRZwwNGvrsCvZYwwMFOgS9ZKhfMMj1YR9Yhd2N4lp+TEDx9BxxIofdKqEi6/UQGufcZttSR0hFO7O9Gh0ln9jctya6oyOPBqztJ/3QsaoXil+RToDU2g3t0+vQ3mqHI5z4HtkQY+HrZeViTwu8QphBKpcub0s2oPNsGghp7TbUzb6muhgTkmSS/NxmTUb5LMilmth+mi0RFWDdfr8SFkQxFZm1SRyQ0TsL4QEsz2FVq/x7CFoh3Z2cVF1Zv7uJVdjvjf7dfnBkw2kLqlE7BF+rl/QbrIYi+D7dE07axEQdOJXEzESlzaGlAuse+fdI/TKjYvK2krK/2lHofKqLXBS12QB5BC8yv6FJB1kz8M/PaA7neNwwV7zR1CFV41hV3mS6oMqVsZK9smz/ubKulJ1+sZt+8HM+jkEAAe/NRnVvQ2oumiZegjxryGDhr2L+k+nU0/nj7heX6TtlZh+3ZsQUDyazeNsDjjhtwnF0+QA=
+  on:
+    tags: true
+    repo: TillaTheHun0/tilla
