@@ -1,1 +1,13 @@
+#source
 src
+
+#tests
+test
+coverage
+.nyc_output
+
+#build tools
+.travis.yml
+
+#editor settings
+.editorconfig
