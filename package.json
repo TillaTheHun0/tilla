@@ -1,7 +1,7 @@
 {
   "name": "tilla",
-  "version": "0.0.3",
-  "description": "DTO transformer library with fluid API, built in permission levels, and asynchronous transformations",
+  "version": "0.0.4",
+  "description": "Transforming objects with JavaScript made easy",
   "repository": "https://github.com/TillaTheHun0/tilla",
   "bugs": "https://github.com/TillaTheHun0/tilla/issues",
   "main": "./dist/index.js",
