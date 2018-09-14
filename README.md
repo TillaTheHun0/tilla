@@ -56,6 +56,8 @@ const personTransformer = new Transformer({
   address: fd().always().subTransform(addressTransformer),
   // only mapped if permission level is >=PRIVATE
   ssn: fd().atOrAbovePrivate().passthrough()
+  // only mapped if permission level === PRIVATE
+  phoneNumber: fd().restrictToPrivate().passthrough()
 })
 
 let person = {
@@ -66,7 +68,8 @@ let person = {
   address: {
     state: 'IL'
   }
-  ssn: '123-45-6789'
+  ssn: '123-45-6789',
+  phoneNumber: '867-5309'
 }
 
 // Transformers.transform() always returns a Promise
@@ -123,7 +126,7 @@ let oldPersonTransformer = new Transformer({
 
 ```
 
-You can specify your own permission ranking and `Tilla` will build that `permission` API on the `FieldDelegate` instance. For example, you could specify a ranking of [`USER`, `EMPLOYEE`, `MANAGER`] and `Tilla` will add API's `whenUser()`, `atOrAboveUser()`, `whenEmployee()`, `atOrAboveEmployee()`, `whenManager()` and `atOrAboveManager()`. Specify a ranking like so:
+You can specify your own permission ranking and `Tilla` will build that `permission` API on the `FieldDelegate` instance. For example, you could specify a ranking of [`USER`, `EMPLOYEE`, `MANAGER`] and `Tilla` will add API's `whenUser()`, `atOrAboveUser()`, `restrictToUser()`, `whenEmployee()`, `atOrAboveEmployee()`, `restrictToEmployee()`, `whenManager()`, `atOrAboveManager()`, `restrictToManager()`. Specify a ranking like so:
 
 ```javascript
 
@@ -392,7 +395,6 @@ const attachTransformer = (transformerKey) => {
 ## TODO
 
 - Better document API
-- APIs for restricting to a single permission (PRs welcome)
 
 ## Contribute
 
