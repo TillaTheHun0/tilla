@@ -5,6 +5,7 @@ import { PermissionRanking } from './permission'
 
 const atOrAbove = 'atOrAbove'
 const when = 'when'
+const restrictTo = 'restrictTo'
 
 /**
  * FieldMapperDelegates provide the API for orchaestrating and arranging
@@ -33,7 +34,7 @@ class FieldMapperDelegate {
    * Indicate the following action should be used for every permission level
    */
   always () {
-    this._always = true
+    this.alwaysFlag = true
     // doesn't matter what we set permission to since builder will be copied across all lvls
     this.curPermissionLvl = this.permissionRanking[0]
     return this
@@ -59,7 +60,22 @@ class FieldMapperDelegate {
     if (index === -1) {
       throw new Error('Permission Lvl Not Found')
     }
-    this.restriction = index
+    this.restrictAtOrAbove = index
+    this.curPermissionLvl = permission
+    return this
+  }
+
+  /**
+   * Indicate the following action should be used for this permission level and all others are set to null
+   *
+   * @param {string} permission - the permission level
+   */
+  restrictTo (permission) {
+    let index = this.permissionRanking.indexOf(permission)
+    if (index === -1) {
+      throw new Error('Permission Lvl Not Found')
+    }
+    this.restrict = index
     this.curPermissionLvl = permission
     return this
   }
@@ -69,9 +85,7 @@ class FieldMapperDelegate {
    */
   passthrough () {
     this.delegate[this.curPermissionLvl] = new PassthroughFieldMapper()
-    this._checkAlways()
-    this._restrict(this.delegate[this.curPermissionLvl])
-    this.curPermissionLvl = null
+    this._checkAndReset(this.delegate[this.curPermissionLvl])
     return this
   }
 
@@ -82,9 +96,7 @@ class FieldMapperDelegate {
    */
   buildWith (builder) {
     this.delegate[this.curPermissionLvl] = new CustomFieldMapper(builder)
-    this._checkAlways()
-    this._restrict(this.delegate[this.curPermissionLvl])
-    this.curPermissionLvl = null
+    this._checkAndReset(this.delegate[this.curPermissionLvl])
     return this
   }
 
@@ -111,19 +123,15 @@ class FieldMapperDelegate {
         this.delegate[curPermissionLvl] = mapper
       })
     } else {
-      // use parents permission lvl
+      // use parents permission lvl for each lvl
       this.permissionRanking.forEach((curPermissionLvl) => {
         this.delegate[curPermissionLvl] = new SubTransformFieldMapper(transformerKey, curPermissionLvl)
       })
     }
     // reset always flag, since all lvls are set above
-    this._always = null
-    /**
-     * Restrict transforming if needed. This will go back and null out some lvls we just set
-     * if that is desired.
-     */
-    this._restrict(this.delegate[this.curPermissionLvl])
-    this.curPermissionLvl = null
+    this.alwaysFlag = null
+
+    this._checkAndReset(this.delegate[this.curPermissionLvl])
     return this
   }
 
@@ -133,36 +141,6 @@ class FieldMapperDelegate {
   asList () {
     this.isList = true
     return this
-  }
-
-  /**
-   * Set all permission lvls to use the same field mapper if the always flag is set
-   */
-  _checkAlways () {
-    if (this._always) {
-      // Set the delegate for each permission lvl to the same delegate
-      this.permissionRanking.forEach((permission) => {
-        this.delegate[permission] = this.delegate[this.curPermissionLvl]
-      })
-      this._always = null
-    }
-  }
-
-  /**
-   * Restrict access to fields less than the specified restriction
-   *
-   * @param {FieldMapper} fieldMapper - the FieldMapper instance
-   */
-  _restrict (fieldMapper) {
-    if (this.restriction !== null && this.restriction !== undefined) {
-      for (let i = 0; i < this.permissionRanking.length; i++) {
-        if (i < this.restriction) {
-          this.delegate[this.permissionRanking[i]] = null
-          continue
-        }
-        this.delegate[this.permissionRanking[i]] = fieldMapper
-      }
-    }
   }
 
   /**
@@ -210,7 +188,70 @@ class FieldMapperDelegate {
       this[`${when}${capitalize(permission)}`] = () => {
         return this.when(permission)
       }
+
+      // Add all restrictTo_____ methods
+      this[`${restrictTo}${capitalize(permission)}`] = () => {
+        return this.restrictTo(permission)
+      }
     })
+  }
+
+  /**
+   * Restrict transforming if needed. This will go back and null out some lvls we just set
+   * if that is desired.
+   */
+  _checkAndReset (fieldMapper) {
+    this._always()
+    this._restrictAtOrAbove(fieldMapper)
+    this._restrictTo(fieldMapper)
+    this.curPermissionLvl = null
+    this.alwaysFlag = null
+  }
+
+  /**
+   * Set all permission lvls to use the same field mapper if the always flag is set
+   */
+  _always () {
+    if (this.alwaysFlag) {
+      // Set the delegate for each permission lvl to the same delegate
+      this.permissionRanking.forEach((permission) => {
+        this.delegate[permission] = this.delegate[this.curPermissionLvl]
+      })
+    }
+  }
+
+  /**
+   * Restrict access all fields except specified permission lvl and above
+   *
+   * @param {FieldMapper} fieldMapper - the FieldMapper instance
+   */
+  _restrictAtOrAbove (fieldMapper) {
+    if (this.restrictAtOrAbove !== null && this.restrictAtOrAbove !== undefined) {
+      for (let i = 0; i < this.permissionRanking.length; i++) {
+        if (i < this.restrictAtOrAbove) {
+          this.delegate[this.permissionRanking[i]] = null
+          continue
+        }
+        this.delegate[this.permissionRanking[i]] = fieldMapper
+      }
+    }
+  }
+
+  /**
+   * Restrict access all fields except specified permission lvl
+   *
+   * @param {FieldMapper} fieldMapper - the FieldMapper instance
+   */
+  _restrictTo (fieldMapper) {
+    if (this.restrict !== null && this.restrict !== undefined) {
+      for (let i = 0; i < this.permissionRanking.length; i++) {
+        if (i !== this.restrict) {
+          this.delegate[this.permissionRanking[i]] = null
+          continue
+        }
+        this.delegate[this.permissionRanking[i]] = fieldMapper
+      }
+    }
   }
 }
 
@@ -237,6 +278,14 @@ PermissionRanking.forEach((permission) => {
       throw new Error('Cannot use overwritten default permission ranking API')
     }
     return this.when(permission)
+  }
+
+  // Add all restrictTo_____ methods
+  FieldMapperDelegate.prototype[`${restrictTo}${capitalize(permission)}`] = function () {
+    if (!this._defaultPermissionRanking) {
+      throw new Error('Cannot use overwritten default permission ranking API')
+    }
+    return this.restrictTo(permission)
   }
 })
 
