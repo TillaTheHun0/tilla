@@ -10,11 +10,11 @@ function always () {
 
   delegate.always()
 
-  expect(delegate._always).to.be.equal(true)
+  expect(delegate.alwaysFlag).to.be.equal(true)
 
   delegate.passthrough()
 
-  expect(delegate._always).to.be.equal(null)
+  expect(delegate.alwaysFlag).to.be.equal(null)
 }
 
 function alwaysSetsAllLvls () {
@@ -107,10 +107,10 @@ function checkAlways () {
     expect(fMDelegate.delegate[p] instanceof PassthroughFieldMapper).to.be.equal(true)
   })
 
-  expect(fMDelegate._always).to.be.equal(null)
+  expect(fMDelegate.alwaysFlag).to.be.equal(null)
 }
 
-function restrict () {
+function restrictAtOrAbove () {
   let fMDelegate = new FieldMapperDelegate('woop')
 
   let index = fMDelegate.permissionRanking.indexOf(PermissionLvl.PRIVATE)
@@ -121,6 +121,7 @@ function restrict () {
       expect(fMDelegate.delegate[p]).to.be.equal(null)
       return
     }
+    console.log(fMDelegate.delegate[p] instanceof PassthroughFieldMapper)
     expect(fMDelegate.delegate[p] instanceof PassthroughFieldMapper).to.be.equal(true)
   })
 }
@@ -164,7 +165,33 @@ function atOrAbove () {
   fMDelegate.atOrAbovePrivate()
 
   expect(fMDelegate.curPermissionLvl).to.be.equal(PermissionLvl.PRIVATE)
-  expect(index).to.be.equal(fMDelegate.restriction)
+  expect(index).to.be.equal(fMDelegate.restrictAtOrAbove)
+}
+
+function restrictTo () {
+  let fMDelegate = new FieldMapperDelegate('woop')
+
+  let index = fMDelegate.permissionRanking.indexOf(PermissionLvl.PRIVATE)
+  fMDelegate.restrictToPrivate()
+
+  expect(fMDelegate.curPermissionLvl).to.be.equal(PermissionLvl.PRIVATE)
+  expect(index).to.be.equal(fMDelegate.restrict)
+}
+
+function _restrictTo () {
+  let fMDelegate = new FieldMapperDelegate('woop')
+
+  let index = fMDelegate.permissionRanking.indexOf(PermissionLvl.PRIVATE)
+  fMDelegate.restrictToPrivate().passthrough()
+
+  fMDelegate.permissionRanking.forEach((p, i) => {
+    if (i !== index) {
+      expect(fMDelegate.delegate[p]).to.be.equal(null)
+      return
+    }
+
+    expect(fMDelegate.delegate[p] instanceof PassthroughFieldMapper).to.be.equal(true)
+  })
 }
 
 function setPermissionRanking () {
@@ -232,11 +259,13 @@ export {
   subTransformWithPermissionInvalidErr,
   asList,
   checkAlways,
-  restrict,
+  restrictAtOrAbove,
   transformAtLvl,
   transformBelowLvl,
   when,
   atOrAbove,
+  restrictTo,
+  _restrictTo,
   setPermissionRanking,
   buildPermissionMethods,
   oldApiThrowsErr
