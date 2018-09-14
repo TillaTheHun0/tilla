@@ -121,7 +121,6 @@ function restrictAtOrAbove () {
       expect(fMDelegate.delegate[p]).to.be.equal(null)
       return
     }
-    console.log(fMDelegate.delegate[p] instanceof PassthroughFieldMapper)
     expect(fMDelegate.delegate[p] instanceof PassthroughFieldMapper).to.be.equal(true)
   })
 }
