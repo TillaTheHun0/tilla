@@ -1,6 +1,6 @@
 'use strict'
 
-import 'babel-polyfill'
+import '@babel/polyfill'
 
 import { TransformerRegistry } from './transformer.registry'
 import * as FieldMapper from './fieldMapper'
