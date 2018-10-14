@@ -3,9 +3,9 @@
 import { expect } from 'chai'
 
 import { SubTransformFieldMapper } from '../../src/fieldMapper'
-import { registry, Transformer, utils, PermissionLvl } from '../../src'
+import { Transformer, fieldDelegate, PermissionLvl, registry } from '../../src'
 
-let delegate = utils.fieldDelegate()
+let delegate = fieldDelegate()
 
 const subTransformerKey = 'subTransformer'
 
