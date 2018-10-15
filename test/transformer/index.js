@@ -2,9 +2,9 @@
 
 import { expect } from 'chai'
 
-import { Transformer, utils, PermissionLvl } from '../../src'
+import { Transformer, fieldDelegate, PermissionLvl } from '../../src'
 
-let delegate = utils.fieldDelegate()
+let delegate = fieldDelegate()
 
 function byDefault () {
   let transformer = new Transformer({

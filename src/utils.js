@@ -2,21 +2,15 @@
 
 import { FieldMapperDelegate } from './field.mapper.delegate'
 
-class TransformUtils {
-  fieldDelegate (permissionRanking) {
-    return (sourceKey) => {
-      return new FieldMapperDelegate(sourceKey, permissionRanking)
-    }
-  }
+export const fieldDelegate = permissionRanking => sourceKey =>
+  new FieldMapperDelegate(sourceKey, permissionRanking)
 
-  // Mainly for
-  getColumnsFromModel (Model) {
-    return Object.keys(Model.rawAttributes)
-  }
+export const getKeys = obj => Object.keys(obj)
 
-  getKeys (obj) {
-    return Object.keys(obj)
-  }
+export const getColumnsFromModel = Model => Object.keys(Model.rawAttributes)
+
+export const utils = {
+  fieldDelegate,
+  getKeys,
+  getColumnsFromModel
 }
-
-export const utils = new TransformUtils()

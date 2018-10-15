@@ -10,7 +10,7 @@
     "build": "node ./node_modules/.bin/babel src --out-dir dist",
     "prepare": "npm run build",
     "standard": "node ./node_modules/standard/bin/cmd.js \"**/*.js\"",
-    "test": "npm run standard && nyc mocha --require babel-core/register",
+    "test": "npm run standard && nyc mocha --require @babel/register",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "keywords": [
@@ -22,14 +22,16 @@
   "author": "Tyler Hall",
   "license": "MIT",
   "dependencies": {
-    "babel-polyfill": "^6.26.0",
+    "@babel/polyfill": "^7.0.0",
     "bluebird": "^3.5.1",
     "debug": "^3.1.0"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.3",
-    "babel-preset-env": "^1.7.0",
+    "@babel/cli": "^7.1.2",
+    "@babel/core": "^7.1.2",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/register": "^7.0.0",
     "chai": "^4.1.2",
     "coveralls": "^3.0.2",
     "mocha": "^5.2.0",

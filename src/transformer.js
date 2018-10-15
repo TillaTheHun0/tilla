@@ -62,7 +62,7 @@ class Transformer {
       if (this.defaultMask === BUILD_WITH) {
         return Promise.map(this.defaultAttributes, (key) => {
           if (!this.mapping[key]) {
-            return Promise.method(() => this.defaultBuilder(instance, key))().then((value) => {
+            return Promise.method(() => this.defaultBuilder(instance, key))().then(value => {
               dto[key] = value
             })
           }
@@ -72,9 +72,7 @@ class Transformer {
     })
 
     // await transformations to finish before dto is returned
-    return Promise.join(transformations, defaultsSet, () => {
-      return dto
-    })
+    return Promise.join(transformations, defaultsSet, () => dto)
   }
 
   /**
@@ -127,7 +125,7 @@ class Transformer {
    * @return {Transformer} a new Tranformer with the merged mapping
    */
   extend (mapping) {
-    let mergedMapping = Object.assign({}, this.mapping, mapping)
+    let mergedMapping = { ...this.mapping, ...mapping }
     let transformer = new Transformer(mergedMapping)
     transformer.defaultBuilder = this.defaultBuilder
     transformer.defaultMask = this.defaultMask

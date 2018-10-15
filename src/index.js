@@ -1,20 +1,18 @@
 'use strict'
 
-import 'babel-polyfill'
+import '@babel/polyfill'
 
 import { TransformerRegistry } from './transformer.registry'
-import * as FieldMapper from './fieldMapper'
 import { Transformer } from './transformer'
-import { PermissionRanking, PermissionLvl } from './permission'
-import { utils } from './utils'
+import { PermissionLvl } from './permission'
+import { fieldDelegate } from './utils'
 
-const registry = new TransformerRegistry()
+let registry = new TransformerRegistry()
 
 export {
-  FieldMapper,
+  registry,
   Transformer,
-  PermissionRanking,
   PermissionLvl,
-  utils,
-  registry
+  fieldDelegate,
+  TransformerRegistry
 }
