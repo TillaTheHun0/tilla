@@ -24,7 +24,7 @@
   "dependencies": {
     "babel-polyfill": "^6.26.0",
     "bluebird": "^3.5.1",
-    "debug": "^3.1.0"
+    "debug": "^4.1.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -33,9 +33,9 @@
     "chai": "^4.1.2",
     "coveralls": "^3.0.2",
     "mocha": "^5.2.0",
-    "nyc": "^12.0.2",
+    "nyc": "^13.1.0",
     "pre-commit": "^1.2.2",
-    "standard": "^11.0.1"
+    "standard": "^12.0.1"
   },
   "standard": {
     "env": [
