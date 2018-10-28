@@ -1,6 +1,7 @@
 'use strict'
 
 import Promise from 'bluebird'
+import { registry } from './registry'
 
 const PASSTHROUGH = 'PASSTHROUGH'
 const BUILD_WITH = 'BUILD_WITH'
@@ -9,8 +10,16 @@ class Transformer {
   /**
    * @param {Object} mapping - the mapping object where each key is a FieldMapperDelegate instance
    */
-  constructor (mapping) {
-    this.mapping = mapping || {}
+  constructor (registryName, mapping) {
+    if (typeof registryName === 'string') {
+      // add to registry
+      registry.register(registryName, this)
+      this.mapping = mapping || {}
+    } else {
+      // only creating transformer, but not adding to mapping
+      mapping = registryName
+      this.mapping = mapping || {}
+    }
     this.defaultBuilder = undefined
     this.defaultMask = undefined
   }
