@@ -4,6 +4,7 @@ import Promise from 'bluebird'
 
 import { FieldMapper } from './field.mapper'
 import { Transformer } from '../transformer'
+import { registry } from '../registry'
 
 /**
  * A FieldMapper that uses a Transformer to map the field
@@ -76,7 +77,6 @@ class SubTransformFieldMapper extends FieldMapper {
   _setTransformer () {
     // Using registry
     if (typeof this.transformKey === 'string') {
-      const { registry } = require('../index') // kind of weird
       this.transformer = registry.getTransformer(this.transformKey)
       return Promise.resolve()
     }

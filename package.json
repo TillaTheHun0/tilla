@@ -8,6 +8,7 @@
   "scripts": {
     "build:dev": "npm run build -- -s",
     "build": "node ./node_modules/.bin/babel src --out-dir dist",
+    "bump": "npx standard-version",
     "prepare": "npm run build",
     "standard": "node ./node_modules/standard/bin/cmd.js \"**/*.js\"",
     "test": "npm run standard && nyc mocha --require @babel/register",
@@ -32,16 +33,25 @@
     "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
     "@babel/preset-env": "^7.1.0",
     "@babel/register": "^7.0.0",
+    "@commitlint/cli": "^7.2.1",
+    "@commitlint/config-conventional": "^7.1.2",
     "chai": "^4.1.2",
     "coveralls": "^3.0.2",
+    "husky": "^1.1.2",
     "mocha": "^5.2.0",
     "nyc": "^13.1.0",
-    "pre-commit": "^1.2.2",
-    "standard": "^12.0.1"
+    "standard": "^12.0.1",
+    "standard-version": "^4.4.0"
   },
   "standard": {
     "env": [
       "mocha"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "npm test"
+    }
   }
 }
