@@ -16,4 +16,5 @@ describe('Transformer', () => {
     tests.transformWithDefaultBuildWithNoAttributes)
   it('should throw an error if no default masking is set', tests.transformWithDefaultNoMaskErr)
   it('should extend the transformer and merge the maps', tests.extend)
+  it('should register the transformer in the registry automatically', tests.register)
 })

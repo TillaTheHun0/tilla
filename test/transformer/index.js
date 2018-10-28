@@ -2,7 +2,7 @@
 
 import { expect } from 'chai'
 
-import { Transformer, fieldDelegate, PermissionLvl } from '../../src'
+import { Transformer, fieldDelegate, PermissionLvl, registry } from '../../src'
 
 let delegate = fieldDelegate()
 
@@ -224,6 +224,37 @@ function extend (done) {
   })
 }
 
+function register (done) {
+  let key = 'awesomeTransformer'
+  // adds transformer to internal registry
+  let awesomeTransformer = new Transformer(key, { //eslint-disable-line
+    value: delegate('value').always().passthrough(),
+    secret: delegate('secret').atOrAbovePrivate().passthrough()
+  })
+
+  expect(registry.getTransformer(key)).to.be.equal(awesomeTransformer)
+
+  let transformer = new Transformer({
+    field: delegate('field').always().passthrough(),
+    sub: delegate('sub').always().subTransform(key)
+  })
+
+  let obj = {
+    field: 'awesome',
+    sub: {
+      value: 1,
+      secret: 'dirty secret'
+    }
+  }
+
+  transformer.transform(PermissionLvl.PUBLIC, obj).then(dto => {
+    expect(dto.field).to.be.equal(obj.field)
+    expect(dto.sub.value).to.be.equal(obj.sub.value)
+    expect(dto.sub.secret).to.be.equal(undefined)
+    done()
+  })
+}
+
 export {
   byDefault,
   passthrough,
@@ -236,5 +267,6 @@ export {
   transformWithDefaultBuildWith,
   transformWithDefaultBuildWithNoAttributes,
   transformWithDefaultNoMaskErr,
-  extend
+  extend,
+  register
 }
