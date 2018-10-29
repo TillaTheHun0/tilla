@@ -1,0 +1,111 @@
+{
+  "coverage": "50%",
+  "expectCount": 80,
+  "actualCount": 40,
+  "files": {
+    "src/field.mapper.delegate.js": {
+      "expectCount": 32,
+      "actualCount": 16,
+      "undocumentLines": [
+        6,
+        7,
+        8,
+        21,
+        24,
+        29,
+        30,
+        39,
+        41,
+        69,
+        86,
+        158,
+        181,
+        199,
+        204,
+        209
+      ]
+    },
+    "src/fieldMapper/custom.field.mapper.js": {
+      "expectCount": 4,
+      "actualCount": 2,
+      "undocumentLines": [
+        5,
+        17
+      ]
+    },
+    "src/fieldMapper/field.mapper.js": {
+      "expectCount": 3,
+      "actualCount": 2,
+      "undocumentLines": [
+        5
+      ]
+    },
+    "src/fieldMapper/passthrough.field.mapper.js": {
+      "expectCount": 2,
+      "actualCount": 2,
+      "undocumentLines": []
+    },
+    "src/fieldMapper/subtransform.field.mapper.js": {
+      "expectCount": 7,
+      "actualCount": 3,
+      "undocumentLines": [
+        22,
+        23,
+        24,
+        77
+      ]
+    },
+    "src/permission/field.permission.lvl.js": {
+      "expectCount": 4,
+      "actualCount": 1,
+      "undocumentLines": [
+        7,
+        8,
+        9
+      ]
+    },
+    "src/permission/permission.ranking.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/registry/index.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        4
+      ]
+    },
+    "src/registry/transformer.registry.js": {
+      "expectCount": 8,
+      "actualCount": 6,
+      "undocumentLines": [
+        13,
+        14
+      ]
+    },
+    "src/transformer.js": {
+      "expectCount": 14,
+      "actualCount": 7,
+      "undocumentLines": [
+        6,
+        7,
+        69,
+        75,
+        76,
+        142,
+        143
+      ]
+    },
+    "src/utils.js": {
+      "expectCount": 4,
+      "actualCount": 0,
+      "undocumentLines": [
+        5,
+        8,
+        10,
+        12
+      ]
+    }
+  }
+}

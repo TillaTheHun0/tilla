@@ -1,0 +1,2681 @@
+[
+  {
+    "__docId__": 1,
+    "kind": "external",
+    "name": "Infinity",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Infinity",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Infinity",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 2,
+    "kind": "external",
+    "name": "NaN",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NaN",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~NaN",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 3,
+    "kind": "external",
+    "name": "undefined",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~undefined",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 4,
+    "kind": "external",
+    "name": "null",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~null",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 5,
+    "kind": "external",
+    "name": "Object",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Object",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 6,
+    "kind": "external",
+    "name": "object",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~object",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 7,
+    "kind": "external",
+    "name": "Function",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Function",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 8,
+    "kind": "external",
+    "name": "function",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~function",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 9,
+    "kind": "external",
+    "name": "Boolean",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Boolean",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 10,
+    "kind": "external",
+    "name": "boolean",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~boolean",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 11,
+    "kind": "external",
+    "name": "Symbol",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Symbol",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 12,
+    "kind": "external",
+    "name": "Error",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Error",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 13,
+    "kind": "external",
+    "name": "EvalError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/EvalError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~EvalError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 14,
+    "kind": "external",
+    "name": "InternalError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/InternalError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~InternalError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 15,
+    "kind": "external",
+    "name": "RangeError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RangeError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~RangeError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 16,
+    "kind": "external",
+    "name": "ReferenceError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ReferenceError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~ReferenceError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 17,
+    "kind": "external",
+    "name": "SyntaxError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SyntaxError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~SyntaxError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 18,
+    "kind": "external",
+    "name": "TypeError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~TypeError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 19,
+    "kind": "external",
+    "name": "URIError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/URIError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~URIError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 20,
+    "kind": "external",
+    "name": "Number",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Number",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 21,
+    "kind": "external",
+    "name": "number",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~number",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 22,
+    "kind": "external",
+    "name": "Date",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Date",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 23,
+    "kind": "external",
+    "name": "String",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~String",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 24,
+    "kind": "external",
+    "name": "string",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~string",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 25,
+    "kind": "external",
+    "name": "RegExp",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~RegExp",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 26,
+    "kind": "external",
+    "name": "Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 27,
+    "kind": "external",
+    "name": "Int8Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int8Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Int8Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 28,
+    "kind": "external",
+    "name": "Uint8Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Uint8Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 29,
+    "kind": "external",
+    "name": "Uint8ClampedArray",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8ClampedArray",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Uint8ClampedArray",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 30,
+    "kind": "external",
+    "name": "Int16Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int16Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Int16Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 31,
+    "kind": "external",
+    "name": "Uint16Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Uint16Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 32,
+    "kind": "external",
+    "name": "Int32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int32Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Int32Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 33,
+    "kind": "external",
+    "name": "Uint32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint32Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Uint32Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 34,
+    "kind": "external",
+    "name": "Float32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Float32Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 35,
+    "kind": "external",
+    "name": "Float64Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float64Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Float64Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 36,
+    "kind": "external",
+    "name": "Map",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Map",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 37,
+    "kind": "external",
+    "name": "Set",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Set",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 38,
+    "kind": "external",
+    "name": "WeakMap",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~WeakMap",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 39,
+    "kind": "external",
+    "name": "WeakSet",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~WeakSet",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 40,
+    "kind": "external",
+    "name": "ArrayBuffer",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~ArrayBuffer",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 41,
+    "kind": "external",
+    "name": "DataView",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DataView",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~DataView",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 42,
+    "kind": "external",
+    "name": "JSON",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~JSON",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 43,
+    "kind": "external",
+    "name": "Promise",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Promise",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 44,
+    "kind": "external",
+    "name": "Generator",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Generator",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 45,
+    "kind": "external",
+    "name": "GeneratorFunction",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/GeneratorFunction",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~GeneratorFunction",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 46,
+    "kind": "external",
+    "name": "Reflect",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Reflect",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 47,
+    "kind": "external",
+    "name": "Proxy",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Proxy",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 48,
+    "kind": "file",
+    "name": "src/field.mapper.delegate.js",
+    "content": "'use strict'\n\nimport { PassthroughFieldMapper, CustomFieldMapper, SubTransformFieldMapper } from './fieldMapper'\nimport { PermissionRanking } from './permission'\n\nconst atOrAbove = 'atOrAbove'\nconst when = 'when'\nconst restrictTo = 'restrictTo'\n\n/**\n * FieldMapperDelegates provide the API for orchaestrating and arranging\n * FieldMappers on a Transformer. They should typically be used through the util module\n */\nclass FieldMapperDelegate {\n  /**\n   * @param {String} [sourceKey] - the key on the source object.\n   * @param {Array<String>} permissionRanking - a custom permission ranking to use to build\n   * the permission api.\n   */\n  constructor (sourceKey, permissionRanking) {\n    this.permissionRanking = permissionRanking || PermissionRanking\n\n    if (!permissionRanking) {\n      this._defaultPermissionRanking = true\n    }\n\n    this.setPermissionRanking()\n\n    this.sourceKey = sourceKey\n    this.delegate = {}\n  }\n\n  /**\n   * Indicate the following action should be used for every permission level\n   *\n   * @return {FieldMapperDelegate} this instance, so that calls can be chained\n   */\n  always () {\n    this.alwaysFlag = true\n    // doesn't matter what we set permission to since builder will be copied across all lvls\n    this.curPermissionLvl = this.permissionRanking[0]\n    return this\n  }\n\n  /**\n   * Indicate the following action should be used for the indicated permission level\n   *\n   * @param {String} permission - the permission level\n   *\n   * @return {FieldMapperDelegate} this instance, so that calls can be chained\n   */\n  when (permission) {\n    this.curPermissionLvl = permission\n    return this\n  }\n\n  /**\n   * Indicate the following action should be used for this permission level and above\n   *\n   * @param {String} permission - the permission level\n   *\n   * @return {FieldMapperDelegate} this instance, so that calls can be chained\n   */\n  atOrAbove (permission) {\n    let index = this.permissionRanking.indexOf(permission)\n    if (index === -1) {\n      throw new Error('Permission Lvl Not Found')\n    }\n    this.restrictAtOrAbove = index\n    this.curPermissionLvl = permission\n    return this\n  }\n\n  /**\n   * Indicate the following action should be used for this permission level and all others are set to null\n   *\n   * @param {String} permission - the permission level\n   *\n   * @return {FieldMapperDelegate} this instance, so that calls can be chained\n   */\n  restrictTo (permission) {\n    let index = this.permissionRanking.indexOf(permission)\n    if (index === -1) {\n      throw new Error('Permission Lvl Not Found')\n    }\n    this.restrict = index\n    this.curPermissionLvl = permission\n    return this\n  }\n\n  /**\n   * Assigns a PassthroughFieldMapper to the current permission masking\n   *\n   * @return {FieldMapperDelegate} this instance, so that calls can be chained\n   */\n  passthrough () {\n    this.delegate[this.curPermissionLvl] = new PassthroughFieldMapper()\n    this._checkAndReset(this.delegate[this.curPermissionLvl])\n    return this\n  }\n\n  /**\n   * Assign a CustomFieldMapper to the current permission masking\n   *\n   * @param {function (instance: Object, key: String, isList: boolean)} builder - the builder function to use when building this field\n   *\n   * @return {FieldMapperDelegate} this instance, so that calls can be chained\n   */\n  buildWith (builder) {\n    this.delegate[this.curPermissionLvl] = new CustomFieldMapper(builder)\n    this._checkAndReset(this.delegate[this.curPermissionLvl])\n    return this\n  }\n\n  /**\n   * Assign a SubtransformFieldMapper, indicated by @param transformerKey\n   * to the current permission masking.\n   *\n   * @param {String | Transformer | function (): any } transformerKey - the Transformer provider.\n   * @param {String} [permissionLvl] - If provided, the permission level is used to perform the subtransformation.\n   * By the default the parents permission level is used.\n   *\n   * @return {FieldMapperDelegate} this instance, so that calls can be chained\n   */\n  subTransform (transformerKey, permissionLvl) {\n    /**\n     * Set all permission lvls on this transform\n     * to transform the child object using the provided permissionLvl\n     */\n    if (permissionLvl) {\n      if (this.permissionRanking.indexOf(permissionLvl) === -1) {\n        throw new Error('Invalid permission lvl provided')\n      }\n      let mapper = new SubTransformFieldMapper(transformerKey, permissionLvl)\n      this.permissionRanking.forEach((curPermissionLvl) => {\n        // Using same mapper for each lvl on parent\n        this.delegate[curPermissionLvl] = mapper\n      })\n    } else {\n      // use parents permission lvl for each lvl\n      this.permissionRanking.forEach((curPermissionLvl) => {\n        this.delegate[curPermissionLvl] = new SubTransformFieldMapper(transformerKey, curPermissionLvl)\n      })\n    }\n    // reset always flag, since all lvls are set above\n    this.alwaysFlag = null\n\n    this._checkAndReset(this.delegate[this.curPermissionLvl])\n    return this\n  }\n\n  /**\n   * Set the isList falg to be passed to the FieldMapper ie. 1:M or M:M associations\n   *\n   * @return {FieldMapperDelegate} this instance, so that calls can be chained\n   */\n  asList () {\n    this.isList = true\n    return this\n  }\n\n  /**\n   * Perform the field transformation at the provided permission level\n   *\n   * @param {String} permission - The permission level to perform the transformation\n   * @param {Object} instance - the source object\n   *\n   * @return {Promise} the transformed value\n   */\n  transform (permission, instance) {\n    let fieldMapper = this.delegate[permission]\n\n    if (fieldMapper) {\n      // Map calls builder so always returns a Promise\n      return fieldMapper.map(instance, this.sourceKey, this.isList)\n    }\n    // Lacking permissions\n    return Promise.resolve()\n  }\n\n  setPermissionRanking () {\n    this.buildPermissionMethods()\n  }\n\n  /**\n   * Build the permission API for the provided permission ranking on the FieldMapperDelegate instance\n   */\n  buildPermissionMethods () {\n    if (!this.permissionRanking) {\n      return\n    }\n    // Dynamically add all of the permission methods to the FieldMapperDelegate Class\n    this.permissionRanking.forEach((permission) => {\n      let capitalize = (str) => {\n        return str.charAt(0).toUpperCase() + str.toLowerCase().slice(1)\n      }\n\n      // Add all atOrAbove_____ methods\n      this[`${atOrAbove}${capitalize(permission)}`] = () => {\n        return this.atOrAbove(permission)\n      }\n\n      // Add all when_____ methods\n      this[`${when}${capitalize(permission)}`] = () => {\n        return this.when(permission)\n      }\n\n      // Add all restrictTo_____ methods\n      this[`${restrictTo}${capitalize(permission)}`] = () => {\n        return this.restrictTo(permission)\n      }\n    })\n  }\n\n  /**\n   * Restrict transforming if needed. This will go back and null out some lvls we just set\n   * if that is desired.\n   */\n  _checkAndReset (fieldMapper) {\n    this._always()\n    this._restrictAtOrAbove(fieldMapper)\n    this._restrictTo(fieldMapper)\n    this.curPermissionLvl = null\n    this.alwaysFlag = null\n  }\n\n  /**\n   * Set all permission lvls to use the same field mapper if the always flag is set\n   */\n  _always () {\n    if (this.alwaysFlag) {\n      // Set the delegate for each permission lvl to the same delegate\n      this.permissionRanking.forEach((permission) => {\n        this.delegate[permission] = this.delegate[this.curPermissionLvl]\n      })\n    }\n  }\n\n  /**\n   * Restrict access all fields except specified permission lvl and above\n   *\n   * @param {FieldMapper} fieldMapper - the FieldMapper instance\n   */\n  _restrictAtOrAbove (fieldMapper) {\n    if (this.restrictAtOrAbove !== null && this.restrictAtOrAbove !== undefined) {\n      for (let i = 0; i < this.permissionRanking.length; i++) {\n        if (i < this.restrictAtOrAbove) {\n          this.delegate[this.permissionRanking[i]] = null\n          continue\n        }\n        this.delegate[this.permissionRanking[i]] = fieldMapper\n      }\n    }\n  }\n\n  /**\n   * Restrict access all fields except specified permission lvl\n   *\n   * @param {FieldMapper} fieldMapper - the FieldMapper instance\n   */\n  _restrictTo (fieldMapper) {\n    if (this.restrict !== null && this.restrict !== undefined) {\n      for (let i = 0; i < this.permissionRanking.length; i++) {\n        if (i !== this.restrict) {\n          this.delegate[this.permissionRanking[i]] = null\n          continue\n        }\n        this.delegate[this.permissionRanking[i]] = fieldMapper\n      }\n    }\n  }\n}\n\n/**\n * To prevent having mulitple duplicate default functions in memory for the default API\n * we add them on the prototype and check if they have been overwritten\n */\nPermissionRanking.forEach((permission) => {\n  let capitalize = (str) => {\n    return str.charAt(0).toUpperCase() + str.toLowerCase().slice(1)\n  }\n\n  // Add all atOrAbove_____ methods\n  FieldMapperDelegate.prototype[`${atOrAbove}${capitalize(permission)}`] = function () {\n    if (!this._defaultPermissionRanking) {\n      throw new Error('Cannot use overwritten default permission ranking API')\n    }\n    return this.atOrAbove(permission)\n  }\n\n  // Add all when_____ methods\n  FieldMapperDelegate.prototype[`${when}${capitalize(permission)}`] = function () {\n    if (!this._defaultPermissionRanking) {\n      throw new Error('Cannot use overwritten default permission ranking API')\n    }\n    return this.when(permission)\n  }\n\n  // Add all restrictTo_____ methods\n  FieldMapperDelegate.prototype[`${restrictTo}${capitalize(permission)}`] = function () {\n    if (!this._defaultPermissionRanking) {\n      throw new Error('Cannot use overwritten default permission ranking API')\n    }\n    return this.restrictTo(permission)\n  }\n})\n\nexport { FieldMapperDelegate }\n",
+    "static": true,
+    "longname": "/Users/tyler/Development/git/tilla/src/field.mapper.delegate.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 49,
+    "kind": "variable",
+    "name": "atOrAbove",
+    "memberof": "src/field.mapper.delegate.js",
+    "static": true,
+    "longname": "src/field.mapper.delegate.js~atOrAbove",
+    "access": "public",
+    "export": false,
+    "importPath": "tilla/src/field.mapper.delegate.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 6,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 50,
+    "kind": "variable",
+    "name": "when",
+    "memberof": "src/field.mapper.delegate.js",
+    "static": true,
+    "longname": "src/field.mapper.delegate.js~when",
+    "access": "public",
+    "export": false,
+    "importPath": "tilla/src/field.mapper.delegate.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 7,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 51,
+    "kind": "variable",
+    "name": "restrictTo",
+    "memberof": "src/field.mapper.delegate.js",
+    "static": true,
+    "longname": "src/field.mapper.delegate.js~restrictTo",
+    "access": "public",
+    "export": false,
+    "importPath": "tilla/src/field.mapper.delegate.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 8,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 52,
+    "kind": "class",
+    "name": "FieldMapperDelegate",
+    "memberof": "src/field.mapper.delegate.js",
+    "static": true,
+    "longname": "src/field.mapper.delegate.js~FieldMapperDelegate",
+    "access": "public",
+    "export": true,
+    "importPath": "tilla/src/field.mapper.delegate.js",
+    "importStyle": "{FieldMapperDelegate}",
+    "description": "FieldMapperDelegates provide the API for orchaestrating and arranging\nFieldMappers on a Transformer. They should typically be used through the util module",
+    "lineNumber": 14,
+    "interface": false
+  },
+  {
+    "__docId__": 53,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/field.mapper.delegate.js~FieldMapperDelegate",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/field.mapper.delegate.js~FieldMapperDelegate#constructor",
+    "access": "public",
+    "description": "",
+    "lineNumber": 20,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "String"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "sourceKey",
+        "description": "the key on the source object."
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Array<String>"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "permissionRanking",
+        "description": "a custom permission ranking to use to build\nthe permission api."
+      }
+    ]
+  },
+  {
+    "__docId__": 54,
+    "kind": "member",
+    "name": "permissionRanking",
+    "memberof": "src/field.mapper.delegate.js~FieldMapperDelegate",
+    "static": false,
+    "longname": "src/field.mapper.delegate.js~FieldMapperDelegate#permissionRanking",
+    "access": "public",
+    "description": null,
+    "lineNumber": 21,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 55,
+    "kind": "member",
+    "name": "_defaultPermissionRanking",
+    "memberof": "src/field.mapper.delegate.js~FieldMapperDelegate",
+    "static": false,
+    "longname": "src/field.mapper.delegate.js~FieldMapperDelegate#_defaultPermissionRanking",
+    "access": "private",
+    "description": null,
+    "lineNumber": 24,
+    "undocument": true,
+    "type": {
+      "types": [
+        "boolean"
+      ]
+    }
+  },
+  {
+    "__docId__": 56,
+    "kind": "member",
+    "name": "sourceKey",
+    "memberof": "src/field.mapper.delegate.js~FieldMapperDelegate",
+    "static": false,
+    "longname": "src/field.mapper.delegate.js~FieldMapperDelegate#sourceKey",
+    "access": "public",
+    "description": null,
+    "lineNumber": 29,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 57,
+    "kind": "member",
+    "name": "delegate",
+    "memberof": "src/field.mapper.delegate.js~FieldMapperDelegate",
+    "static": false,
+    "longname": "src/field.mapper.delegate.js~FieldMapperDelegate#delegate",
+    "access": "public",
+    "description": null,
+    "lineNumber": 30,
+    "undocument": true,
+    "type": {
+      "types": [
+        "{}"
+      ]
+    }
+  },
+  {
+    "__docId__": 58,
+    "kind": "method",
+    "name": "always",
+    "memberof": "src/field.mapper.delegate.js~FieldMapperDelegate",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/field.mapper.delegate.js~FieldMapperDelegate#always",
+    "access": "public",
+    "description": "Indicate the following action should be used for every permission level",
+    "lineNumber": 38,
+    "return": {
+      "nullable": null,
+      "types": [
+        "FieldMapperDelegate"
+      ],
+      "spread": false,
+      "description": "this instance, so that calls can be chained"
+    },
+    "params": []
+  },
+  {
+    "__docId__": 59,
+    "kind": "member",
+    "name": "alwaysFlag",
+    "memberof": "src/field.mapper.delegate.js~FieldMapperDelegate",
+    "static": false,
+    "longname": "src/field.mapper.delegate.js~FieldMapperDelegate#alwaysFlag",
+    "access": "public",
+    "description": null,
+    "lineNumber": 39,
+    "undocument": true,
+    "type": {
+      "types": [
+        "boolean"
+      ]
+    }
+  },
+  {
+    "__docId__": 60,
+    "kind": "member",
+    "name": "curPermissionLvl",
+    "memberof": "src/field.mapper.delegate.js~FieldMapperDelegate",
+    "static": false,
+    "longname": "src/field.mapper.delegate.js~FieldMapperDelegate#curPermissionLvl",
+    "access": "public",
+    "description": null,
+    "lineNumber": 41,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 61,
+    "kind": "method",
+    "name": "when",
+    "memberof": "src/field.mapper.delegate.js~FieldMapperDelegate",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/field.mapper.delegate.js~FieldMapperDelegate#when",
+    "access": "public",
+    "description": "Indicate the following action should be used for the indicated permission level",
+    "lineNumber": 52,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "String"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "permission",
+        "description": "the permission level"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "FieldMapperDelegate"
+      ],
+      "spread": false,
+      "description": "this instance, so that calls can be chained"
+    }
+  },
+  {
+    "__docId__": 63,
+    "kind": "method",
+    "name": "atOrAbove",
+    "memberof": "src/field.mapper.delegate.js~FieldMapperDelegate",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/field.mapper.delegate.js~FieldMapperDelegate#atOrAbove",
+    "access": "public",
+    "description": "Indicate the following action should be used for this permission level and above",
+    "lineNumber": 64,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "String"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "permission",
+        "description": "the permission level"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "FieldMapperDelegate"
+      ],
+      "spread": false,
+      "description": "this instance, so that calls can be chained"
+    }
+  },
+  {
+    "__docId__": 64,
+    "kind": "member",
+    "name": "restrictAtOrAbove",
+    "memberof": "src/field.mapper.delegate.js~FieldMapperDelegate",
+    "static": false,
+    "longname": "src/field.mapper.delegate.js~FieldMapperDelegate#restrictAtOrAbove",
+    "access": "public",
+    "description": null,
+    "lineNumber": 69,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 66,
+    "kind": "method",
+    "name": "restrictTo",
+    "memberof": "src/field.mapper.delegate.js~FieldMapperDelegate",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/field.mapper.delegate.js~FieldMapperDelegate#restrictTo",
+    "access": "public",
+    "description": "Indicate the following action should be used for this permission level and all others are set to null",
+    "lineNumber": 81,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "String"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "permission",
+        "description": "the permission level"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "FieldMapperDelegate"
+      ],
+      "spread": false,
+      "description": "this instance, so that calls can be chained"
+    }
+  },
+  {
+    "__docId__": 67,
+    "kind": "member",
+    "name": "restrict",
+    "memberof": "src/field.mapper.delegate.js~FieldMapperDelegate",
+    "static": false,
+    "longname": "src/field.mapper.delegate.js~FieldMapperDelegate#restrict",
+    "access": "public",
+    "description": null,
+    "lineNumber": 86,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 69,
+    "kind": "method",
+    "name": "passthrough",
+    "memberof": "src/field.mapper.delegate.js~FieldMapperDelegate",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/field.mapper.delegate.js~FieldMapperDelegate#passthrough",
+    "access": "public",
+    "description": "Assigns a PassthroughFieldMapper to the current permission masking",
+    "lineNumber": 96,
+    "return": {
+      "nullable": null,
+      "types": [
+        "FieldMapperDelegate"
+      ],
+      "spread": false,
+      "description": "this instance, so that calls can be chained"
+    },
+    "params": []
+  },
+  {
+    "__docId__": 70,
+    "kind": "method",
+    "name": "buildWith",
+    "memberof": "src/field.mapper.delegate.js~FieldMapperDelegate",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/field.mapper.delegate.js~FieldMapperDelegate#buildWith",
+    "access": "public",
+    "description": "Assign a CustomFieldMapper to the current permission masking",
+    "lineNumber": 109,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "function (instance: Object, key: String, isList: boolean)"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "builder",
+        "description": "the builder function to use when building this field"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "FieldMapperDelegate"
+      ],
+      "spread": false,
+      "description": "this instance, so that calls can be chained"
+    }
+  },
+  {
+    "__docId__": 71,
+    "kind": "method",
+    "name": "subTransform",
+    "memberof": "src/field.mapper.delegate.js~FieldMapperDelegate",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/field.mapper.delegate.js~FieldMapperDelegate#subTransform",
+    "access": "public",
+    "description": "Assign a SubtransformFieldMapper, indicated by @param transformerKey\nto the current permission masking.",
+    "lineNumber": 125,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "String ",
+          " Transformer ",
+          " function (): any "
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "transformerKey",
+        "description": "the Transformer provider."
+      },
+      {
+        "nullable": null,
+        "types": [
+          "String"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "permissionLvl",
+        "description": "If provided, the permission level is used to perform the subtransformation.\nBy the default the parents permission level is used."
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "FieldMapperDelegate"
+      ],
+      "spread": false,
+      "description": "this instance, so that calls can be chained"
+    }
+  },
+  {
+    "__docId__": 73,
+    "kind": "method",
+    "name": "asList",
+    "memberof": "src/field.mapper.delegate.js~FieldMapperDelegate",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/field.mapper.delegate.js~FieldMapperDelegate#asList",
+    "access": "public",
+    "description": "Set the isList falg to be passed to the FieldMapper ie. 1:M or M:M associations",
+    "lineNumber": 157,
+    "return": {
+      "nullable": null,
+      "types": [
+        "FieldMapperDelegate"
+      ],
+      "spread": false,
+      "description": "this instance, so that calls can be chained"
+    },
+    "params": []
+  },
+  {
+    "__docId__": 74,
+    "kind": "member",
+    "name": "isList",
+    "memberof": "src/field.mapper.delegate.js~FieldMapperDelegate",
+    "static": false,
+    "longname": "src/field.mapper.delegate.js~FieldMapperDelegate#isList",
+    "access": "public",
+    "description": null,
+    "lineNumber": 158,
+    "undocument": true,
+    "type": {
+      "types": [
+        "boolean"
+      ]
+    }
+  },
+  {
+    "__docId__": 75,
+    "kind": "method",
+    "name": "transform",
+    "memberof": "src/field.mapper.delegate.js~FieldMapperDelegate",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/field.mapper.delegate.js~FieldMapperDelegate#transform",
+    "access": "public",
+    "description": "Perform the field transformation at the provided permission level",
+    "lineNumber": 170,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "String"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "permission",
+        "description": "The permission level to perform the transformation"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "instance",
+        "description": "the source object"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise"
+      ],
+      "spread": false,
+      "description": "the transformed value"
+    }
+  },
+  {
+    "__docId__": 76,
+    "kind": "method",
+    "name": "setPermissionRanking",
+    "memberof": "src/field.mapper.delegate.js~FieldMapperDelegate",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/field.mapper.delegate.js~FieldMapperDelegate#setPermissionRanking",
+    "access": "public",
+    "description": null,
+    "lineNumber": 181,
+    "undocument": true,
+    "params": [],
+    "return": null
+  },
+  {
+    "__docId__": 77,
+    "kind": "method",
+    "name": "buildPermissionMethods",
+    "memberof": "src/field.mapper.delegate.js~FieldMapperDelegate",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/field.mapper.delegate.js~FieldMapperDelegate#buildPermissionMethods",
+    "access": "public",
+    "description": "Build the permission API for the provided permission ranking on the FieldMapperDelegate instance",
+    "lineNumber": 188,
+    "params": [],
+    "return": null
+  },
+  {
+    "__docId__": 78,
+    "kind": "member",
+    "name": "[`${atOrAbove}${capitalize(permission)}`]",
+    "memberof": "src/field.mapper.delegate.js~FieldMapperDelegate",
+    "static": false,
+    "longname": "src/field.mapper.delegate.js~FieldMapperDelegate#[`${atOrAbove}${capitalize(permission)}`]",
+    "access": "public",
+    "description": null,
+    "lineNumber": 199,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 79,
+    "kind": "member",
+    "name": "[`${when}${capitalize(permission)}`]",
+    "memberof": "src/field.mapper.delegate.js~FieldMapperDelegate",
+    "static": false,
+    "longname": "src/field.mapper.delegate.js~FieldMapperDelegate#[`${when}${capitalize(permission)}`]",
+    "access": "public",
+    "description": null,
+    "lineNumber": 204,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 80,
+    "kind": "member",
+    "name": "[`${restrictTo}${capitalize(permission)}`]",
+    "memberof": "src/field.mapper.delegate.js~FieldMapperDelegate",
+    "static": false,
+    "longname": "src/field.mapper.delegate.js~FieldMapperDelegate#[`${restrictTo}${capitalize(permission)}`]",
+    "access": "public",
+    "description": null,
+    "lineNumber": 209,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 81,
+    "kind": "method",
+    "name": "_checkAndReset",
+    "memberof": "src/field.mapper.delegate.js~FieldMapperDelegate",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/field.mapper.delegate.js~FieldMapperDelegate#_checkAndReset",
+    "access": "private",
+    "description": "Restrict transforming if needed. This will go back and null out some lvls we just set\nif that is desired.",
+    "lineNumber": 219,
+    "params": [
+      {
+        "name": "fieldMapper",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 84,
+    "kind": "method",
+    "name": "_always",
+    "memberof": "src/field.mapper.delegate.js~FieldMapperDelegate",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/field.mapper.delegate.js~FieldMapperDelegate#_always",
+    "access": "private",
+    "description": "Set all permission lvls to use the same field mapper if the always flag is set",
+    "lineNumber": 230,
+    "params": [],
+    "return": null
+  },
+  {
+    "__docId__": 85,
+    "kind": "method",
+    "name": "_restrictAtOrAbove",
+    "memberof": "src/field.mapper.delegate.js~FieldMapperDelegate",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/field.mapper.delegate.js~FieldMapperDelegate#_restrictAtOrAbove",
+    "access": "private",
+    "description": "Restrict access all fields except specified permission lvl and above",
+    "lineNumber": 244,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "FieldMapper"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "fieldMapper",
+        "description": "the FieldMapper instance"
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 86,
+    "kind": "method",
+    "name": "_restrictTo",
+    "memberof": "src/field.mapper.delegate.js~FieldMapperDelegate",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/field.mapper.delegate.js~FieldMapperDelegate#_restrictTo",
+    "access": "private",
+    "description": "Restrict access all fields except specified permission lvl",
+    "lineNumber": 261,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "FieldMapper"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "fieldMapper",
+        "description": "the FieldMapper instance"
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 87,
+    "kind": "file",
+    "name": "src/fieldMapper/custom.field.mapper.js",
+    "content": "'use strict'\n\nimport { FieldMapper } from './field.mapper'\n\nclass CustomFieldMapper extends FieldMapper {\n  /**\n   * Uses a custom builder to produce the transformed value.\n   * Sometimes the src key is not needed, ie. in the case that the transformed\n   * value is derived from multiple keys on the instance\n   *\n   * @param {function (instance: Object, ?key: String, ?isList: boolean)} builder - the custom builder function.\n   * Must take at least one argument (instance)\n   */\n  constructor (builder) {\n    super()\n\n    this._builder = builder\n  }\n\n  /**\n   * @param {Object} instance - the source object.\n   * @param {?String} key - a key on the source object that can be used to retrieve the field value.\n   * @param {?boolean} isList - whether the value being transformed should be iterated into the builder.\n   *\n   * @return {Promise} a Promise that resolves to the transformed value.\n   */\n  builder (instance, key, isList) {\n    return this._builder(instance, key, isList)\n  }\n}\n\nexport { CustomFieldMapper }\n",
+    "static": true,
+    "longname": "/Users/tyler/Development/git/tilla/src/fieldMapper/custom.field.mapper.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 88,
+    "kind": "class",
+    "name": "CustomFieldMapper",
+    "memberof": "src/fieldMapper/custom.field.mapper.js",
+    "static": true,
+    "longname": "src/fieldMapper/custom.field.mapper.js~CustomFieldMapper",
+    "access": "public",
+    "export": true,
+    "importPath": "tilla/src/fieldMapper/custom.field.mapper.js",
+    "importStyle": "{CustomFieldMapper}",
+    "description": null,
+    "lineNumber": 5,
+    "undocument": true,
+    "interface": false,
+    "extends": [
+      "src/fieldMapper/field.mapper~FieldMapper"
+    ]
+  },
+  {
+    "__docId__": 89,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/fieldMapper/custom.field.mapper.js~CustomFieldMapper",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/fieldMapper/custom.field.mapper.js~CustomFieldMapper#constructor",
+    "access": "public",
+    "description": "Uses a custom builder to produce the transformed value.\nSometimes the src key is not needed, ie. in the case that the transformed\nvalue is derived from multiple keys on the instance",
+    "lineNumber": 14,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "function (instance: Object, ?key: String, ?isList: boolean)"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "builder",
+        "description": "the custom builder function.\nMust take at least one argument (instance)"
+      }
+    ]
+  },
+  {
+    "__docId__": 90,
+    "kind": "member",
+    "name": "_builder",
+    "memberof": "src/fieldMapper/custom.field.mapper.js~CustomFieldMapper",
+    "static": false,
+    "longname": "src/fieldMapper/custom.field.mapper.js~CustomFieldMapper#_builder",
+    "access": "private",
+    "description": null,
+    "lineNumber": 17,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 91,
+    "kind": "method",
+    "name": "builder",
+    "memberof": "src/fieldMapper/custom.field.mapper.js~CustomFieldMapper",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/fieldMapper/custom.field.mapper.js~CustomFieldMapper#builder",
+    "access": "public",
+    "description": "",
+    "lineNumber": 27,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "instance",
+        "description": "the source object."
+      },
+      {
+        "nullable": true,
+        "types": [
+          "String"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "key",
+        "description": "a key on the source object that can be used to retrieve the field value."
+      },
+      {
+        "nullable": true,
+        "types": [
+          "boolean"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "isList",
+        "description": "whether the value being transformed should be iterated into the builder."
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise"
+      ],
+      "spread": false,
+      "description": "a Promise that resolves to the transformed value."
+    }
+  },
+  {
+    "__docId__": 92,
+    "kind": "file",
+    "name": "src/fieldMapper/field.mapper.js",
+    "content": "'use strict'\n\nimport Promise from 'bluebird'\n\nclass FieldMapper {\n  /**\n   * Call the builder passing in the instance, key on the instance to transform and\n   * the isList flag. Calls to the builder are wrapped in a Promise to ensure a Promise\n   * is always returned.\n   *\n   * @param {Object} instance - the source object.\n   * @param {String} [key] - the key to provide to the builder.\n   * @param {boolean} [isList] - whether the value being transformed should be iterated into the builder.\n   *\n   * @return {Promise} the transformed value.\n   */\n  map (instance, key, isList) {\n    if (typeof instance.get === 'function') {\n      return Promise.resolve(this.builder(instance.get(), key, isList))\n    }\n    return Promise.resolve(this.builder(instance, key, isList))\n  }\n\n  /**\n   * This method must be implemented by all mappers. Otherwise, an error is thrown\n   *\n   * @throws {Error} throw when this method isn't implemented\n   */\n  builder () {\n    return Promise.reject(new Error('This Must Be Implemented'))\n  }\n}\n\nexport { FieldMapper }\n",
+    "static": true,
+    "longname": "/Users/tyler/Development/git/tilla/src/fieldMapper/field.mapper.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 93,
+    "kind": "class",
+    "name": "FieldMapper",
+    "memberof": "src/fieldMapper/field.mapper.js",
+    "static": true,
+    "longname": "src/fieldMapper/field.mapper.js~FieldMapper",
+    "access": "public",
+    "export": true,
+    "importPath": "tilla/src/fieldMapper/field.mapper.js",
+    "importStyle": "{FieldMapper}",
+    "description": null,
+    "lineNumber": 5,
+    "undocument": true,
+    "interface": false
+  },
+  {
+    "__docId__": 94,
+    "kind": "method",
+    "name": "map",
+    "memberof": "src/fieldMapper/field.mapper.js~FieldMapper",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/fieldMapper/field.mapper.js~FieldMapper#map",
+    "access": "public",
+    "description": "Call the builder passing in the instance, key on the instance to transform and\nthe isList flag. Calls to the builder are wrapped in a Promise to ensure a Promise\nis always returned.",
+    "lineNumber": 17,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "instance",
+        "description": "the source object."
+      },
+      {
+        "nullable": null,
+        "types": [
+          "String"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "key",
+        "description": "the key to provide to the builder."
+      },
+      {
+        "nullable": null,
+        "types": [
+          "boolean"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "isList",
+        "description": "whether the value being transformed should be iterated into the builder."
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise"
+      ],
+      "spread": false,
+      "description": "the transformed value."
+    }
+  },
+  {
+    "__docId__": 95,
+    "kind": "method",
+    "name": "builder",
+    "memberof": "src/fieldMapper/field.mapper.js~FieldMapper",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/fieldMapper/field.mapper.js~FieldMapper#builder",
+    "access": "public",
+    "description": "This method must be implemented by all mappers. Otherwise, an error is thrown",
+    "lineNumber": 29,
+    "throws": [
+      {
+        "types": [
+          "Error"
+        ],
+        "description": "throw when this method isn't implemented"
+      }
+    ],
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 96,
+    "kind": "file",
+    "name": "src/fieldMapper/index.js",
+    "content": "'use strict'\n\nimport { FieldMapper } from './field.mapper'\nimport { PassthroughFieldMapper } from './passthrough.field.mapper'\nimport { CustomFieldMapper } from './custom.field.mapper'\nimport { SubTransformFieldMapper } from './subtransform.field.mapper'\n\nexport {\n  FieldMapper,\n  PassthroughFieldMapper,\n  CustomFieldMapper,\n  SubTransformFieldMapper\n}\n",
+    "static": true,
+    "longname": "/Users/tyler/Development/git/tilla/src/fieldMapper/index.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 97,
+    "kind": "file",
+    "name": "src/fieldMapper/passthrough.field.mapper.js",
+    "content": "'use strict'\n\nimport { FieldMapper } from './field.mapper'\n\n/**\n * Mapper that just returns the value at the specified key\n * on the provided source object\n */\nclass PassthroughFieldMapper extends FieldMapper {\n  /**\n   * Simply resolve the value at this key on the source object.\n   *\n   * @param {Object} instance - the source object.\n   * @param {String} key - the key on the source whose value is being transformed.\n   *\n   * @return {Promise} a Promise that resolves to the value at that key on the source object.\n   */\n  builder (instance, key) {\n    return Promise.resolve(instance[key])\n  }\n}\n\nexport { PassthroughFieldMapper }\n",
+    "static": true,
+    "longname": "/Users/tyler/Development/git/tilla/src/fieldMapper/passthrough.field.mapper.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 98,
+    "kind": "class",
+    "name": "PassthroughFieldMapper",
+    "memberof": "src/fieldMapper/passthrough.field.mapper.js",
+    "static": true,
+    "longname": "src/fieldMapper/passthrough.field.mapper.js~PassthroughFieldMapper",
+    "access": "public",
+    "export": true,
+    "importPath": "tilla/src/fieldMapper/passthrough.field.mapper.js",
+    "importStyle": "{PassthroughFieldMapper}",
+    "description": "Mapper that just returns the value at the specified key\non the provided source object",
+    "lineNumber": 9,
+    "interface": false,
+    "extends": [
+      "src/fieldMapper/field.mapper~FieldMapper"
+    ]
+  },
+  {
+    "__docId__": 99,
+    "kind": "method",
+    "name": "builder",
+    "memberof": "src/fieldMapper/passthrough.field.mapper.js~PassthroughFieldMapper",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/fieldMapper/passthrough.field.mapper.js~PassthroughFieldMapper#builder",
+    "access": "public",
+    "description": "Simply resolve the value at this key on the source object.",
+    "lineNumber": 18,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "instance",
+        "description": "the source object."
+      },
+      {
+        "nullable": null,
+        "types": [
+          "String"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "key",
+        "description": "the key on the source whose value is being transformed."
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise"
+      ],
+      "spread": false,
+      "description": "a Promise that resolves to the value at that key on the source object."
+    }
+  },
+  {
+    "__docId__": 100,
+    "kind": "file",
+    "name": "src/fieldMapper/subtransform.field.mapper.js",
+    "content": "'use strict'\n\nimport Promise from 'bluebird'\n\nimport { FieldMapper } from './field.mapper'\nimport { Transformer } from '../transformer'\nimport { registry } from '../registry'\n\n/**\n * A FieldMapper that uses a Transformer to map the field\n */\nclass SubTransformFieldMapper extends FieldMapper {\n  /**\n  * @param {String | Transformer | function (): Promise<Transformer> } transformKey -\n  *  If a String, it should be a key to locate the Transformer in the TransformerRegistry\n  *  - The Transformer instance to use to perform the transformation\n  *  - A function which returns a Promise<Transformer>\n  * @param {PermissionLvl} permission - the permission to bind to the transformer function on the dto.\n  */\n  constructor (transformKey, permission) {\n    super()\n    this.transformer = null\n    this.transformKey = transformKey\n    this.permission = permission\n  }\n\n  /**\n  * Transform the field on the instance, using another {@link Transformer}. This can be used when transforming\n  * eargerly loaded relations on an instance ie. Family -> Person or obviously values\n  * we would like to transform using a prebuilt {@link Transformer}.\n  *\n  * If the value being transformed is an Instance (Sequelize), we call its\n  * get() method to invoke all getters on fields and strip other Sequelize stuff off of\n  * the data before transforming it. @see http://docs.sequelizejs.com/class/lib/model.js~Model.html#instance-method-get\n  *\n  * @param {Object} instance - the source object.\n  * @param {?String} key - a key on the source object that can be used to retrieve the field value.\n  * @param {?boolean} isList - whether the value being transformed should be iterated into the builder.\n  *\n  * @return {Promise} a Promise that resolves to the transformed value.\n  */\n  builder (instance, key, isList) {\n    // Transformer binds once at runtime\n    return new Promise((resolve) => {\n      if (!this.transformer) {\n        resolve(this._setTransformer())\n        return\n      }\n      resolve()\n    }).then(() => {\n      if (isList) {\n        let list = instance[key]\n        if (!list) {\n          return Promise.resolve(list)\n        }\n        return Promise.map(list, (cur) => {\n          // check if value at this key is another Instance and must call get\n          if (typeof cur.get === 'function') {\n            return this.transformer.transform(this.permission, cur.get())\n          }\n          return this.transformer.transform(this.permission, cur)\n        })\n      }\n      // Key may not be on the instance\n      if (!instance[key]) {\n        return Promise.resolve(instance[key])\n      }\n\n      // check if value at this key is another Instance and must call get\n      if (typeof instance[key].get === 'function') {\n        return this.transformer.transform(this.permission, instance[key].get())\n      }\n      return this.transformer.transform(this.permission, instance[key])\n    })\n  }\n\n  _setTransformer () {\n    // Using registry\n    if (typeof this.transformKey === 'string') {\n      this.transformer = registry.getTransformer(this.transformKey)\n      return Promise.resolve()\n    }\n\n    // Passed Transformer directly\n    if (this.transformKey instanceof Transformer) {\n      this.transformer = this.transformKey\n      return Promise.resolve()\n    }\n\n    // Passed thunk which returns Promise<Transformer>\n    if (typeof this.transformKey === 'function') {\n      return this.transformKey().then((transformer) => {\n        this.transformer = transformer\n      })\n    }\n\n    throw new Error('No transformKey provided')\n  }\n}\n\nexport { SubTransformFieldMapper }\n",
+    "static": true,
+    "longname": "/Users/tyler/Development/git/tilla/src/fieldMapper/subtransform.field.mapper.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 101,
+    "kind": "class",
+    "name": "SubTransformFieldMapper",
+    "memberof": "src/fieldMapper/subtransform.field.mapper.js",
+    "static": true,
+    "longname": "src/fieldMapper/subtransform.field.mapper.js~SubTransformFieldMapper",
+    "access": "public",
+    "export": true,
+    "importPath": "tilla/src/fieldMapper/subtransform.field.mapper.js",
+    "importStyle": "{SubTransformFieldMapper}",
+    "description": "A FieldMapper that uses a Transformer to map the field",
+    "lineNumber": 12,
+    "interface": false,
+    "extends": [
+      "src/fieldMapper/field.mapper~FieldMapper"
+    ]
+  },
+  {
+    "__docId__": 102,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/fieldMapper/subtransform.field.mapper.js~SubTransformFieldMapper",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/fieldMapper/subtransform.field.mapper.js~SubTransformFieldMapper#constructor",
+    "access": "public",
+    "description": "",
+    "lineNumber": 20,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "String ",
+          " Transformer ",
+          " function (): Promise<Transformer> "
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "transformKey",
+        "description": "If a String, it should be a key to locate the Transformer in the TransformerRegistry\n - The Transformer instance to use to perform the transformation\n - A function which returns a Promise<Transformer>"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "PermissionLvl"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "permission",
+        "description": "the permission to bind to the transformer function on the dto."
+      }
+    ]
+  },
+  {
+    "__docId__": 103,
+    "kind": "member",
+    "name": "transformer",
+    "memberof": "src/fieldMapper/subtransform.field.mapper.js~SubTransformFieldMapper",
+    "static": false,
+    "longname": "src/fieldMapper/subtransform.field.mapper.js~SubTransformFieldMapper#transformer",
+    "access": "public",
+    "description": null,
+    "lineNumber": 22,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 104,
+    "kind": "member",
+    "name": "transformKey",
+    "memberof": "src/fieldMapper/subtransform.field.mapper.js~SubTransformFieldMapper",
+    "static": false,
+    "longname": "src/fieldMapper/subtransform.field.mapper.js~SubTransformFieldMapper#transformKey",
+    "access": "public",
+    "description": null,
+    "lineNumber": 23,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 105,
+    "kind": "member",
+    "name": "permission",
+    "memberof": "src/fieldMapper/subtransform.field.mapper.js~SubTransformFieldMapper",
+    "static": false,
+    "longname": "src/fieldMapper/subtransform.field.mapper.js~SubTransformFieldMapper#permission",
+    "access": "public",
+    "description": null,
+    "lineNumber": 24,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 106,
+    "kind": "method",
+    "name": "builder",
+    "memberof": "src/fieldMapper/subtransform.field.mapper.js~SubTransformFieldMapper",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/fieldMapper/subtransform.field.mapper.js~SubTransformFieldMapper#builder",
+    "access": "public",
+    "description": "Transform the field on the instance, using another {@link Transformer}. This can be used when transforming\neargerly loaded relations on an instance ie. Family -> Person or obviously values\nwe would like to transform using a prebuilt {@link Transformer}.\n\nIf the value being transformed is an Instance (Sequelize), we call its\nget() method to invoke all getters on fields and strip other Sequelize stuff off of\nthe data before transforming it. @see http://docs.sequelizejs.com/class/lib/model.js~Model.html#instance-method-get",
+    "lineNumber": 42,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "instance",
+        "description": "the source object."
+      },
+      {
+        "nullable": true,
+        "types": [
+          "String"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "key",
+        "description": "a key on the source object that can be used to retrieve the field value."
+      },
+      {
+        "nullable": true,
+        "types": [
+          "boolean"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "isList",
+        "description": "whether the value being transformed should be iterated into the builder."
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise"
+      ],
+      "spread": false,
+      "description": "a Promise that resolves to the transformed value."
+    }
+  },
+  {
+    "__docId__": 107,
+    "kind": "method",
+    "name": "_setTransformer",
+    "memberof": "src/fieldMapper/subtransform.field.mapper.js~SubTransformFieldMapper",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/fieldMapper/subtransform.field.mapper.js~SubTransformFieldMapper#_setTransformer",
+    "access": "private",
+    "description": null,
+    "lineNumber": 77,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 111,
+    "kind": "file",
+    "name": "src/index.js",
+    "content": "'use strict'\n\nimport '@babel/polyfill'\n\nimport { TransformerRegistry, registry } from './registry'\nimport { Transformer } from './transformer'\nimport { PermissionLvl } from './permission'\nimport { fieldDelegate } from './utils'\n\nexport {\n  registry,\n  Transformer,\n  PermissionLvl,\n  fieldDelegate,\n  TransformerRegistry\n}\n",
+    "static": true,
+    "longname": "/Users/tyler/Development/git/tilla/src/index.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 112,
+    "kind": "file",
+    "name": "src/permission/field.permission.lvl.js",
+    "content": "'use strict'\n\n/**\n * Default Permission Levels\n */\nexport const PUBLIC = 'PUBLIC'\nexport const PRIVILEGED = 'PRIVILEGED'\nexport const PRIVATE = 'PRIVATE'\nexport const ADMIN = 'ADMIN'\n",
+    "static": true,
+    "longname": "/Users/tyler/Development/git/tilla/src/permission/field.permission.lvl.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 113,
+    "kind": "variable",
+    "name": "PUBLIC",
+    "memberof": "src/permission/field.permission.lvl.js",
+    "static": true,
+    "longname": "src/permission/field.permission.lvl.js~PUBLIC",
+    "access": "public",
+    "export": true,
+    "importPath": "tilla/src/permission/field.permission.lvl.js",
+    "importStyle": "{PUBLIC}",
+    "description": "Default Permission Levels",
+    "lineNumber": 6,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 114,
+    "kind": "variable",
+    "name": "PRIVILEGED",
+    "memberof": "src/permission/field.permission.lvl.js",
+    "static": true,
+    "longname": "src/permission/field.permission.lvl.js~PRIVILEGED",
+    "access": "public",
+    "export": true,
+    "importPath": "tilla/src/permission/field.permission.lvl.js",
+    "importStyle": "{PRIVILEGED}",
+    "description": null,
+    "lineNumber": 7,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 115,
+    "kind": "variable",
+    "name": "PRIVATE",
+    "memberof": "src/permission/field.permission.lvl.js",
+    "static": true,
+    "longname": "src/permission/field.permission.lvl.js~PRIVATE",
+    "access": "public",
+    "export": true,
+    "importPath": "tilla/src/permission/field.permission.lvl.js",
+    "importStyle": "{PRIVATE}",
+    "description": null,
+    "lineNumber": 8,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 116,
+    "kind": "variable",
+    "name": "ADMIN",
+    "memberof": "src/permission/field.permission.lvl.js",
+    "static": true,
+    "longname": "src/permission/field.permission.lvl.js~ADMIN",
+    "access": "public",
+    "export": true,
+    "importPath": "tilla/src/permission/field.permission.lvl.js",
+    "importStyle": "{ADMIN}",
+    "description": null,
+    "lineNumber": 9,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 117,
+    "kind": "file",
+    "name": "src/permission/index.js",
+    "content": "'use strict'\n\nimport * as PermissionLvl from './field.permission.lvl'\nimport { defaultRankings as PermissionRanking } from './permission.ranking'\n\nexport {\n  PermissionLvl,\n  PermissionRanking\n}\n",
+    "static": true,
+    "longname": "/Users/tyler/Development/git/tilla/src/permission/index.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 118,
+    "kind": "file",
+    "name": "src/permission/permission.ranking.js",
+    "content": "'use strict'\n\nimport { PUBLIC, PRIVILEGED, PRIVATE, ADMIN } from './field.permission.lvl'\n\n/**\n * Default Permission Ranking\n */\nexport const defaultRankings = [PUBLIC, PRIVILEGED, PRIVATE, ADMIN]\n",
+    "static": true,
+    "longname": "/Users/tyler/Development/git/tilla/src/permission/permission.ranking.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 119,
+    "kind": "variable",
+    "name": "defaultRankings",
+    "memberof": "src/permission/permission.ranking.js",
+    "static": true,
+    "longname": "src/permission/permission.ranking.js~defaultRankings",
+    "access": "public",
+    "export": true,
+    "importPath": "tilla/src/permission/permission.ranking.js",
+    "importStyle": "{defaultRankings}",
+    "description": "Default Permission Ranking",
+    "lineNumber": 8,
+    "type": {
+      "types": [
+        "undefined[]"
+      ]
+    }
+  },
+  {
+    "__docId__": 120,
+    "kind": "file",
+    "name": "src/registry/index.js",
+    "content": "\nimport { TransformerRegistry } from './transformer.registry'\n\nlet registry = new TransformerRegistry()\n\nexport {\n  registry,\n  TransformerRegistry\n}\n",
+    "static": true,
+    "longname": "/Users/tyler/Development/git/tilla/src/registry/index.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 121,
+    "kind": "variable",
+    "name": "registry",
+    "memberof": "src/registry/index.js",
+    "static": true,
+    "longname": "src/registry/index.js~registry",
+    "access": "public",
+    "export": true,
+    "importPath": "tilla/src/registry/index.js",
+    "importStyle": "{registry}",
+    "description": null,
+    "lineNumber": 4,
+    "undocument": true,
+    "type": {
+      "types": [
+        "src/registry/transformer.registry.js~TransformerRegistry"
+      ]
+    }
+  },
+  {
+    "__docId__": 122,
+    "kind": "file",
+    "name": "src/registry/transformer.registry.js",
+    "content": "'use strict'\n\n/**\n * A registry that can be used to register all Transformers. This registry\n * is tied directly into FieldMapperDelegates and can be used to perform\n * subtransformations\n */\nclass TransformerRegistry {\n  /**\n   * @param {String} [debuggerName] - the name to use for debug logging\n   */\n  constructor (debuggerName) {\n    this.registry = {}\n    this.debug = require('debug')(debuggerName || 'transformer.registry')\n  }\n\n  /**\n   * Register the Transformer at the provided the key in the registry\n   *\n   * @param {String} key - the key to use to register the Transformer.\n   * @param {Transformer} transformer - the Transformer instance.\n   */\n  register (key, transformer) {\n    this.debug(`Registering transform at key: ${key}`)\n    this.registry[key] = transformer\n  }\n\n  /**\n   * Retrieve the Transformer at the provided the key in the registry\n   *\n   * @param {String} key - the key that references the Transformer in the registry\n   *\n   * @return {Transformer | undefined} the transformer\n   */\n  getTransformer (key) {\n    return this.registry[key]\n  }\n\n  /**\n   * Alias for getTransformer()\n   *\n   * @see {TransformerRegistry#getTransformer}\n   */\n  transformer (key) {\n    return this.getTransformer(key)\n  }\n\n  /**\n   * Clear all Transformers from the registry\n   */\n  clear () {\n    delete this.registry\n    this.registry = {}\n  }\n}\n\nexport { TransformerRegistry }\n",
+    "static": true,
+    "longname": "/Users/tyler/Development/git/tilla/src/registry/transformer.registry.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 123,
+    "kind": "class",
+    "name": "TransformerRegistry",
+    "memberof": "src/registry/transformer.registry.js",
+    "static": true,
+    "longname": "src/registry/transformer.registry.js~TransformerRegistry",
+    "access": "public",
+    "export": true,
+    "importPath": "tilla/src/registry/transformer.registry.js",
+    "importStyle": "{TransformerRegistry}",
+    "description": "A registry that can be used to register all Transformers. This registry\nis tied directly into FieldMapperDelegates and can be used to perform\nsubtransformations",
+    "lineNumber": 8,
+    "interface": false
+  },
+  {
+    "__docId__": 124,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/registry/transformer.registry.js~TransformerRegistry",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/registry/transformer.registry.js~TransformerRegistry#constructor",
+    "access": "public",
+    "description": "",
+    "lineNumber": 12,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "String"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "debuggerName",
+        "description": "the name to use for debug logging"
+      }
+    ]
+  },
+  {
+    "__docId__": 125,
+    "kind": "member",
+    "name": "registry",
+    "memberof": "src/registry/transformer.registry.js~TransformerRegistry",
+    "static": false,
+    "longname": "src/registry/transformer.registry.js~TransformerRegistry#registry",
+    "access": "public",
+    "description": null,
+    "lineNumber": 13,
+    "undocument": true,
+    "type": {
+      "types": [
+        "{}"
+      ]
+    }
+  },
+  {
+    "__docId__": 126,
+    "kind": "member",
+    "name": "debug",
+    "memberof": "src/registry/transformer.registry.js~TransformerRegistry",
+    "static": false,
+    "longname": "src/registry/transformer.registry.js~TransformerRegistry#debug",
+    "access": "public",
+    "description": null,
+    "lineNumber": 14,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 127,
+    "kind": "method",
+    "name": "register",
+    "memberof": "src/registry/transformer.registry.js~TransformerRegistry",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/registry/transformer.registry.js~TransformerRegistry#register",
+    "access": "public",
+    "description": "Register the Transformer at the provided the key in the registry",
+    "lineNumber": 23,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "String"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "key",
+        "description": "the key to use to register the Transformer."
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Transformer"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "transformer",
+        "description": "the Transformer instance."
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 128,
+    "kind": "method",
+    "name": "getTransformer",
+    "memberof": "src/registry/transformer.registry.js~TransformerRegistry",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/registry/transformer.registry.js~TransformerRegistry#getTransformer",
+    "access": "public",
+    "description": "Retrieve the Transformer at the provided the key in the registry",
+    "lineNumber": 35,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "String"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "key",
+        "description": "the key that references the Transformer in the registry"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Transformer ",
+        " undefined"
+      ],
+      "spread": false,
+      "description": "the transformer"
+    }
+  },
+  {
+    "__docId__": 129,
+    "kind": "method",
+    "name": "transformer",
+    "memberof": "src/registry/transformer.registry.js~TransformerRegistry",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/registry/transformer.registry.js~TransformerRegistry#transformer",
+    "access": "public",
+    "description": "Alias for getTransformer()",
+    "see": [
+      "{TransformerRegistry#getTransformer}"
+    ],
+    "lineNumber": 44,
+    "params": [
+      {
+        "name": "key",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 130,
+    "kind": "method",
+    "name": "clear",
+    "memberof": "src/registry/transformer.registry.js~TransformerRegistry",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/registry/transformer.registry.js~TransformerRegistry#clear",
+    "access": "public",
+    "description": "Clear all Transformers from the registry",
+    "lineNumber": 51,
+    "params": [],
+    "return": null
+  },
+  {
+    "__docId__": 132,
+    "kind": "file",
+    "name": "src/transformer.js",
+    "content": "'use strict'\n\nimport Promise from 'bluebird'\nimport { registry } from './registry'\n\nconst PASSTHROUGH = 'PASSTHROUGH'\nconst BUILD_WITH = 'BUILD_WITH'\n\n/**\n * This is the main class of Tilla. To use it, just import it\n *\n * ```js\n * import { Transformer } = from 'tilla'\n * ```\n *\n * @class Transformer\n */\n\n/**\n * #### Example usage\n *\n * ```javascript\n *\n * import { fieldDelegate, Transformer } from 'tilla'\n *\n * let fd = fieldDelegate()\n *\n * // with just mapping object\n * let transformer = new Transformer({\n *   name: fd().always().buildWith((src) => {\n *    return `${src.firstName} ${src.lastName}`\n *  }),\n *  city: fd('homeCity').always().passthrough()\n *  state: fd('address').always().buildWith((src, key) => {\n *    let address = src[key]\n *    return address ? address.state : address\n *  })\n * })\n *\n * // with registry key and mapping object\n * let transformer = new Transformer('registryKey', {\n *   name: fd().always().buildWith((src) => {\n *    return `${src.firstName} ${src.lastName}`\n *  }),\n *  city: fd('homeCity').always().passthrough()\n *  state: fd('address').always().buildWith((src, key) => {\n *    let address = src[key]\n *    return address ? address.state : address\n *  })\n * })\n * ```\n *\n * @name Transformer\n * @constructor\n *\n * @param {String | Object} if a string the key to use to register this transformer in the internal Transformer registry. If it's an object, it will be used as a mapping object\n * @param {Object} the mapping object, if a registry key is provided as the first argument\n **/\n\nclass Transformer {\n  /**\n   * @param {String | Object} if a string the key to use to register this transformer in the internal Transformer registry. If it's an object, it will be used as a mapping object\n   * @param {Object} the mapping object, if a registry key is provided as the first argument\n   */\n  constructor (registryName, mapping) {\n    if (typeof registryName === 'string') {\n      // add to registry\n      registry.register(registryName, this)\n      this.mapping = mapping || {}\n    } else {\n      // only creating transformer, but not adding to mapping\n      mapping = registryName\n      this.mapping = mapping || {}\n    }\n    this.defaultBuilder = undefined\n    this.defaultMask = undefined\n  }\n\n  /**\n   * Perform the transformation at the provided permission level for each field\n   * provided in the mapping. If any defaultAttributes and making is provided,\n   * it will transform all defaultAttributes use the defaultMasking method.\n   *\n   * @param {String} permission - The permission level to perform the transformation\n   * @param {Object} instance - the source object\n   *\n   * @return {Promise} a Promise that resolves to the transformed object\n   */\n  transform (permission, instance) {\n    let dto = {}\n    let transformations = Promise.map(Object.keys(this.mapping), (dtoKey) => {\n      return this.mapping[dtoKey].transform(permission, instance).then((value) => {\n        if (value !== undefined) {\n          dto[dtoKey] = value\n        }\n      })\n    })\n\n    let defaultsSet = new Promise((resolve, reject) => {\n      if (!this.hasDefault) {\n        resolve()\n      }\n      // No attributes specified\n      if (!this.defaultAttributes || !this.defaultAttributes.length) {\n        return resolve()\n      }\n\n      // Attach any defaulted attributes to Dto\n      if (this.defaultMask === PASSTHROUGH) {\n        this.defaultAttributes.forEach((key) => {\n          if (!this.mapping[key]) {\n            dto[key] = instance[key]\n          }\n        })\n        resolve()\n      }\n\n      // Run each default attribute through provided builder\n      if (this.defaultMask === BUILD_WITH) {\n        return Promise.map(this.defaultAttributes, (key) => {\n          if (!this.mapping[key]) {\n            return Promise.method(() => this.defaultBuilder(instance, key))().then(value => {\n              dto[key] = value\n            })\n          }\n        }).then(resolve).catch(reject)\n      }\n      reject(new Error('No Default Masking Set'))\n    })\n\n    // await transformations to finish before dto is returned\n    return Promise.join(transformations, defaultsSet, () => dto)\n  }\n\n  /**\n   * Specify attributes to transform by default. This allows whitelisting any attributes.\n   *\n   * @param {Array<String>} attributes - array of attribute names\n   * to transform by default\n   */\n  byDefault (attributes) {\n    this.defaultAttributes = attributes\n    this.hasDefault = true\n    return this\n  }\n\n  /**\n   * Set the defaultMask for each field in defaultAttributes to a PassthroughFieldMapper\n   *\n   * @return {Transformer} this instance, so that calls can be chained\n   */\n  PASSTHROUGH () {\n    if (!this.hasDefault) {\n      throw new Error('Default flag not set')\n    }\n    this.defaultMask = PASSTHROUGH\n    return this\n  }\n\n  /**\n   * Set the defaultMask for each field in defaultAttributes to a CustomFieldMapper using the provided\n   * builder\n   *\n   * @param {function (instance: Object, key: string, isList: boolean)} builder - the builder function\n   * to use in the CustomFieldMapper\n   *\n   * @return {Transformer} this instance, so that calls can be chained\n   */\n  BUILD_WITH (builder) {\n    if (!this.hasDefault) {\n      throw new Error('Default flag not set')\n    }\n    this.defaultMask = BUILD_WITH\n    this.defaultBuilder = builder\n    return this\n  }\n\n  /**\n   * Creates a new Transformer, derived from this Transformer.\n   * the passed in mapper will be merged into this transformer's\n   * mapping.\n   *\n   * @param {Object} mapping - the mapping object to merge\n   * with this transformers mapper\n   *\n   * @return {Transformer} a new Tranformer with the merged mapping\n   */\n  extend (mapping) {\n    let mergedMapping = { ...this.mapping, ...mapping }\n    let transformer = new Transformer(mergedMapping)\n    transformer.defaultBuilder = this.defaultBuilder\n    transformer.defaultMask = this.defaultMask\n    transformer.defaultAttributes = this.defaultAttributes\n    return transformer\n  }\n}\n\nexport { Transformer }\n",
+    "static": true,
+    "longname": "/Users/tyler/Development/git/tilla/src/transformer.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 133,
+    "kind": "variable",
+    "name": "PASSTHROUGH",
+    "memberof": "src/transformer.js",
+    "static": true,
+    "longname": "src/transformer.js~PASSTHROUGH",
+    "access": "public",
+    "export": false,
+    "importPath": "tilla/src/transformer.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 6,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 134,
+    "kind": "variable",
+    "name": "BUILD_WITH",
+    "memberof": "src/transformer.js",
+    "static": true,
+    "longname": "src/transformer.js~BUILD_WITH",
+    "access": "public",
+    "export": false,
+    "importPath": "tilla/src/transformer.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 7,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 135,
+    "kind": "class",
+    "name": "Transformer",
+    "memberof": "src/transformer.js",
+    "static": true,
+    "longname": "src/transformer.js~Transformer",
+    "access": "public",
+    "export": true,
+    "importPath": "tilla/src/transformer.js",
+    "importStyle": "{Transformer}",
+    "description": "#### Example usage\n\n```javascript\n\nimport { fieldDelegate, Transformer } from 'tilla'\n\nlet fd = fieldDelegate()\n\n// with just mapping object\nlet transformer = new Transformer({\n  name: fd().always().buildWith((src) => {\n   return `${src.firstName} ${src.lastName}`\n }),\n city: fd('homeCity').always().passthrough()\n state: fd('address').always().buildWith((src, key) => {\n   let address = src[key]\n   return address ? address.state : address\n })\n})\n\n// with registry key and mapping object\nlet transformer = new Transformer('registryKey', {\n  name: fd().always().buildWith((src) => {\n   return `${src.firstName} ${src.lastName}`\n }),\n city: fd('homeCity').always().passthrough()\n state: fd('address').always().buildWith((src, key) => {\n   let address = src[key]\n   return address ? address.state : address\n })\n})\n```",
+    "lineNumber": 60,
+    "unknown": [
+      {
+        "tagName": "@constructor",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "String ",
+          " Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "if",
+        "description": "a string the key to use to register this transformer in the internal Transformer registry. If it's an object, it will be used as a mapping object"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "the",
+        "description": "mapping object, if a registry key is provided as the first argument"
+      }
+    ],
+    "interface": false
+  },
+  {
+    "__docId__": 136,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/transformer.js~Transformer",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/transformer.js~Transformer#constructor",
+    "access": "public",
+    "description": "",
+    "lineNumber": 65,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "String ",
+          " Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "if",
+        "description": "a string the key to use to register this transformer in the internal Transformer registry. If it's an object, it will be used as a mapping object"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "the",
+        "description": "mapping object, if a registry key is provided as the first argument"
+      }
+    ]
+  },
+  {
+    "__docId__": 137,
+    "kind": "member",
+    "name": "mapping",
+    "memberof": "src/transformer.js~Transformer",
+    "static": false,
+    "longname": "src/transformer.js~Transformer#mapping",
+    "access": "public",
+    "description": null,
+    "lineNumber": 69,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 139,
+    "kind": "member",
+    "name": "defaultBuilder",
+    "memberof": "src/transformer.js~Transformer",
+    "static": false,
+    "longname": "src/transformer.js~Transformer#defaultBuilder",
+    "access": "public",
+    "description": null,
+    "lineNumber": 75,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 140,
+    "kind": "member",
+    "name": "defaultMask",
+    "memberof": "src/transformer.js~Transformer",
+    "static": false,
+    "longname": "src/transformer.js~Transformer#defaultMask",
+    "access": "public",
+    "description": null,
+    "lineNumber": 76,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 141,
+    "kind": "method",
+    "name": "transform",
+    "memberof": "src/transformer.js~Transformer",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/transformer.js~Transformer#transform",
+    "access": "public",
+    "description": "Perform the transformation at the provided permission level for each field\nprovided in the mapping. If any defaultAttributes and making is provided,\nit will transform all defaultAttributes use the defaultMasking method.",
+    "lineNumber": 89,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "String"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "permission",
+        "description": "The permission level to perform the transformation"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "instance",
+        "description": "the source object"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise"
+      ],
+      "spread": false,
+      "description": "a Promise that resolves to the transformed object"
+    }
+  },
+  {
+    "__docId__": 142,
+    "kind": "method",
+    "name": "byDefault",
+    "memberof": "src/transformer.js~Transformer",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/transformer.js~Transformer#byDefault",
+    "access": "public",
+    "description": "Specify attributes to transform by default. This allows whitelisting any attributes.",
+    "lineNumber": 141,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Array<String>"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "attributes",
+        "description": "array of attribute names\nto transform by default"
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 143,
+    "kind": "member",
+    "name": "defaultAttributes",
+    "memberof": "src/transformer.js~Transformer",
+    "static": false,
+    "longname": "src/transformer.js~Transformer#defaultAttributes",
+    "access": "public",
+    "description": null,
+    "lineNumber": 142,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 144,
+    "kind": "member",
+    "name": "hasDefault",
+    "memberof": "src/transformer.js~Transformer",
+    "static": false,
+    "longname": "src/transformer.js~Transformer#hasDefault",
+    "access": "public",
+    "description": null,
+    "lineNumber": 143,
+    "undocument": true,
+    "type": {
+      "types": [
+        "boolean"
+      ]
+    }
+  },
+  {
+    "__docId__": 145,
+    "kind": "method",
+    "name": "PASSTHROUGH",
+    "memberof": "src/transformer.js~Transformer",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/transformer.js~Transformer#PASSTHROUGH",
+    "access": "public",
+    "description": "Set the defaultMask for each field in defaultAttributes to a PassthroughFieldMapper",
+    "lineNumber": 152,
+    "return": {
+      "nullable": null,
+      "types": [
+        "Transformer"
+      ],
+      "spread": false,
+      "description": "this instance, so that calls can be chained"
+    },
+    "params": []
+  },
+  {
+    "__docId__": 147,
+    "kind": "method",
+    "name": "BUILD_WITH",
+    "memberof": "src/transformer.js~Transformer",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/transformer.js~Transformer#BUILD_WITH",
+    "access": "public",
+    "description": "Set the defaultMask for each field in defaultAttributes to a CustomFieldMapper using the provided\nbuilder",
+    "lineNumber": 169,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "function (instance: Object, key: string, isList: boolean)"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "builder",
+        "description": "the builder function\nto use in the CustomFieldMapper"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Transformer"
+      ],
+      "spread": false,
+      "description": "this instance, so that calls can be chained"
+    }
+  },
+  {
+    "__docId__": 150,
+    "kind": "method",
+    "name": "extend",
+    "memberof": "src/transformer.js~Transformer",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/transformer.js~Transformer#extend",
+    "access": "public",
+    "description": "Creates a new Transformer, derived from this Transformer.\nthe passed in mapper will be merged into this transformer's\nmapping.",
+    "lineNumber": 188,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "mapping",
+        "description": "the mapping object to merge\nwith this transformers mapper"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Transformer"
+      ],
+      "spread": false,
+      "description": "a new Tranformer with the merged mapping"
+    }
+  },
+  {
+    "__docId__": 151,
+    "kind": "file",
+    "name": "src/utils.js",
+    "content": "'use strict'\n\nimport { FieldMapperDelegate } from './field.mapper.delegate'\n\nexport const fieldDelegate = permissionRanking => sourceKey =>\n  new FieldMapperDelegate(sourceKey, permissionRanking)\n\nexport const getKeys = obj => Object.keys(obj)\n\nexport const getColumnsFromModel = Model => Object.keys(Model.rawAttributes)\n\nexport const utils = {\n  fieldDelegate,\n  getKeys,\n  getColumnsFromModel\n}\n",
+    "static": true,
+    "longname": "/Users/tyler/Development/git/tilla/src/utils.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 152,
+    "kind": "function",
+    "name": "fieldDelegate",
+    "memberof": "src/utils.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/utils.js~fieldDelegate",
+    "access": "public",
+    "export": true,
+    "importPath": "tilla/src/utils.js",
+    "importStyle": "{fieldDelegate}",
+    "description": null,
+    "lineNumber": 5,
+    "undocument": true,
+    "params": [
+      {
+        "name": "permissionRanking",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 153,
+    "kind": "function",
+    "name": "getKeys",
+    "memberof": "src/utils.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/utils.js~getKeys",
+    "access": "public",
+    "export": true,
+    "importPath": "tilla/src/utils.js",
+    "importStyle": "{getKeys}",
+    "description": null,
+    "lineNumber": 8,
+    "undocument": true,
+    "params": [
+      {
+        "name": "obj",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 154,
+    "kind": "function",
+    "name": "getColumnsFromModel",
+    "memberof": "src/utils.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/utils.js~getColumnsFromModel",
+    "access": "public",
+    "export": true,
+    "importPath": "tilla/src/utils.js",
+    "importStyle": "{getColumnsFromModel}",
+    "description": null,
+    "lineNumber": 10,
+    "undocument": true,
+    "params": [
+      {
+        "name": "Model",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 155,
+    "kind": "variable",
+    "name": "utils",
+    "memberof": "src/utils.js",
+    "static": true,
+    "longname": "src/utils.js~utils",
+    "access": "public",
+    "export": true,
+    "importPath": "tilla/src/utils.js",
+    "importStyle": "{utils}",
+    "description": null,
+    "lineNumber": 12,
+    "undocument": true,
+    "type": {
+      "types": [
+        "{\"fieldDelegate\": *, \"getKeys\": *, \"getColumnsFromModel\": *}"
+      ]
+    }
+  },
+  {
+    "kind": "index",
+    "content": "# Tilla\n\n[![Coverage Status](https://coveralls.io/repos/github/TillaTheHun0/tilla/badge.svg?branch=development)](https://coveralls.io/github/TillaTheHun0/tilla?branch=development) [![Build Status](https://travis-ci.org/TillaTheHun0/tilla.svg?branch=development)](https://travis-ci.org/TillaTheHun0/tilla?branch=development) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com) [![npm version](https://img.shields.io/npm/v/tilla.svg)](https://www.npmjs.com/package/tilla) [![License](https://img.shields.io/npm/l/tilla.svg?maxAge=2592000?style=plastic)](https://github.com/TillaTheHun0/tilla/blob/master/LICENSE) [![Greenkeeper badge](https://badges.greenkeeper.io/TillaTheHun0/tilla.svg)](https://greenkeeper.io/)\n\nTilla transforms objects, based on the rules you specify. It has a fluid, composable API, and non-blocking transformations. It also comes\npackaged with sensible default permission levels, and a registry to keep track of all of your Transformers that can easily be tied into other parts of your app.\n\n## Table of Contents\n- [Installation](#installation)\n- [Features](#features)\n- [Usage](#usage)\n- [Contribute](#Contribute)\n- [License](#License)\n- [Whats The Name Mean?](#Name)\n\n## Installation\n\n```bash\n$ npm install --save tilla\n```\n\n## Goals\nI wanted to have a fluid, easy to read, chainable API to build Transformers with sensible defaults. I wanted permissions to be incorporated in the Transformer API itself and allow the user to provide their own domain specific permissions and permission ranking that would cascade down to sub-transformations. All transformations should be completely asynchronous, down to the field level. Looking at the Transformer code should give an idea as to the shape of the resultant object produced by that Transformer. It should also be easy to transform fields on an object using other Transformers, in other words Sub-transformations, and these would be lazy loaded at runtime.\n\n## Features\n\n- Chainable, fluid Transformer API\n- Asynchronous transformations at the field level\n- Built-in Transformer registry\n- Field Permission-Masking\n- Cascading permissions (for sub-transformations)\n\n## Usage\n\n```javascript\n\nimport { fieldDelegate, Transformer, PermissionLvl } from 'tilla'\n\nconst fd = fieldDelegate() // use the built permission levels\n\nconst addressTransformer = new Transformer({\n  street: fd('street').always().passthrough(),\n  city: fd('city').always().passthrough(),\n  state: fd('state').always().passthrough()\n  otherThing: fd('otherThing').atOrAbovePrivate()\n})\n\nconst personTransformer = new Transformer({\n  // always directly map src.firstName -> dest.firstName\n  firstName: fd('firstName').always().passthrough(),\n  // computed field using a custom builder\n  name: fd().always().buildWith(src => `${src.firstName} ${src.lastName}`),\n  // multiple mapping strategies, based on permission\n  age: fd('age').whenPrivate().passthrough().whenPublic().buildWith((src, key) => src[key] - 10)\n  // Use another Transformer to map the field\n  address: fd().always().subTransform(addressTransformer),\n  // only mapped if permission level is >=PRIVATE\n  ssn: fd().atOrAbovePrivate().passthrough()\n  // only mapped if permission level === PRIVATE\n  phoneNumber: fd().restrictToPrivate().passthrough()\n})\n\nlet person = {\n  age: 32,\n  firstName: 'John',\n  lastName: 'Doe',\n  height: 60,\n  address: {\n    state: 'IL'\n  }\n  ssn: '123-45-6789',\n  phoneNumber: '867-5309'\n}\n\n// Transformers.transform() always returns a Promise\npersonTransformer.transform(PermissionLvl.PUBLIC, person).then((personDto) => {\n  /*\n  {\n    firstName: 'John'\n    age: 22,\n    name: 'John Doe'\n    address: {\n      state: 'IL'\n    }\n  }\n  */\n})\n\n```\n\nTilla is used to transform objects. It's great for building DTOs and controlling access to certain fields on those DTOs. The core of Tilla are `Transformers` and `FieldDelegates`. `Transformers` describe the shape of the result object while `FieldDelegates` tell the transformer _how_ to map each field.\n\nYou can think of a `Transformer` as a collection of key'd `FieldDelegates`. Call `transform()`\non a `Transformer` and provide the permission lvl and object to transform. This will return a `Promise` that will resolve with the transformed object.\n\n`passthrough()` simply returns the value off of the source object with no altering. `buildWith()` accepts a\ncustom builder function that is called to transform the field. The `builder` function is passed `src`, `key`, and `isList`,\n`src` being the source object, `key` being the key on the src object, if provided, and `isList` indicating whether the key on the src contains a list of items. \n\n`isList` is used under the hood for transforming lists of objects using another `Transformer`, called `SubTransformers`, but you can also use it for your own use case.\n\n### Field Masking & Permissions\n\nBy default `Tilla` ships with 4 permission levels: `PUBLIC`, `PRIVILEGED`, `PRIVATE`, and `ADMIN` and the ranking of these fields, from least sensitive to most sensitive is [`PUBLIC`, `PRIVILEGED`, `PRIVATE`, `ADMIN`]\n\n`FieldMapperDelegate`s can set multiple masking levels for each field, based on permissions, and their chainable API makes it easy to set up complex mappings for each field on a `Transformer`. In the example above, `always()` was used for each field, which indicates a single builder for all permission levels -- \"'Always' use this method to transform the value provided\". We can specify multiple methods like so:\n\n```javascript\n\nimport { fieldDelegate, Transformer, PermissionLvl } from 'tilla'\n\nconst fd = fieldDelegate() // use the built permission levels\n\nlet oldPersonTransformer = new Transformer({\n  // different transformations for PUBLIC and PRIVATE permission levels.\n  age: fd('age').whenPrivate().passthrough().whenPublic().buildWith((src, key) => {\n    let age = src[key]\n    return age ? age - 10 : null\n  }),\n  name: fd().always().buildWith((src) => {\n    return `${src.firstName} ${src.lastName}`\n  }),\n  // only transformations at PRIVATE and above permission lvls will have this field\n  ssn: fd('ssn').atOrAbovePrivate().passthrough()\n})\n\n```\n\nYou can specify your own permission ranking and `Tilla` will build that `permission` API on the `FieldDelegate` instance. For example, you could specify a ranking of [`USER`, `EMPLOYEE`, `MANAGER`] and `Tilla` will add API's `whenUser()`, `atOrAboveUser()`, `restrictToUser()`, `whenEmployee()`, `atOrAboveEmployee()`, `restrictToEmployee()`, `whenManager()`, `atOrAboveManager()`, `restrictToManager()`. Specify a ranking like so:\n\n```javascript\n\nimport { fieldDelegate, Transformer, PermissionLvl } from 'tilla'\n\nlet ranking = ['USER', 'EMPLOYEE', 'MANAGER']\n\nconst fd = fieldDelegate(ranking) // pass your ranking to the util wrapper\n\nlet oldPersonTransformer = new Transformer({\n  // different transformations for PUBLIC and PRIVATE permission levels.\n  age: fd('age').whenEmployee().passthrough().whenUser().buildWith((src, key) => {\n    let age = src[key]\n    return age ? age - 10 : null\n  }),\n  name: fd().always().buildWith((src) => {\n    return `${src.firstName} ${src.lastName}`\n  }),\n  // only transformations at PRIVATE and above permission lvls will have this field\n  ssn: fd('ssn').atOrAboveManager().passthrough()\n})\n\n```\n\n### Can I Use a Transformer to Map a field?\n\nYes! This is called a 'subTransform'. You may want to do this for an eagerly loaded association. For example, a `Person` may have an eagerly loaded `Address`. With `Tilla` you can specify each of these `Transformer`s and then specify a `SubTransformation` in the `Person` `Transformer` for the key, `address`. You can specify a string which will \nsearch the built in Transformer registry, a `Transformer`, or a function that returns a Promise that resolves to a `Transformer`.\n\n```javascript\n\nimport { fieldDelegate, Transformer, PermissionLvl } from 'tilla'\n\nconst fd = fieldDelegate() // use the built permission levels\n\nlet addressTransformer = new Transformer({\n  street: fd('street').always().passthrough(),\n  city: fd('city').always().passthrough(),\n  state: fd('state').always().passthrough()\n  otherThing: fd('otherThing').atOrAbovePrivate()\n})\n\nlet personTransformer = new Transformer({\n  age: fd('age').always().passthrough(),\n  /*...*/\n  // Subtransform from the registry\n  address: fd('address').always().subTransform('address')\n  // OR directly provide the transformer\n  address: fd('address').always().subTransform(addressTransformer)\n  // OR\n  address: fd('address').always().subTransform(() => Promise.resolve(addressTransformer))\n})\n\nlet person = {\n  age: 22,\n  firstName: 'John',\n  lastName: 'Doe',\n  ssn: '123-45-6789',\n  address: {\n    street: '123 Street',\n    city: 'Chicago',\n    state: 'IL',\n    otherThing: 'other'\n  }\n}\n\npersonTransformer.transform(PermissionLvl.PUBLIC, person).then((publicPersonDto) => { // public permission lvl\n  /*\n  {\n    age: 22,\n    name: 'John Doe',\n    address: {\n      street: '123 Street',\n      city: 'Chicago',\n      state: 'IL'\n    }\n  }\n  */\n})\n\npersonTransformer.transform(PermissionLvl.PRIVATE, person).then((privatePersonDto) => { // private permission lvl\n  /*\n  {\n    age: 22,\n    name: 'John Doe',\n    ssn: '123-45-6789',\n    address: {\n      street: '123 Street',\n      city: 'Chicago',\n      state: 'IL'\n      otherThing: 'other'\n    }\n  }\n  */\n})\n\n```\n\n`Transformer` has another constructor that accepts a string, the registry string, and an object, the field mapping. This will automatically add that `Transformer` instance to the internal registry at the key. However, you can also use your own registry system separate from `tilla`\n\nAll the permission APIs work the same with `SubTransform`. *The permissions for the parent propogate down to the `SubTransformation`*, be default. This is the default behavior. To override this, you can specify a permission lvl to use for the SubTransformation when defining the transformer.\n\n```javascript\n\nimport { fieldDelegate, Transformer, PermissionLvl } from 'tilla'\n\nconst fd = fieldDelegate() // use the built permission levels\n\nlet addressTransformer = new Transformer({\n  street: fd('street').always().passthrough(),\n  city: fd('city').always().passthrough(),\n  state: fd('state').always().passthrough()\n  otherThing: fd('otherThing').atOrAbovePrivate()\n})\n\nlet personTransformer = new Transformer({\n  age: fd('age').always().passthrough(),\n  /*...*/\n  // transform with PUBLIC permission lvl, regardless of the parents permission lvl\n  address: fd('address').always().subTransform(addressTransformer, PermissionLvl.PUBLIC)\n})\n\nlet person = {\n  age: 22,\n  firstName: 'John',\n  lastName: 'Doe',\n  ssn: '123-45-6789',\n  address: {\n    street: '123 Street',\n    city: 'Chicago',\n    state: 'IL',\n    otherThing: 'other'\n  }\n}\n\n// public permission lvl\npersonTransformer.transform(PermissionLvl.PUBLIC, person).then((publicPersonDto) => {\n  /*\n  {\n    age: 22,\n    name: 'John Doe',\n    address: {\n      street: '123 Street',\n      city: 'Chicago',\n      state: 'IL'\n    }\n  }\n  */\n})\n\n// private permission lvl\npersonTransformer.transform(PermissionLvl.PRIVATE, person).then((privatePersonDto) => {\n  /*\n  {\n    age: 22,\n    name: 'John Doe',\n    ssn: '123-45-6789',\n    address: {\n      street: '123 Street',\n      city: 'Chicago',\n      state: 'IL'\n      // Still no otherThing value because address was transformed using the PUBLIC permission lvl\n    }\n  }\n  */\n})\n\n```\n\n### Can a Transformer be used to transform a list of object?\n\nYes! It is common to have a list of objects to transform using a specified Transformer. For example, a `Person` could have multiple `Car`s that are eagerly loaded. To specify a list of objects to transform with a common `Transformer`, simply call `asList()` on the `FieldDelegate`.\n\n``` javascript\n\nimport { fieldDelegate, Transformer, PermissionLvl } from 'tilla'\n\nconst fd = fieldDelegate() // use the built permission levels\n\nlet personTransformer = new Transformer({\n  age: fd('age').always().passthrough(),\n  /*...*/\n  // will transform each object in the list with the Transformer registerd at 'car' in the registry\n  cars: fd('cars').always().subTransform('car').asList()\n})\n\n```\n\n### Can I specify a default for a set of fields?\n\nYes! `Transformers` have a method `byDefault()` that will accept an Array of string attributes. You can then specify how all of those attributes will be transformed. A common case is just mark all those fields as `passthrough`.\n\n```javascript\n\nimport { fieldDelegate, Transformer, PermissionLvl } from 'tilla'\n\nconst fd = fieldDelegate() // use the built permission levels\n\nlet personTransformer = new Transformer({\n  // Special transformation cases here\n  name: fd().always().buildWith((src) => {\n    return `${src.firstName} ${src.lastName}`\n  }),\n  city: fd('homeCity').always().passthrough()\n  state: fd('address').always().buildWith((src, key) => {\n    let address = src[key]\n    return address ? address.state : address\n  })\n  // .BUILD_WITH() can also be used and follows the same builder API as customer field builders\n}).byDefault(['age', 'height']).PASSTHROUGH()\n\n```\n\n### Can I build a Transformer based off of another?\n\nYes! You can extend an exisiting `Transformer` by calling `extend()` and passing a map just like you would a normal `Transformer`. This will merge the two mappings and return a new `Transformer` instance.\n\n``` javascript\n\nimport { fieldDelegate, Transformer, PermissionLvl } from 'tilla'\n\nconst fd = fieldDelegate() // use the built permission levels\n\nlet personTransformer = new Transformer({\n  // Special transformation cases here\n  name: fd().always().buildWith((src) => {\n    return `${src.firstName} ${src.lastName}`\n  }),\n  city: fd('homeCity').always().passthrough()\n  state: fd('address').always().buildWith((src, key) => {\n    let address = src[key]\n    return address ? address.state : address\n  })\n}).byDefault(['age', 'height']).PASSTHROUGH()\n\n// childTransformer will have all attributes of personTransformer, add a favoriteToy fieldDelegate, and override the name transformer\nlet childTransformer = personTransformer.extend({\n  favoriteToy: fd('favoriteToy').always().passthrough()\n  name: fd('name').always().buildWith((src) => {\n    return `Lil' ${src.firstName}`\n  })\n})\n\n```\n\n### Transformer Registry\n\n`Tilla` exposes an instantiated instance of the `TransformRegistry`. The `registry` is a great way to manage all of `Transformers` and then pass them around your app as needed. For example, you can easily incorporate in `Express` middleware.\n\n``` javascript\n\n// add some transformers to the registry somewhere\nregistry.register('person', personTransformer)\nregistry.register('address', addressTransformer)\n\nimport { registry } from 'tilla'\n\nconst attachTransformer = (transformerKey) => {\n  return (req, res, next) => {\n    let transformer = registry.transformer(transformerKey)\n    req.transformer = transformer // then use the transformer later on in your route handling\n    next()\n  }\n}\n\n```\n\n## TODO\n\n- Better document API\n\n## Contribute\n\nSubmit an issue or a PR\n\n## License\nMIT\n\n## Name\nI couldn't find any open npm module names that I liked that weren't already taken. As a result, I used a shotened version of my name :p. If you have a better idea, please make a suggestion!\n\n",
+    "longname": "/Users/tyler/Development/git/tilla/README.md",
+    "name": "./README.md",
+    "static": true,
+    "access": "public"
+  },
+  {
+    "kind": "packageJSON",
+    "content": "{\n  \"name\": \"tilla\",\n  \"version\": \"0.0.5\",\n  \"description\": \"Transforming objects with JavaScript made easy\",\n  \"repository\": \"https://github.com/TillaTheHun0/tilla\",\n  \"bugs\": \"https://github.com/TillaTheHun0/tilla/issues\",\n  \"main\": \"./dist/index.js\",\n  \"scripts\": {\n    \"build:dev\": \"npm run build -- -s\",\n    \"build\": \"node ./node_modules/.bin/babel src --out-dir dist\",\n    \"bump\": \"npx standard-version\",\n    \"docs\": \"npx esdoc\",\n    \"prepare\": \"npm run build\",\n    \"standard\": \"node ./node_modules/standard/bin/cmd.js \\\"**/*.js\\\"\",\n    \"test\": \"npm run standard && nyc mocha --require @babel/register\",\n    \"coverage\": \"nyc report --reporter=text-lcov | coveralls\"\n  },\n  \"keywords\": [\n    \"transformation\",\n    \"transformer\",\n    \"dto\",\n    \"permissions\"\n  ],\n  \"author\": \"Tyler Hall\",\n  \"license\": \"MIT\",\n  \"dependencies\": {\n    \"@babel/polyfill\": \"^7.0.0\",\n    \"bluebird\": \"^3.5.1\",\n    \"debug\": \"^4.1.0\"\n  },\n  \"devDependencies\": {\n    \"@babel/cli\": \"^7.1.2\",\n    \"@babel/core\": \"^7.1.2\",\n    \"@babel/plugin-proposal-object-rest-spread\": \"^7.0.0\",\n    \"@babel/preset-env\": \"^7.1.0\",\n    \"@babel/register\": \"^7.0.0\",\n    \"@commitlint/cli\": \"^7.2.1\",\n    \"@commitlint/config-conventional\": \"^7.1.2\",\n    \"chai\": \"^4.1.2\",\n    \"coveralls\": \"^3.0.2\",\n    \"esdoc\": \"^1.1.0\",\n    \"esdoc-ecmascript-proposal-plugin\": \"^1.0.0\",\n    \"esdoc-standard-plugin\": \"^1.0.0\",\n    \"husky\": \"^1.1.2\",\n    \"mocha\": \"^5.2.0\",\n    \"nyc\": \"^13.1.0\",\n    \"standard\": \"^12.0.1\",\n    \"standard-version\": \"^4.4.0\"\n  },\n  \"standard\": {\n    \"env\": [\n      \"mocha\"\n    ]\n  },\n  \"husky\": {\n    \"hooks\": {\n      \"commit-msg\": \"commitlint -E HUSKY_GIT_PARAMS\",\n      \"pre-commit\": \"npm test\"\n    }\n  }\n}\n",
+    "longname": "/Users/tyler/Development/git/tilla/package.json",
+    "name": "package.json",
+    "static": true,
+    "access": "public"
+  }
+]

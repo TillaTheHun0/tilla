@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">src/field.mapper.delegate.js | tilla</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="Transforming objects with JavaScript made easy"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="tilla"><meta property="twitter:description" content="Transforming objects with JavaScript made easy"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/TillaTheHun0/tilla"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/field.mapper.delegate.js~FieldMapperDelegate.html">FieldMapperDelegate</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/transformer.js~Transformer.html">Transformer</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-fieldDelegate">fieldDelegate</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getColumnsFromModel">getColumnsFromModel</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getKeys">getKeys</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-utils">utils</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#fieldmapper">fieldMapper</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/fieldMapper/custom.field.mapper.js~CustomFieldMapper.html">CustomFieldMapper</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/fieldMapper/field.mapper.js~FieldMapper.html">FieldMapper</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/fieldMapper/passthrough.field.mapper.js~PassthroughFieldMapper.html">PassthroughFieldMapper</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/fieldMapper/subtransform.field.mapper.js~SubTransformFieldMapper.html">SubTransformFieldMapper</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#permission">permission</a><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ADMIN">ADMIN</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-PRIVATE">PRIVATE</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-PRIVILEGED">PRIVILEGED</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-PUBLIC">PUBLIC</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-defaultRankings">defaultRankings</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#registry">registry</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/registry/transformer.registry.js~TransformerRegistry.html">TransformerRegistry</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-registry">registry</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/field.mapper.delegate.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">&apos;use strict&apos;
+
+import { PassthroughFieldMapper, CustomFieldMapper, SubTransformFieldMapper } from &apos;./fieldMapper&apos;
+import { PermissionRanking } from &apos;./permission&apos;
+
+const atOrAbove = &apos;atOrAbove&apos;
+const when = &apos;when&apos;
+const restrictTo = &apos;restrictTo&apos;
+
+/**
+ * FieldMapperDelegates provide the API for orchaestrating and arranging
+ * FieldMappers on a Transformer. They should typically be used through the util module
+ */
+class FieldMapperDelegate {
+  /**
+   * @param {String} [sourceKey] - the key on the source object.
+   * @param {Array&lt;String&gt;} permissionRanking - a custom permission ranking to use to build
+   * the permission api.
+   */
+  constructor (sourceKey, permissionRanking) {
+    this.permissionRanking = permissionRanking || PermissionRanking
+
+    if (!permissionRanking) {
+      this._defaultPermissionRanking = true
+    }
+
+    this.setPermissionRanking()
+
+    this.sourceKey = sourceKey
+    this.delegate = {}
+  }
+
+  /**
+   * Indicate the following action should be used for every permission level
+   *
+   * @return {FieldMapperDelegate} this instance, so that calls can be chained
+   */
+  always () {
+    this.alwaysFlag = true
+    // doesn&apos;t matter what we set permission to since builder will be copied across all lvls
+    this.curPermissionLvl = this.permissionRanking[0]
+    return this
+  }
+
+  /**
+   * Indicate the following action should be used for the indicated permission level
+   *
+   * @param {String} permission - the permission level
+   *
+   * @return {FieldMapperDelegate} this instance, so that calls can be chained
+   */
+  when (permission) {
+    this.curPermissionLvl = permission
+    return this
+  }
+
+  /**
+   * Indicate the following action should be used for this permission level and above
+   *
+   * @param {String} permission - the permission level
+   *
+   * @return {FieldMapperDelegate} this instance, so that calls can be chained
+   */
+  atOrAbove (permission) {
+    let index = this.permissionRanking.indexOf(permission)
+    if (index === -1) {
+      throw new Error(&apos;Permission Lvl Not Found&apos;)
+    }
+    this.restrictAtOrAbove = index
+    this.curPermissionLvl = permission
+    return this
+  }
+
+  /**
+   * Indicate the following action should be used for this permission level and all others are set to null
+   *
+   * @param {String} permission - the permission level
+   *
+   * @return {FieldMapperDelegate} this instance, so that calls can be chained
+   */
+  restrictTo (permission) {
+    let index = this.permissionRanking.indexOf(permission)
+    if (index === -1) {
+      throw new Error(&apos;Permission Lvl Not Found&apos;)
+    }
+    this.restrict = index
+    this.curPermissionLvl = permission
+    return this
+  }
+
+  /**
+   * Assigns a PassthroughFieldMapper to the current permission masking
+   *
+   * @return {FieldMapperDelegate} this instance, so that calls can be chained
+   */
+  passthrough () {
+    this.delegate[this.curPermissionLvl] = new PassthroughFieldMapper()
+    this._checkAndReset(this.delegate[this.curPermissionLvl])
+    return this
+  }
+
+  /**
+   * Assign a CustomFieldMapper to the current permission masking
+   *
+   * @param {function (instance: Object, key: String, isList: boolean)} builder - the builder function to use when building this field
+   *
+   * @return {FieldMapperDelegate} this instance, so that calls can be chained
+   */
+  buildWith (builder) {
+    this.delegate[this.curPermissionLvl] = new CustomFieldMapper(builder)
+    this._checkAndReset(this.delegate[this.curPermissionLvl])
+    return this
+  }
+
+  /**
+   * Assign a SubtransformFieldMapper, indicated by @param transformerKey
+   * to the current permission masking.
+   *
+   * @param {String | Transformer | function (): any } transformerKey - the Transformer provider.
+   * @param {String} [permissionLvl] - If provided, the permission level is used to perform the subtransformation.
+   * By the default the parents permission level is used.
+   *
+   * @return {FieldMapperDelegate} this instance, so that calls can be chained
+   */
+  subTransform (transformerKey, permissionLvl) {
+    /**
+     * Set all permission lvls on this transform
+     * to transform the child object using the provided permissionLvl
+     */
+    if (permissionLvl) {
+      if (this.permissionRanking.indexOf(permissionLvl) === -1) {
+        throw new Error(&apos;Invalid permission lvl provided&apos;)
+      }
+      let mapper = new SubTransformFieldMapper(transformerKey, permissionLvl)
+      this.permissionRanking.forEach((curPermissionLvl) =&gt; {
+        // Using same mapper for each lvl on parent
+        this.delegate[curPermissionLvl] = mapper
+      })
+    } else {
+      // use parents permission lvl for each lvl
+      this.permissionRanking.forEach((curPermissionLvl) =&gt; {
+        this.delegate[curPermissionLvl] = new SubTransformFieldMapper(transformerKey, curPermissionLvl)
+      })
+    }
+    // reset always flag, since all lvls are set above
+    this.alwaysFlag = null
+
+    this._checkAndReset(this.delegate[this.curPermissionLvl])
+    return this
+  }
+
+  /**
+   * Set the isList falg to be passed to the FieldMapper ie. 1:M or M:M associations
+   *
+   * @return {FieldMapperDelegate} this instance, so that calls can be chained
+   */
+  asList () {
+    this.isList = true
+    return this
+  }
+
+  /**
+   * Perform the field transformation at the provided permission level
+   *
+   * @param {String} permission - The permission level to perform the transformation
+   * @param {Object} instance - the source object
+   *
+   * @return {Promise} the transformed value
+   */
+  transform (permission, instance) {
+    let fieldMapper = this.delegate[permission]
+
+    if (fieldMapper) {
+      // Map calls builder so always returns a Promise
+      return fieldMapper.map(instance, this.sourceKey, this.isList)
+    }
+    // Lacking permissions
+    return Promise.resolve()
+  }
+
+  setPermissionRanking () {
+    this.buildPermissionMethods()
+  }
+
+  /**
+   * Build the permission API for the provided permission ranking on the FieldMapperDelegate instance
+   */
+  buildPermissionMethods () {
+    if (!this.permissionRanking) {
+      return
+    }
+    // Dynamically add all of the permission methods to the FieldMapperDelegate Class
+    this.permissionRanking.forEach((permission) =&gt; {
+      let capitalize = (str) =&gt; {
+        return str.charAt(0).toUpperCase() + str.toLowerCase().slice(1)
+      }
+
+      // Add all atOrAbove_____ methods
+      this[`${atOrAbove}${capitalize(permission)}`] = () =&gt; {
+        return this.atOrAbove(permission)
+      }
+
+      // Add all when_____ methods
+      this[`${when}${capitalize(permission)}`] = () =&gt; {
+        return this.when(permission)
+      }
+
+      // Add all restrictTo_____ methods
+      this[`${restrictTo}${capitalize(permission)}`] = () =&gt; {
+        return this.restrictTo(permission)
+      }
+    })
+  }
+
+  /**
+   * Restrict transforming if needed. This will go back and null out some lvls we just set
+   * if that is desired.
+   */
+  _checkAndReset (fieldMapper) {
+    this._always()
+    this._restrictAtOrAbove(fieldMapper)
+    this._restrictTo(fieldMapper)
+    this.curPermissionLvl = null
+    this.alwaysFlag = null
+  }
+
+  /**
+   * Set all permission lvls to use the same field mapper if the always flag is set
+   */
+  _always () {
+    if (this.alwaysFlag) {
+      // Set the delegate for each permission lvl to the same delegate
+      this.permissionRanking.forEach((permission) =&gt; {
+        this.delegate[permission] = this.delegate[this.curPermissionLvl]
+      })
+    }
+  }
+
+  /**
+   * Restrict access all fields except specified permission lvl and above
+   *
+   * @param {FieldMapper} fieldMapper - the FieldMapper instance
+   */
+  _restrictAtOrAbove (fieldMapper) {
+    if (this.restrictAtOrAbove !== null &amp;&amp; this.restrictAtOrAbove !== undefined) {
+      for (let i = 0; i &lt; this.permissionRanking.length; i++) {
+        if (i &lt; this.restrictAtOrAbove) {
+          this.delegate[this.permissionRanking[i]] = null
+          continue
+        }
+        this.delegate[this.permissionRanking[i]] = fieldMapper
+      }
+    }
+  }
+
+  /**
+   * Restrict access all fields except specified permission lvl
+   *
+   * @param {FieldMapper} fieldMapper - the FieldMapper instance
+   */
+  _restrictTo (fieldMapper) {
+    if (this.restrict !== null &amp;&amp; this.restrict !== undefined) {
+      for (let i = 0; i &lt; this.permissionRanking.length; i++) {
+        if (i !== this.restrict) {
+          this.delegate[this.permissionRanking[i]] = null
+          continue
+        }
+        this.delegate[this.permissionRanking[i]] = fieldMapper
+      }
+    }
+  }
+}
+
+/**
+ * To prevent having mulitple duplicate default functions in memory for the default API
+ * we add them on the prototype and check if they have been overwritten
+ */
+PermissionRanking.forEach((permission) =&gt; {
+  let capitalize = (str) =&gt; {
+    return str.charAt(0).toUpperCase() + str.toLowerCase().slice(1)
+  }
+
+  // Add all atOrAbove_____ methods
+  FieldMapperDelegate.prototype[`${atOrAbove}${capitalize(permission)}`] = function () {
+    if (!this._defaultPermissionRanking) {
+      throw new Error(&apos;Cannot use overwritten default permission ranking API&apos;)
+    }
+    return this.atOrAbove(permission)
+  }
+
+  // Add all when_____ methods
+  FieldMapperDelegate.prototype[`${when}${capitalize(permission)}`] = function () {
+    if (!this._defaultPermissionRanking) {
+      throw new Error(&apos;Cannot use overwritten default permission ranking API&apos;)
+    }
+    return this.when(permission)
+  }
+
+  // Add all restrictTo_____ methods
+  FieldMapperDelegate.prototype[`${restrictTo}${capitalize(permission)}`] = function () {
+    if (!this._defaultPermissionRanking) {
+      throw new Error(&apos;Cannot use overwritten default permission ranking API&apos;)
+    }
+    return this.restrictTo(permission)
+  }
+})
+
+export { FieldMapperDelegate }
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>
