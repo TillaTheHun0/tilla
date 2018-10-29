@@ -50,6 +50,9 @@
   "standard": {
     "env": [
       "mocha"
+    ],
+    "ignore": [
+      "/docs/**"
     ]
   },
   "husky": {
