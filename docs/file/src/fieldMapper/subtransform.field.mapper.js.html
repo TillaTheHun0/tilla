@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">src/fieldMapper/subtransform.field.mapper.js | tilla</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="Transforming objects with JavaScript made easy"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="tilla"><meta property="twitter:description" content="Transforming objects with JavaScript made easy"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/TillaTheHun0/tilla"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/field.mapper.delegate.js~FieldMapperDelegate.html">FieldMapperDelegate</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/transformer.js~Transformer.html">Transformer</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-fieldDelegate">fieldDelegate</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getColumnsFromModel">getColumnsFromModel</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getKeys">getKeys</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-utils">utils</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#fieldmapper">fieldMapper</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/fieldMapper/custom.field.mapper.js~CustomFieldMapper.html">CustomFieldMapper</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/fieldMapper/field.mapper.js~FieldMapper.html">FieldMapper</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/fieldMapper/passthrough.field.mapper.js~PassthroughFieldMapper.html">PassthroughFieldMapper</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/fieldMapper/subtransform.field.mapper.js~SubTransformFieldMapper.html">SubTransformFieldMapper</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#permission">permission</a><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ADMIN">ADMIN</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-PRIVATE">PRIVATE</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-PRIVILEGED">PRIVILEGED</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-PUBLIC">PUBLIC</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-defaultRankings">defaultRankings</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#registry">registry</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/registry/transformer.registry.js~TransformerRegistry.html">TransformerRegistry</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-registry">registry</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/fieldMapper/subtransform.field.mapper.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">&apos;use strict&apos;
+
+import Promise from &apos;bluebird&apos;
+
+import { FieldMapper } from &apos;./field.mapper&apos;
+import { Transformer } from &apos;../transformer&apos;
+import { registry } from &apos;../registry&apos;
+
+/**
+ * A FieldMapper that uses a Transformer to map the field
+ */
+class SubTransformFieldMapper extends FieldMapper {
+  /**
+  * @param {String | Transformer | function (): Promise&lt;Transformer&gt; } transformKey -
+  *  If a String, it should be a key to locate the Transformer in the TransformerRegistry
+  *  - The Transformer instance to use to perform the transformation
+  *  - A function which returns a Promise&lt;Transformer&gt;
+  * @param {PermissionLvl} permission - the permission to bind to the transformer function on the dto.
+  */
+  constructor (transformKey, permission) {
+    super()
+    this.transformer = null
+    this.transformKey = transformKey
+    this.permission = permission
+  }
+
+  /**
+  * Transform the field on the instance, using another {@link Transformer}. This can be used when transforming
+  * eargerly loaded relations on an instance ie. Family -&gt; Person or obviously values
+  * we would like to transform using a prebuilt {@link Transformer}.
+  *
+  * If the value being transformed is an Instance (Sequelize), we call its
+  * get() method to invoke all getters on fields and strip other Sequelize stuff off of
+  * the data before transforming it. @see http://docs.sequelizejs.com/class/lib/model.js~Model.html#instance-method-get
+  *
+  * @param {Object} instance - the source object.
+  * @param {?String} key - a key on the source object that can be used to retrieve the field value.
+  * @param {?boolean} isList - whether the value being transformed should be iterated into the builder.
+  *
+  * @return {Promise} a Promise that resolves to the transformed value.
+  */
+  builder (instance, key, isList) {
+    // Transformer binds once at runtime
+    return new Promise((resolve) =&gt; {
+      if (!this.transformer) {
+        resolve(this._setTransformer())
+        return
+      }
+      resolve()
+    }).then(() =&gt; {
+      if (isList) {
+        let list = instance[key]
+        if (!list) {
+          return Promise.resolve(list)
+        }
+        return Promise.map(list, (cur) =&gt; {
+          // check if value at this key is another Instance and must call get
+          if (typeof cur.get === &apos;function&apos;) {
+            return this.transformer.transform(this.permission, cur.get())
+          }
+          return this.transformer.transform(this.permission, cur)
+        })
+      }
+      // Key may not be on the instance
+      if (!instance[key]) {
+        return Promise.resolve(instance[key])
+      }
+
+      // check if value at this key is another Instance and must call get
+      if (typeof instance[key].get === &apos;function&apos;) {
+        return this.transformer.transform(this.permission, instance[key].get())
+      }
+      return this.transformer.transform(this.permission, instance[key])
+    })
+  }
+
+  _setTransformer () {
+    // Using registry
+    if (typeof this.transformKey === &apos;string&apos;) {
+      this.transformer = registry.getTransformer(this.transformKey)
+      return Promise.resolve()
+    }
+
+    // Passed Transformer directly
+    if (this.transformKey instanceof Transformer) {
+      this.transformer = this.transformKey
+      return Promise.resolve()
+    }
+
+    // Passed thunk which returns Promise&lt;Transformer&gt;
+    if (typeof this.transformKey === &apos;function&apos;) {
+      return this.transformKey().then((transformer) =&gt; {
+        this.transformer = transformer
+      })
+    }
+
+    throw new Error(&apos;No transformKey provided&apos;)
+  }
+}
+
+export { SubTransformFieldMapper }
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

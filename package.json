@@ -9,6 +9,7 @@
     "build:dev": "npm run build -- -s",
     "build": "node ./node_modules/.bin/babel src --out-dir dist",
     "bump": "npx standard-version",
+    "docs": "npx esdoc",
     "prepare": "npm run build",
     "standard": "node ./node_modules/standard/bin/cmd.js \"**/*.js\"",
     "test": "npm run standard && nyc mocha --require @babel/register",
@@ -37,6 +38,9 @@
     "@commitlint/config-conventional": "^7.1.2",
     "chai": "^4.1.2",
     "coveralls": "^3.0.2",
+    "esdoc": "^1.1.0",
+    "esdoc-ecmascript-proposal-plugin": "^1.0.0",
+    "esdoc-standard-plugin": "^1.0.0",
     "husky": "^1.1.2",
     "mocha": "^5.2.0",
     "nyc": "^13.1.0",
@@ -46,6 +50,9 @@
   "standard": {
     "env": [
       "mocha"
+    ],
+    "ignore": [
+      "/docs/**"
     ]
   },
   "husky": {

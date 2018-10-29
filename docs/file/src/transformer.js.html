@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">src/transformer.js | tilla</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="Transforming objects with JavaScript made easy"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="tilla"><meta property="twitter:description" content="Transforming objects with JavaScript made easy"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/TillaTheHun0/tilla"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/field.mapper.delegate.js~FieldMapperDelegate.html">FieldMapperDelegate</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/transformer.js~Transformer.html">Transformer</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-fieldDelegate">fieldDelegate</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getColumnsFromModel">getColumnsFromModel</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getKeys">getKeys</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-utils">utils</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#fieldmapper">fieldMapper</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/fieldMapper/custom.field.mapper.js~CustomFieldMapper.html">CustomFieldMapper</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/fieldMapper/field.mapper.js~FieldMapper.html">FieldMapper</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/fieldMapper/passthrough.field.mapper.js~PassthroughFieldMapper.html">PassthroughFieldMapper</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/fieldMapper/subtransform.field.mapper.js~SubTransformFieldMapper.html">SubTransformFieldMapper</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#permission">permission</a><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ADMIN">ADMIN</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-PRIVATE">PRIVATE</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-PRIVILEGED">PRIVILEGED</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-PUBLIC">PUBLIC</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-defaultRankings">defaultRankings</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#registry">registry</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/registry/transformer.registry.js~TransformerRegistry.html">TransformerRegistry</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-registry">registry</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/transformer.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">&apos;use strict&apos;
+
+import Promise from &apos;bluebird&apos;
+import { registry } from &apos;./registry&apos;
+
+const PASSTHROUGH = &apos;PASSTHROUGH&apos;
+const BUILD_WITH = &apos;BUILD_WITH&apos;
+
+/**
+ * This is the main class of Tilla. To use it, just import it
+ *
+ * ```js
+ * import { Transformer } = from &apos;tilla&apos;
+ * ```
+ *
+ * @class Transformer
+ */
+
+/**
+ * #### Example usage
+ *
+ * ```javascript
+ *
+ * import { fieldDelegate, Transformer } from &apos;tilla&apos;
+ *
+ * let fd = fieldDelegate()
+ *
+ * // with just mapping object
+ * let transformer = new Transformer({
+ *   name: fd().always().buildWith((src) =&gt; {
+ *    return `${src.firstName} ${src.lastName}`
+ *  }),
+ *  city: fd(&apos;homeCity&apos;).always().passthrough()
+ *  state: fd(&apos;address&apos;).always().buildWith((src, key) =&gt; {
+ *    let address = src[key]
+ *    return address ? address.state : address
+ *  })
+ * })
+ *
+ * // with registry key and mapping object
+ * let transformer = new Transformer(&apos;registryKey&apos;, {
+ *   name: fd().always().buildWith((src) =&gt; {
+ *    return `${src.firstName} ${src.lastName}`
+ *  }),
+ *  city: fd(&apos;homeCity&apos;).always().passthrough()
+ *  state: fd(&apos;address&apos;).always().buildWith((src, key) =&gt; {
+ *    let address = src[key]
+ *    return address ? address.state : address
+ *  })
+ * })
+ * ```
+ *
+ * @name Transformer
+ * @constructor
+ *
+ * @param {String | Object} if a string the key to use to register this transformer in the internal Transformer registry. If it&apos;s an object, it will be used as a mapping object
+ * @param {Object} the mapping object, if a registry key is provided as the first argument
+ **/
+
+class Transformer {
+  /**
+   * @param {String | Object} if a string the key to use to register this transformer in the internal Transformer registry. If it&apos;s an object, it will be used as a mapping object
+   * @param {Object} the mapping object, if a registry key is provided as the first argument
+   */
+  constructor (registryName, mapping) {
+    if (typeof registryName === &apos;string&apos;) {
+      // add to registry
+      registry.register(registryName, this)
+      this.mapping = mapping || {}
+    } else {
+      // only creating transformer, but not adding to mapping
+      mapping = registryName
+      this.mapping = mapping || {}
+    }
+    this.defaultBuilder = undefined
+    this.defaultMask = undefined
+  }
+
+  /**
+   * Perform the transformation at the provided permission level for each field
+   * provided in the mapping. If any defaultAttributes and making is provided,
+   * it will transform all defaultAttributes use the defaultMasking method.
+   *
+   * @param {String} permission - The permission level to perform the transformation
+   * @param {Object} instance - the source object
+   *
+   * @return {Promise} a Promise that resolves to the transformed object
+   */
+  transform (permission, instance) {
+    let dto = {}
+    let transformations = Promise.map(Object.keys(this.mapping), (dtoKey) =&gt; {
+      return this.mapping[dtoKey].transform(permission, instance).then((value) =&gt; {
+        if (value !== undefined) {
+          dto[dtoKey] = value
+        }
+      })
+    })
+
+    let defaultsSet = new Promise((resolve, reject) =&gt; {
+      if (!this.hasDefault) {
+        resolve()
+      }
+      // No attributes specified
+      if (!this.defaultAttributes || !this.defaultAttributes.length) {
+        return resolve()
+      }
+
+      // Attach any defaulted attributes to Dto
+      if (this.defaultMask === PASSTHROUGH) {
+        this.defaultAttributes.forEach((key) =&gt; {
+          if (!this.mapping[key]) {
+            dto[key] = instance[key]
+          }
+        })
+        resolve()
+      }
+
+      // Run each default attribute through provided builder
+      if (this.defaultMask === BUILD_WITH) {
+        return Promise.map(this.defaultAttributes, (key) =&gt; {
+          if (!this.mapping[key]) {
+            return Promise.method(() =&gt; this.defaultBuilder(instance, key))().then(value =&gt; {
+              dto[key] = value
+            })
+          }
+        }).then(resolve).catch(reject)
+      }
+      reject(new Error(&apos;No Default Masking Set&apos;))
+    })
+
+    // await transformations to finish before dto is returned
+    return Promise.join(transformations, defaultsSet, () =&gt; dto)
+  }
+
+  /**
+   * Specify attributes to transform by default. This allows whitelisting any attributes.
+   *
+   * @param {Array&lt;String&gt;} attributes - array of attribute names
+   * to transform by default
+   */
+  byDefault (attributes) {
+    this.defaultAttributes = attributes
+    this.hasDefault = true
+    return this
+  }
+
+  /**
+   * Set the defaultMask for each field in defaultAttributes to a PassthroughFieldMapper
+   *
+   * @return {Transformer} this instance, so that calls can be chained
+   */
+  PASSTHROUGH () {
+    if (!this.hasDefault) {
+      throw new Error(&apos;Default flag not set&apos;)
+    }
+    this.defaultMask = PASSTHROUGH
+    return this
+  }
+
+  /**
+   * Set the defaultMask for each field in defaultAttributes to a CustomFieldMapper using the provided
+   * builder
+   *
+   * @param {function (instance: Object, key: string, isList: boolean)} builder - the builder function
+   * to use in the CustomFieldMapper
+   *
+   * @return {Transformer} this instance, so that calls can be chained
+   */
+  BUILD_WITH (builder) {
+    if (!this.hasDefault) {
+      throw new Error(&apos;Default flag not set&apos;)
+    }
+    this.defaultMask = BUILD_WITH
+    this.defaultBuilder = builder
+    return this
+  }
+
+  /**
+   * Creates a new Transformer, derived from this Transformer.
+   * the passed in mapper will be merged into this transformer&apos;s
+   * mapping.
+   *
+   * @param {Object} mapping - the mapping object to merge
+   * with this transformers mapper
+   *
+   * @return {Transformer} a new Tranformer with the merged mapping
+   */
+  extend (mapping) {
+    let mergedMapping = { ...this.mapping, ...mapping }
+    let transformer = new Transformer(mergedMapping)
+    transformer.defaultBuilder = this.defaultBuilder
+    transformer.defaultMask = this.defaultMask
+    transformer.defaultAttributes = this.defaultAttributes
+    return transformer
+  }
+}
+
+export { Transformer }
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

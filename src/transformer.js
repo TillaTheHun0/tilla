@@ -6,9 +6,61 @@ import { registry } from './registry'
 const PASSTHROUGH = 'PASSTHROUGH'
 const BUILD_WITH = 'BUILD_WITH'
 
+/**
+ * This is the main class of Tilla. To use it, just import it
+ *
+ * ```js
+ * import { Transformer } = from 'tilla'
+ * ```
+ *
+ * @class Transformer
+ */
+
+/**
+ * #### Example usage
+ *
+ * ```javascript
+ *
+ * import { fieldDelegate, Transformer } from 'tilla'
+ *
+ * let fd = fieldDelegate()
+ *
+ * // with just mapping object
+ * let transformer = new Transformer({
+ *   name: fd().always().buildWith((src) => {
+ *    return `${src.firstName} ${src.lastName}`
+ *  }),
+ *  city: fd('homeCity').always().passthrough()
+ *  state: fd('address').always().buildWith((src, key) => {
+ *    let address = src[key]
+ *    return address ? address.state : address
+ *  })
+ * })
+ *
+ * // with registry key and mapping object
+ * let transformer = new Transformer('registryKey', {
+ *   name: fd().always().buildWith((src) => {
+ *    return `${src.firstName} ${src.lastName}`
+ *  }),
+ *  city: fd('homeCity').always().passthrough()
+ *  state: fd('address').always().buildWith((src, key) => {
+ *    let address = src[key]
+ *    return address ? address.state : address
+ *  })
+ * })
+ * ```
+ *
+ * @name Transformer
+ * @constructor
+ *
+ * @param {String | Object} if a string the key to use to register this transformer in the internal Transformer registry. If it's an object, it will be used as a mapping object
+ * @param {Object} the mapping object, if a registry key is provided as the first argument
+ **/
+
 class Transformer {
   /**
-   * @param {Object} mapping - the mapping object where each key is a FieldMapperDelegate instance
+   * @param {String | Object} if a string the key to use to register this transformer in the internal Transformer registry. If it's an object, it will be used as a mapping object
+   * @param {Object} the mapping object, if a registry key is provided as the first argument
    */
   constructor (registryName, mapping) {
     if (typeof registryName === 'string') {
@@ -24,16 +76,12 @@ class Transformer {
     this.defaultMask = undefined
   }
 
-  addFieldMapping (key, fieldMapperDelegate) {
-    this.mapping[key] = fieldMapperDelegate
-  }
-
   /**
    * Perform the transformation at the provided permission level for each field
    * provided in the mapping. If any defaultAttributes and making is provided,
    * it will transform all defaultAttributes use the defaultMasking method.
    *
-   * @param {string} permission - The permission level to perform the transformation
+   * @param {String} permission - The permission level to perform the transformation
    * @param {Object} instance - the source object
    *
    * @return {Promise} a Promise that resolves to the transformed object
@@ -87,7 +135,7 @@ class Transformer {
   /**
    * Specify attributes to transform by default. This allows whitelisting any attributes.
    *
-   * @param {Array<string>} attributes - array of attribute names
+   * @param {Array<String>} attributes - array of attribute names
    * to transform by default
    */
   byDefault (attributes) {
@@ -98,6 +146,8 @@ class Transformer {
 
   /**
    * Set the defaultMask for each field in defaultAttributes to a PassthroughFieldMapper
+   *
+   * @return {Transformer} this instance, so that calls can be chained
    */
   PASSTHROUGH () {
     if (!this.hasDefault) {
@@ -113,6 +163,8 @@ class Transformer {
    *
    * @param {function (instance: Object, key: string, isList: boolean)} builder - the builder function
    * to use in the CustomFieldMapper
+   *
+   * @return {Transformer} this instance, so that calls can be chained
    */
   BUILD_WITH (builder) {
     if (!this.hasDefault) {
