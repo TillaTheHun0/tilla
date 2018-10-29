@@ -7,6 +7,7 @@ packaged with sensible default permission levels, and a registry to keep track o
 
 ## Table of Contents
 - [Installation](#installation)
+- [Documentation](#docs)
 - [Features](#features)
 - [Usage](#usage)
 - [Contribute](#Contribute)
@@ -18,6 +19,10 @@ packaged with sensible default permission levels, and a registry to keep track o
 ```bash
 $ npm install --save tilla
 ```
+
+## Docs
+
+[Documentation Here](https://doc.esdoc.org/github.com/TillaTheHun0/tilla/)
 
 ## Goals
 I wanted to have a fluid, easy to read, chainable API to build Transformers with sensible defaults. I wanted permissions to be incorporated in the Transformer API itself and allow the user to provide their own domain specific permissions and permission ranking that would cascade down to sub-transformations. All transformations should be completely asynchronous, down to the field level. Looking at the Transformer code should give an idea as to the shape of the resultant object produced by that Transformer. It should also be easy to transform fields on an object using other Transformers, in other words Sub-transformations, and these would be lazy loaded at runtime.
