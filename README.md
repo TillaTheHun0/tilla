@@ -20,23 +20,23 @@ $ npm install --save tilla
 ```
 
 ## Goals
-I wanted to have a fluid, easy to read, chainable API to build Transformers with sensible defaults. I wanted permissions to be incorporated in the Transformer API itself and allow the user to provide their own domain specific permissions and permission ranking that would cascade down to sub-transformations, All transformations should be completely asynchronous, down to the object field level. Looking at the Transformer code should give an idea as to the shape of the resultant object produced by that Transformer. It should also be easy to transform fields on an object using other Transformers, in other words Sub-transformations, and these would be bound at runtime.
+I wanted to have a fluid, easy to read, chainable API to build Transformers with sensible defaults. I wanted permissions to be incorporated in the Transformer API itself and allow the user to provide their own domain specific permissions and permission ranking that would cascade down to sub-transformations. All transformations should be completely asynchronous, down to the field level. Looking at the Transformer code should give an idea as to the shape of the resultant object produced by that Transformer. It should also be easy to transform fields on an object using other Transformers, in other words Sub-transformations, and these would be lazy loaded at runtime.
 
 ## Features
 
-- Chainable, fluid transformation API
-- Asynchronous transformation at the object field level
-- Transformer registry
-- Field Permission Masking
+- Chainable, fluid Transformer API
+- Asynchronous transformations at the field level
+- Built-in Transformer registry
+- Field Permission-Masking
 - Cascading permissions (for sub-transformations)
 
 ## Usage
 
 ```javascript
 
-import { utils, Transformer, PermissionLvl } from 'tilla'
+import { fieldDelegate, Transformer, PermissionLvl } from 'tilla'
 
-const fd = utils.fieldDelegate() // use the built permission levels
+const fd = fieldDelegate() // use the built permission levels
 
 const addressTransformer = new Transformer({
   street: fd('street').always().passthrough(),
@@ -90,7 +90,7 @@ personTransformer.transform(PermissionLvl.PUBLIC, person).then((personDto) => {
 
 Tilla is used to transform objects. It's great for building DTOs and controlling access to certain fields on those DTOs. The core of Tilla are `Transformers` and `FieldDelegates`. `Transformers` describe the shape of the result object while `FieldDelegates` tell the transformer _how_ to map each field.
 
-You can think of a `Transformer` as a collection of `FieldDelegates`. Call `transform()`
+You can think of a `Transformer` as a collection of key'd `FieldDelegates`. Call `transform()`
 on a `Transformer` and provide the permission lvl and object to transform. This will return a `Promise` that will resolve with the transformed object.
 
 `passthrough()` simply returns the value off of the source object with no altering. `buildWith()` accepts a
@@ -107,9 +107,9 @@ By default `Tilla` ships with 4 permission levels: `PUBLIC`, `PRIVILEGED`, `PRIV
 
 ```javascript
 
-import { utils, Transformer, PermissionLvl } from 'tilla'
+import { fieldDelegate, Transformer, PermissionLvl } from 'tilla'
 
-const fd = utils.fieldDelegate() // use the built permission levels
+const fd = fieldDelegate() // use the built permission levels
 
 let oldPersonTransformer = new Transformer({
   // different transformations for PUBLIC and PRIVATE permission levels.
@@ -130,11 +130,11 @@ You can specify your own permission ranking and `Tilla` will build that `permiss
 
 ```javascript
 
-import { utils, Transformer, PermissionLvl } from 'tilla'
+import { fieldDelegate, Transformer, PermissionLvl } from 'tilla'
 
 let ranking = ['USER', 'EMPLOYEE', 'MANAGER']
 
-const fd = utils.fieldDelegate(ranking) // pass your ranking to the util wrapper
+const fd = fieldDelegate(ranking) // pass your ranking to the util wrapper
 
 let oldPersonTransformer = new Transformer({
   // different transformations for PUBLIC and PRIVATE permission levels.
@@ -153,14 +153,14 @@ let oldPersonTransformer = new Transformer({
 
 ### Can I Use a Transformer to Map a field?
 
-Yes! This is called a 'subTransform'. You may want to do this for an eargerly loaded association. For example, a `Person` may have an eagerly loaded `Address`. With `Tilla` you can specify each of these `Transformer`s and then specify a `SubTransformation` in the `Person` `Transformer` for the key, `address`. You can specify a string which will 
+Yes! This is called a 'subTransform'. You may want to do this for an eagerly loaded association. For example, a `Person` may have an eagerly loaded `Address`. With `Tilla` you can specify each of these `Transformer`s and then specify a `SubTransformation` in the `Person` `Transformer` for the key, `address`. You can specify a string which will 
 search the built in Transformer registry, a `Transformer`, or a function that returns a Promise that resolves to a `Transformer`.
 
 ```javascript
 
-import { utils, Transformer, PermissionLvl } from 'tilla'
+import { fieldDelegate, Transformer, PermissionLvl } from 'tilla'
 
-const fd = utils.fieldDelegate() // use the built permission levels
+const fd = fieldDelegate() // use the built permission levels
 
 let addressTransformer = new Transformer({
   street: fd('street').always().passthrough(),
@@ -225,13 +225,15 @@ personTransformer.transform(PermissionLvl.PRIVATE, person).then((privatePersonDt
 
 ```
 
+`Transformer` has another constructor that accepts a string, the registry string, and an object, the field mapping. This will automatically add that `Transformer` instance to the internal registry at the key. However, you can also use your own registry system separate from `tilla`
+
 All the permission APIs work the same with `SubTransform`. *The permissions for the parent propogate down to the `SubTransformation`*, be default. This is the default behavior. To override this, you can specify a permission lvl to use for the SubTransformation when defining the transformer.
 
 ```javascript
 
-import { utils, Transformer, PermissionLvl } from 'tilla'
+import { fieldDelegate, Transformer, PermissionLvl } from 'tilla'
 
-const fd = utils.fieldDelegate() // use the built permission levels
+const fd = fieldDelegate() // use the built permission levels
 
 let addressTransformer = new Transformer({
   street: fd('street').always().passthrough(),
@@ -296,13 +298,13 @@ personTransformer.transform(PermissionLvl.PRIVATE, person).then((privatePersonDt
 
 ### Can a Transformer be used to transform a list of object?
 
-Yes! It is common to have a list of common objects to transform. For example, a `Person` could have multiple `Car`s that are eagerly loaded. To specify a list of objects to transform with a common `Transformer`, simply call `asList()` on the `FieldDelegate`.
+Yes! It is common to have a list of objects to transform using a specified Transformer. For example, a `Person` could have multiple `Car`s that are eagerly loaded. To specify a list of objects to transform with a common `Transformer`, simply call `asList()` on the `FieldDelegate`.
 
 ``` javascript
 
-import { utils, Transformer, PermissionLvl } from 'tilla'
+import { fieldDelegate, Transformer, PermissionLvl } from 'tilla'
 
-const fd = utils.fieldDelegate() // use the built permission levels
+const fd = fieldDelegate() // use the built permission levels
 
 let personTransformer = new Transformer({
   age: fd('age').always().passthrough(),
@@ -319,9 +321,9 @@ Yes! `Transformers` have a method `byDefault()` that will accept an Array of str
 
 ```javascript
 
-import { utils, Transformer, PermissionLvl } from 'tilla'
+import { fieldDelegate, Transformer, PermissionLvl } from 'tilla'
 
-const fd = utils.fieldDelegate() // use the built permission levels
+const fd = fieldDelegate() // use the built permission levels
 
 let personTransformer = new Transformer({
   // Special transformation cases here
@@ -344,9 +346,9 @@ Yes! You can extend an exisiting `Transformer` by calling `extend()` and passing
 
 ``` javascript
 
-import { utils, Transformer, PermissionLvl } from 'tilla'
+import { fieldDelegate, Transformer, PermissionLvl } from 'tilla'
 
-const fd = utils.fieldDelegate() // use the built permission levels
+const fd = fieldDelegate() // use the built permission levels
 
 let personTransformer = new Transformer({
   // Special transformation cases here

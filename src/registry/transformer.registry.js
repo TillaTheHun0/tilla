@@ -7,7 +7,7 @@
  */
 class TransformerRegistry {
   /**
-   * @param {string} [debuggerName] - the name to use for debug logging
+   * @param {String} [debuggerName] - the name to use for debug logging
    */
   constructor (debuggerName) {
     this.registry = {}
@@ -17,7 +17,7 @@ class TransformerRegistry {
   /**
    * Register the Transformer at the provided the key in the registry
    *
-   * @param {string} key - the key to use to register the Transformer.
+   * @param {String} key - the key to use to register the Transformer.
    * @param {Transformer} transformer - the Transformer instance.
    */
   register (key, transformer) {
@@ -28,7 +28,7 @@ class TransformerRegistry {
   /**
    * Retrieve the Transformer at the provided the key in the registry
    *
-   * @param {string} key - the key that references the Transformer in the registry
+   * @param {String} key - the key that references the Transformer in the registry
    *
    * @return {Transformer | undefined} the transformer
    */
@@ -38,6 +38,8 @@ class TransformerRegistry {
 
   /**
    * Alias for getTransformer()
+   *
+   * @see {TransformerRegistry#getTransformer}
    */
   transformer (key) {
     return this.getTransformer(key)

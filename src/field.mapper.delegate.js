@@ -13,8 +13,8 @@ const restrictTo = 'restrictTo'
  */
 class FieldMapperDelegate {
   /**
-   * @param {string} [sourceKey] - the key on the source object.
-   * @param {Array<string>} permissionRanking - a custom permission ranking to use to build
+   * @param {String} [sourceKey] - the key on the source object.
+   * @param {Array<String>} permissionRanking - a custom permission ranking to use to build
    * the permission api.
    */
   constructor (sourceKey, permissionRanking) {
@@ -32,6 +32,8 @@ class FieldMapperDelegate {
 
   /**
    * Indicate the following action should be used for every permission level
+   *
+   * @return {FieldMapperDelegate} this instance, so that calls can be chained
    */
   always () {
     this.alwaysFlag = true
@@ -43,7 +45,9 @@ class FieldMapperDelegate {
   /**
    * Indicate the following action should be used for the indicated permission level
    *
-   * @param {string} permission - the permission level
+   * @param {String} permission - the permission level
+   *
+   * @return {FieldMapperDelegate} this instance, so that calls can be chained
    */
   when (permission) {
     this.curPermissionLvl = permission
@@ -53,7 +57,9 @@ class FieldMapperDelegate {
   /**
    * Indicate the following action should be used for this permission level and above
    *
-   * @param {string} permission - the permission level
+   * @param {String} permission - the permission level
+   *
+   * @return {FieldMapperDelegate} this instance, so that calls can be chained
    */
   atOrAbove (permission) {
     let index = this.permissionRanking.indexOf(permission)
@@ -68,7 +74,9 @@ class FieldMapperDelegate {
   /**
    * Indicate the following action should be used for this permission level and all others are set to null
    *
-   * @param {string} permission - the permission level
+   * @param {String} permission - the permission level
+   *
+   * @return {FieldMapperDelegate} this instance, so that calls can be chained
    */
   restrictTo (permission) {
     let index = this.permissionRanking.indexOf(permission)
@@ -82,6 +90,8 @@ class FieldMapperDelegate {
 
   /**
    * Assigns a PassthroughFieldMapper to the current permission masking
+   *
+   * @return {FieldMapperDelegate} this instance, so that calls can be chained
    */
   passthrough () {
     this.delegate[this.curPermissionLvl] = new PassthroughFieldMapper()
@@ -92,7 +102,9 @@ class FieldMapperDelegate {
   /**
    * Assign a CustomFieldMapper to the current permission masking
    *
-   * @param {function (instance: Object, key: string, isList: boolean)} builder - the builder function to use when building this field
+   * @param {function (instance: Object, key: String, isList: boolean)} builder - the builder function to use when building this field
+   *
+   * @return {FieldMapperDelegate} this instance, so that calls can be chained
    */
   buildWith (builder) {
     this.delegate[this.curPermissionLvl] = new CustomFieldMapper(builder)
@@ -104,9 +116,11 @@ class FieldMapperDelegate {
    * Assign a SubtransformFieldMapper, indicated by @param transformerKey
    * to the current permission masking.
    *
-   * @param {string | Transformer | function (): any } transformerKey - the Transformer provider.
-   * @param {string} [permissionLvl] - If provided, the permission level is used to perform the subtransformation.
+   * @param {String | Transformer | function (): any } transformerKey - the Transformer provider.
+   * @param {String} [permissionLvl] - If provided, the permission level is used to perform the subtransformation.
    * By the default the parents permission level is used.
+   *
+   * @return {FieldMapperDelegate} this instance, so that calls can be chained
    */
   subTransform (transformerKey, permissionLvl) {
     /**
@@ -137,6 +151,8 @@ class FieldMapperDelegate {
 
   /**
    * Set the isList falg to be passed to the FieldMapper ie. 1:M or M:M associations
+   *
+   * @return {FieldMapperDelegate} this instance, so that calls can be chained
    */
   asList () {
     this.isList = true
@@ -146,7 +162,7 @@ class FieldMapperDelegate {
   /**
    * Perform the field transformation at the provided permission level
    *
-   * @param {string} permission - The permission level to perform the transformation
+   * @param {String} permission - The permission level to perform the transformation
    * @param {Object} instance - the source object
    *
    * @return {Promise} the transformed value

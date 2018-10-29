@@ -9,7 +9,7 @@ class FieldMapper {
    * is always returned.
    *
    * @param {Object} instance - the source object.
-   * @param {string} [key] - the key to provide to the builder.
+   * @param {String} [key] - the key to provide to the builder.
    * @param {boolean} [isList] - whether the value being transformed should be iterated into the builder.
    *
    * @return {Promise} the transformed value.

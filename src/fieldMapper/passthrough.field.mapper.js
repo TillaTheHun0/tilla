@@ -11,7 +11,7 @@ class PassthroughFieldMapper extends FieldMapper {
    * Simply resolve the value at this key on the source object.
    *
    * @param {Object} instance - the source object.
-   * @param {string} key - the key on the source whose value is being transformed.
+   * @param {String} key - the key on the source whose value is being transformed.
    *
    * @return {Promise} a Promise that resolves to the value at that key on the source object.
    */

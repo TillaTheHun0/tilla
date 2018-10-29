@@ -11,8 +11,8 @@ import { registry } from '../registry'
  */
 class SubTransformFieldMapper extends FieldMapper {
   /**
-  * @param {string | Transformer | function (): Promise<Transformer> } transformKey -
-  *  If a string, it should be a key to locate the Transformer in the TransformerRegistry
+  * @param {String | Transformer | function (): Promise<Transformer> } transformKey -
+  *  If a String, it should be a key to locate the Transformer in the TransformerRegistry
   *  - The Transformer instance to use to perform the transformation
   *  - A function which returns a Promise<Transformer>
   * @param {PermissionLvl} permission - the permission to bind to the transformer function on the dto.
@@ -34,7 +34,7 @@ class SubTransformFieldMapper extends FieldMapper {
   * the data before transforming it. @see http://docs.sequelizejs.com/class/lib/model.js~Model.html#instance-method-get
   *
   * @param {Object} instance - the source object.
-  * @param {?string} key - a key on the source object that can be used to retrieve the field value.
+  * @param {?String} key - a key on the source object that can be used to retrieve the field value.
   * @param {?boolean} isList - whether the value being transformed should be iterated into the builder.
   *
   * @return {Promise} a Promise that resolves to the transformed value.
