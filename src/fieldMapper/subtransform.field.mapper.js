@@ -15,7 +15,7 @@ class SubTransformFieldMapper extends FieldMapper {
   *  If a String, it should be a key to locate the Transformer in the TransformerRegistry
   *  - The Transformer instance to use to perform the transformation
   *  - A function which returns a Promise<Transformer>
-  * @param {PermissionLvl} permission - the permission to bind to the transformer function on the dto.
+  * @param {Permissions} permission - the permission to bind to the transformer function on the dto.
   */
   constructor (transformKey, permission) {
     super()

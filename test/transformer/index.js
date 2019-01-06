@@ -2,7 +2,7 @@
 
 import { expect } from 'chai'
 
-import { Transformer, fieldDelegate, PermissionLvl, registry } from '../../src'
+import { Transformer, fieldDelegate, Permissions, registry } from '../../src'
 
 let delegate = fieldDelegate()
 
@@ -84,7 +84,7 @@ function transformNoDefault (done) {
     otherValue: 200 // field ignored by transformer
   }
 
-  transformer.transform(PermissionLvl.PRIVATE, obj).then((dto) => {
+  transformer.transform(Permissions.PRIVATE, obj).then((dto) => {
     expect(dto.value).to.be.equal(1)
     expect(dto.secret).to.be.equal(100)
     expect(dto.otherValue).to.be.equal(undefined)
@@ -104,7 +104,7 @@ function transformWithDefault (done) {
     otherValue: 200
   }
 
-  transformer.transform(PermissionLvl.PRIVATE, obj).then((dto) => {
+  transformer.transform(Permissions.PRIVATE, obj).then((dto) => {
     expect(dto.value).to.be.equal(1)
     expect(dto.secret).to.be.equal(100)
     expect(dto.otherValue).to.be.equal(200)
@@ -124,7 +124,7 @@ function transformWithDefaultNoAttributes (done) {
     otherValue: 200 // field ignored by transformer
   }
 
-  transformer.transform(PermissionLvl.PRIVATE, obj).then((dto) => {
+  transformer.transform(Permissions.PRIVATE, obj).then((dto) => {
     expect(dto.value).to.be.equal(1)
     expect(dto.secret).to.be.equal(100)
     expect(dto.otherValue).to.be.equal(undefined)
@@ -146,7 +146,7 @@ function transformWithDefaultBuildWith (done) {
     otherValue: 200
   }
 
-  transformer.transform(PermissionLvl.PRIVATE, obj).then((dto) => {
+  transformer.transform(Permissions.PRIVATE, obj).then((dto) => {
     expect(dto.value).to.be.equal(1)
     expect(dto.secret).to.be.equal(100)
     expect(dto.otherValue).to.be.equal(201)
@@ -168,7 +168,7 @@ function transformWithDefaultBuildWithNoAttributes (done) {
     otherValue: 200
   }
 
-  transformer.transform(PermissionLvl.PRIVATE, obj).then((dto) => {
+  transformer.transform(Permissions.PRIVATE, obj).then((dto) => {
     expect(dto.value).to.be.equal(1)
     expect(dto.secret).to.be.equal(100)
     expect(dto.otherValue).to.be.equal(undefined)
@@ -188,7 +188,7 @@ function transformWithDefaultNoMaskErr (done) {
     otherValue: 200
   }
 
-  transformer.transform(PermissionLvl.PRIVATE, obj).catch(() => {
+  transformer.transform(Permissions.PRIVATE, obj).catch(() => {
     done()
   })
 }
@@ -215,7 +215,7 @@ function extend (done) {
     otherValue: 200
   }
 
-  extension.transform(PermissionLvl.PRIVATE, obj).then((dto) => {
+  extension.transform(Permissions.PRIVATE, obj).then((dto) => {
     expect(dto.value).to.be.equal(undefined)
     expect(dto.secret).to.be.equal(100)
     expect(dto.computed).to.be.equal(500)
@@ -247,7 +247,7 @@ function register (done) {
     }
   }
 
-  transformer.transform(PermissionLvl.PUBLIC, obj).then(dto => {
+  transformer.transform(Permissions.PUBLIC, obj).then(dto => {
     expect(dto.field).to.be.equal(obj.field)
     expect(dto.sub.value).to.be.equal(obj.sub.value)
     expect(dto.sub.secret).to.be.equal(undefined)
