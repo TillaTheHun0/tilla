@@ -1,7 +1,7 @@
 'use strict'
 
 import { expect } from 'chai'
-import { PermissionLvl } from '../../src'
+import { Permissions } from '../../src'
 import { PassthroughFieldMapper, CustomFieldMapper, SubTransformFieldMapper } from '../../src/fieldMapper'
 import { FieldMapperDelegate } from '../../src/field.mapper.delegate'
 
@@ -58,12 +58,12 @@ function buildWithAlways () {
 function subTransformWithPermission () {
   let fMDelegate = new FieldMapperDelegate('woop')
 
-  fMDelegate.always().subTransform('something', PermissionLvl.PUBLIC)
+  fMDelegate.always().subTransform('something', Permissions.PUBLIC)
 
   fMDelegate.permissionRanking.forEach((p) => {
     let trans = fMDelegate.delegate[p]
     expect(fMDelegate.delegate[p] instanceof SubTransformFieldMapper).to.be.equal(true)
-    expect(trans.permission).to.be.equal(PermissionLvl.PUBLIC)
+    expect(trans.permission).to.be.equal(Permissions.PUBLIC)
   })
 
   expect(fMDelegate.curPermissionLvl).to.be.equal(null)
@@ -113,7 +113,7 @@ function checkAlways () {
 function restrictAtOrAbove () {
   let fMDelegate = new FieldMapperDelegate('woop')
 
-  let index = fMDelegate.permissionRanking.indexOf(PermissionLvl.PRIVATE)
+  let index = fMDelegate.permissionRanking.indexOf(Permissions.PRIVATE)
   fMDelegate.atOrAbovePrivate().passthrough()
 
   fMDelegate.permissionRanking.forEach((p, i) => {
@@ -133,7 +133,7 @@ function transformAtLvl () {
 
   fMDelegate.atOrAbovePrivate().passthrough()
 
-  fMDelegate.transform(PermissionLvl.PRIVATE, obj).then((value) => {
+  fMDelegate.transform(Permissions.PRIVATE, obj).then((value) => {
     expect(value).to.be.equal(200)
   })
 }
@@ -146,7 +146,7 @@ function transformBelowLvl () {
 
   fMDelegate.atOrAbovePrivate().passthrough()
 
-  fMDelegate.transform(PermissionLvl.PUBLIC, obj).then((value) => {
+  fMDelegate.transform(Permissions.PUBLIC, obj).then((value) => {
     expect(value).to.be.equal(undefined)
   })
 }
@@ -154,33 +154,33 @@ function transformBelowLvl () {
 function when () {
   let fMDelegate = new FieldMapperDelegate('woop').whenPrivate()
 
-  expect(fMDelegate.curPermissionLvl).to.be.equal(PermissionLvl.PRIVATE)
+  expect(fMDelegate.curPermissionLvl).to.be.equal(Permissions.PRIVATE)
 }
 
 function atOrAbove () {
   let fMDelegate = new FieldMapperDelegate('woop')
 
-  let index = fMDelegate.permissionRanking.indexOf(PermissionLvl.PRIVATE)
+  let index = fMDelegate.permissionRanking.indexOf(Permissions.PRIVATE)
   fMDelegate.atOrAbovePrivate()
 
-  expect(fMDelegate.curPermissionLvl).to.be.equal(PermissionLvl.PRIVATE)
+  expect(fMDelegate.curPermissionLvl).to.be.equal(Permissions.PRIVATE)
   expect(index).to.be.equal(fMDelegate.restrictAtOrAbove)
 }
 
 function restrictTo () {
   let fMDelegate = new FieldMapperDelegate('woop')
 
-  let index = fMDelegate.permissionRanking.indexOf(PermissionLvl.PRIVATE)
+  let index = fMDelegate.permissionRanking.indexOf(Permissions.PRIVATE)
   fMDelegate.restrictToPrivate()
 
-  expect(fMDelegate.curPermissionLvl).to.be.equal(PermissionLvl.PRIVATE)
+  expect(fMDelegate.curPermissionLvl).to.be.equal(Permissions.PRIVATE)
   expect(index).to.be.equal(fMDelegate.restrict)
 }
 
 function _restrictTo () {
   let fMDelegate = new FieldMapperDelegate('woop')
 
-  let index = fMDelegate.permissionRanking.indexOf(PermissionLvl.PRIVATE)
+  let index = fMDelegate.permissionRanking.indexOf(Permissions.PRIVATE)
   fMDelegate.restrictToPrivate().passthrough()
 
   fMDelegate.permissionRanking.forEach((p, i) => {
