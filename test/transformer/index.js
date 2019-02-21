@@ -255,6 +255,28 @@ function register (done) {
   })
 }
 
+function curryArgs (done) {
+  let transformer = new Transformer({
+    value: delegate('value').always().passthrough(),
+    secret: delegate('secret').atOrAbovePrivate().passthrough()
+  }).byDefault().PASSTHROUGH()
+
+  let obj = {
+    value: 1,
+    secret: 100,
+    otherValue: 200 // field ignored by transformer
+  }
+
+  let curried = transformer.transform(Permissions.PRIVATE)
+
+  curried(obj).then((dto) => {
+    expect(dto.value).to.be.equal(1)
+    expect(dto.secret).to.be.equal(100)
+    expect(dto.otherValue).to.be.equal(undefined)
+    done()
+  })
+}
+
 export {
   byDefault,
   passthrough,
@@ -268,5 +290,6 @@ export {
   transformWithDefaultBuildWithNoAttributes,
   transformWithDefaultNoMaskErr,
   extend,
-  register
+  register,
+  curryArgs
 }

@@ -88,48 +88,58 @@ class Transformer {
    */
   transform (permission, instance) {
     let dto = {}
-    let transformations = Promise.map(Object.keys(this.mapping), (dtoKey) => {
-      return this.mapping[dtoKey].transform(permission, instance).then((value) => {
-        if (value !== undefined) {
-          dto[dtoKey] = value
-        }
-      })
-    })
 
-    let defaultsSet = new Promise((resolve, reject) => {
-      if (!this.hasDefault) {
-        resolve()
-      }
-      // No attributes specified
-      if (!this.defaultAttributes || !this.defaultAttributes.length) {
-        return resolve()
-      }
-
-      // Attach any defaulted attributes to Dto
-      if (this.defaultMask === PASSTHROUGH) {
-        this.defaultAttributes.forEach((key) => {
-          if (!this.mapping[key]) {
-            dto[key] = instance[key]
+    let doTransform = async (permission, instance) => {
+      let transformations = Promise.map(Object.keys(this.mapping), (dtoKey) => {
+        return this.mapping[dtoKey].transform(permission, instance).then((value) => {
+          if (value !== undefined) {
+            dto[dtoKey] = value
           }
         })
-        resolve()
-      }
+      })
 
-      // Run each default attribute through provided builder
-      if (this.defaultMask === BUILD_WITH) {
-        return Promise.map(this.defaultAttributes, (key) => {
-          if (!this.mapping[key]) {
-            return Promise.method(() => this.defaultBuilder(instance, key))().then(value => {
-              dto[key] = value
-            })
-          }
-        }).then(resolve).catch(reject)
-      }
-      reject(new Error('No Default Masking Set'))
-    })
+      let defaultsSet = new Promise((resolve, reject) => {
+        if (!this.hasDefault) {
+          resolve()
+        }
+        // No attributes specified
+        if (!this.defaultAttributes || !this.defaultAttributes.length) {
+          return resolve()
+        }
 
-    // await transformations to finish before dto is returned
-    return Promise.join(transformations, defaultsSet, () => dto)
+        // Attach any defaulted attributes to Dto
+        if (this.defaultMask === PASSTHROUGH) {
+          this.defaultAttributes.forEach((key) => {
+            if (!this.mapping[key]) {
+              dto[key] = instance[key]
+            }
+          })
+          resolve()
+        }
+
+        // Run each default attribute through provided builder
+        if (this.defaultMask === BUILD_WITH) {
+          return Promise.map(this.defaultAttributes, (key) => {
+            if (!this.mapping[key]) {
+              return Promise.method(() => this.defaultBuilder(instance, key))().then(value => {
+                dto[key] = value
+              })
+            }
+          }).then(resolve).catch(reject)
+        }
+        reject(new Error('No Default Masking Set'))
+      })
+
+      // await transformations to finish before dto is returned
+      return Promise.join(transformations, defaultsSet, () => dto)
+    }
+
+    // curry
+    if (!instance) {
+      return instance => doTransform(permission, instance)
+    }
+
+    return doTransform(permission, instance)
   }
 
   /**
