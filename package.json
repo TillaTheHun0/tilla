@@ -35,7 +35,7 @@
     "@babel/preset-env": "^7.2.3",
     "@babel/register": "^7.0.0",
     "@commitlint/cli": "^8.1.0",
-    "@commitlint/config-conventional": "^7.1.2",
+    "@commitlint/config-conventional": "^8.1.0",
     "chai": "^4.2.0",
     "coveralls": "^3.0.2",
     "esdoc": "^1.1.0",
