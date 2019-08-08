@@ -6,7 +6,7 @@ import { PassthroughFieldMapper, CustomFieldMapper, SubTransformFieldMapper } fr
 import { FieldMapperDelegate } from '../../src/field.mapper.delegate'
 
 function always () {
-  let delegate = new FieldMapperDelegate('woop')
+  const delegate = new FieldMapperDelegate('woop')
 
   delegate.always()
 
@@ -18,7 +18,7 @@ function always () {
 }
 
 function alwaysSetsAllLvls () {
-  let fMDelegate = new FieldMapperDelegate('woop')
+  const fMDelegate = new FieldMapperDelegate('woop')
 
   fMDelegate.always().passthrough()
 
@@ -29,7 +29,7 @@ function alwaysSetsAllLvls () {
 }
 
 function passthroughAlways () {
-  let fMDelegate = new FieldMapperDelegate('woop')
+  const fMDelegate = new FieldMapperDelegate('woop')
 
   fMDelegate.always().passthrough()
 
@@ -41,8 +41,8 @@ function passthroughAlways () {
 }
 
 function buildWithAlways () {
-  let fMDelegate = new FieldMapperDelegate('woop')
-  let builder = () => {
+  const fMDelegate = new FieldMapperDelegate('woop')
+  const builder = () => {
     console.log('builder')
   }
 
@@ -56,12 +56,12 @@ function buildWithAlways () {
 }
 
 function subTransformWithPermission () {
-  let fMDelegate = new FieldMapperDelegate('woop')
+  const fMDelegate = new FieldMapperDelegate('woop')
 
   fMDelegate.always().subTransform('something', Permissions.PUBLIC)
 
   fMDelegate.permissionRanking.forEach((p) => {
-    let trans = fMDelegate.delegate[p]
+    const trans = fMDelegate.delegate[p]
     expect(fMDelegate.delegate[p] instanceof SubTransformFieldMapper).to.be.equal(true)
     expect(trans.permission).to.be.equal(Permissions.PUBLIC)
   })
@@ -70,7 +70,7 @@ function subTransformWithPermission () {
 }
 
 function subTransformWithPermissionInvalidErr (done) {
-  let fMDelegate = new FieldMapperDelegate('woop')
+  const fMDelegate = new FieldMapperDelegate('woop')
 
   try {
     fMDelegate.always().subTransform('something', 'INVALID')
@@ -80,12 +80,12 @@ function subTransformWithPermissionInvalidErr (done) {
 }
 
 function subTransformWithoutPermission () {
-  let fMDelegate = new FieldMapperDelegate('woop')
+  const fMDelegate = new FieldMapperDelegate('woop')
 
   fMDelegate.always().subTransform('something')
 
   fMDelegate.permissionRanking.forEach((p) => {
-    let trans = fMDelegate.delegate[p]
+    const trans = fMDelegate.delegate[p]
     expect(fMDelegate.delegate[p] instanceof SubTransformFieldMapper).to.be.equal(true)
     expect(trans.permission).to.be.equal(p)
   })
@@ -94,12 +94,12 @@ function subTransformWithoutPermission () {
 }
 
 function asList () {
-  let fMDelegate = new FieldMapperDelegate('woop').asList()
+  const fMDelegate = new FieldMapperDelegate('woop').asList()
   expect(fMDelegate.isList).to.be.equal(true)
 }
 
 function checkAlways () {
-  let fMDelegate = new FieldMapperDelegate('woop')
+  const fMDelegate = new FieldMapperDelegate('woop')
 
   fMDelegate.always().passthrough()
 
@@ -111,9 +111,9 @@ function checkAlways () {
 }
 
 function restrictAtOrAbove () {
-  let fMDelegate = new FieldMapperDelegate('woop')
+  const fMDelegate = new FieldMapperDelegate('woop')
 
-  let index = fMDelegate.permissionRanking.indexOf(Permissions.PRIVATE)
+  const index = fMDelegate.permissionRanking.indexOf(Permissions.PRIVATE)
   fMDelegate.atOrAbovePrivate().passthrough()
 
   fMDelegate.permissionRanking.forEach((p, i) => {
@@ -126,8 +126,8 @@ function restrictAtOrAbove () {
 }
 
 function transformAtLvl () {
-  let fMDelegate = new FieldMapperDelegate('woop')
-  let obj = {
+  const fMDelegate = new FieldMapperDelegate('woop')
+  const obj = {
     woop: 200
   }
 
@@ -139,8 +139,8 @@ function transformAtLvl () {
 }
 
 function transformBelowLvl () {
-  let fMDelegate = new FieldMapperDelegate('woop')
-  let obj = {
+  const fMDelegate = new FieldMapperDelegate('woop')
+  const obj = {
     woop: 200
   }
 
@@ -152,15 +152,15 @@ function transformBelowLvl () {
 }
 
 function when () {
-  let fMDelegate = new FieldMapperDelegate('woop').whenPrivate()
+  const fMDelegate = new FieldMapperDelegate('woop').whenPrivate()
 
   expect(fMDelegate.curPermissionLvl).to.be.equal(Permissions.PRIVATE)
 }
 
 function atOrAbove () {
-  let fMDelegate = new FieldMapperDelegate('woop')
+  const fMDelegate = new FieldMapperDelegate('woop')
 
-  let index = fMDelegate.permissionRanking.indexOf(Permissions.PRIVATE)
+  const index = fMDelegate.permissionRanking.indexOf(Permissions.PRIVATE)
   fMDelegate.atOrAbovePrivate()
 
   expect(fMDelegate.curPermissionLvl).to.be.equal(Permissions.PRIVATE)
@@ -168,9 +168,9 @@ function atOrAbove () {
 }
 
 function restrictTo () {
-  let fMDelegate = new FieldMapperDelegate('woop')
+  const fMDelegate = new FieldMapperDelegate('woop')
 
-  let index = fMDelegate.permissionRanking.indexOf(Permissions.PRIVATE)
+  const index = fMDelegate.permissionRanking.indexOf(Permissions.PRIVATE)
   fMDelegate.restrictToPrivate()
 
   expect(fMDelegate.curPermissionLvl).to.be.equal(Permissions.PRIVATE)
@@ -178,9 +178,9 @@ function restrictTo () {
 }
 
 function _restrictTo () {
-  let fMDelegate = new FieldMapperDelegate('woop')
+  const fMDelegate = new FieldMapperDelegate('woop')
 
-  let index = fMDelegate.permissionRanking.indexOf(Permissions.PRIVATE)
+  const index = fMDelegate.permissionRanking.indexOf(Permissions.PRIVATE)
   fMDelegate.restrictToPrivate().passthrough()
 
   fMDelegate.permissionRanking.forEach((p, i) => {
@@ -194,9 +194,9 @@ function _restrictTo () {
 }
 
 function setPermissionRanking () {
-  let permissions = ['low', 'medium', 'high']
+  const permissions = ['low', 'medium', 'high']
 
-  let fMDelegate = new FieldMapperDelegate('woop', permissions)
+  const fMDelegate = new FieldMapperDelegate('woop', permissions)
 
   expect(fMDelegate.atOrAboveLow).to.not.be.equal(undefined)
   expect(fMDelegate.whenMedium).to.not.be.equal(undefined)
@@ -208,30 +208,30 @@ function setPermissionRanking () {
 }
 
 function buildPermissionMethods () {
-  let permissions = ['low', 'medium', 'high']
+  const permissions = ['low', 'medium', 'high']
 
-  let fMDelegate = new FieldMapperDelegate('woop', permissions)
+  const fMDelegate = new FieldMapperDelegate('woop', permissions)
 
-  let capitalize = (str) => {
+  const capitalize = (str) => {
     return str.charAt(0).toUpperCase() + str.toLowerCase().slice(1)
   }
 
   permissions.forEach((p) => {
-    let m = fMDelegate[`atOrAbove${capitalize(p)}`]
+    const m = fMDelegate[`atOrAbove${capitalize(p)}`]
     expect(m).to.not.be.equal(null)
     expect(m).to.not.be.equal(undefined)
   })
 
   permissions.forEach((p) => {
-    let m = fMDelegate[`when${capitalize(p)}`]
+    const m = fMDelegate[`when${capitalize(p)}`]
     expect(m).to.not.be.equal(null)
     expect(m).to.not.be.equal(undefined)
   })
 }
 
 function oldApiThrowsErr () {
-  let permissions = ['low', 'medium', 'high']
-  let fMDelegate = new FieldMapperDelegate('woop', permissions)
+  const permissions = ['low', 'medium', 'high']
+  const fMDelegate = new FieldMapperDelegate('woop', permissions)
 
   try {
     fMDelegate.whenPrivate()

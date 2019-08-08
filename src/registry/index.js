@@ -1,7 +1,7 @@
 
 import { TransformerRegistry } from './transformer.registry'
 
-let registry = new TransformerRegistry()
+const registry = new TransformerRegistry()
 
 export {
   registry,

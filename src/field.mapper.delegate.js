@@ -62,7 +62,7 @@ class FieldMapperDelegate {
    * @return {FieldMapperDelegate} this instance, so that calls can be chained
    */
   atOrAbove (permission) {
-    let index = this.permissionRanking.indexOf(permission)
+    const index = this.permissionRanking.indexOf(permission)
     if (index === -1) {
       throw new Error('Permission Lvl Not Found')
     }
@@ -79,7 +79,7 @@ class FieldMapperDelegate {
    * @return {FieldMapperDelegate} this instance, so that calls can be chained
    */
   restrictTo (permission) {
-    let index = this.permissionRanking.indexOf(permission)
+    const index = this.permissionRanking.indexOf(permission)
     if (index === -1) {
       throw new Error('Permission Lvl Not Found')
     }
@@ -131,7 +131,7 @@ class FieldMapperDelegate {
       if (this.permissionRanking.indexOf(permissionLvl) === -1) {
         throw new Error('Invalid permission lvl provided')
       }
-      let mapper = new SubTransformFieldMapper(transformerKey, permissionLvl)
+      const mapper = new SubTransformFieldMapper(transformerKey, permissionLvl)
       this.permissionRanking.forEach((curPermissionLvl) => {
         // Using same mapper for each lvl on parent
         this.delegate[curPermissionLvl] = mapper
@@ -168,7 +168,7 @@ class FieldMapperDelegate {
    * @return {Promise} the transformed value
    */
   transform (permission, instance) {
-    let fieldMapper = this.delegate[permission]
+    const fieldMapper = this.delegate[permission]
 
     if (fieldMapper) {
       // Map calls builder so always returns a Promise
@@ -191,7 +191,7 @@ class FieldMapperDelegate {
     }
     // Dynamically add all of the permission methods to the FieldMapperDelegate Class
     this.permissionRanking.forEach((permission) => {
-      let capitalize = (str) => {
+      const capitalize = (str) => {
         return str.charAt(0).toUpperCase() + str.toLowerCase().slice(1)
       }
 
@@ -276,7 +276,7 @@ class FieldMapperDelegate {
  * we add them on the prototype and check if they have been overwritten
  */
 PermissionRanking.forEach((permission) => {
-  let capitalize = (str) => {
+  const capitalize = (str) => {
     return str.charAt(0).toUpperCase() + str.toLowerCase().slice(1)
   }
 

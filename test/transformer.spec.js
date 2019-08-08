@@ -1,7 +1,7 @@
 'use strict'
 
 describe('Transformer', () => {
-  let tests = require('./transformer')
+  const tests = require('./transformer')
 
   it('should set flag and default attributes', tests.byDefault)
   it('should set to passthrough by default', tests.passthrough)

@@ -3,15 +3,15 @@
 import { FieldMapper } from '../../src/fieldMapper'
 
 function throwNotImplementedError (done) {
-  let customMapper = new FieldMapper((instance, key, isList) => {
-    let value = instance[key]
+  const customMapper = new FieldMapper((instance, key, isList) => {
+    const value = instance[key]
     if (isList) {
       return value + 2
     }
     return value + 1
   })
 
-  let obj = {
+  const obj = {
     value: 1
   }
 

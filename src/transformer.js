@@ -87,10 +87,10 @@ class Transformer {
    * @return {Promise} a Promise that resolves to the transformed object
    */
   transform (permission, instance) {
-    let dto = {}
+    const dto = {}
 
-    let doTransform = async (permission, instance) => {
-      let transformations = Promise.map(Object.keys(this.mapping), (dtoKey) => {
+    const doTransform = async (permission, instance) => {
+      const transformations = Promise.map(Object.keys(this.mapping), (dtoKey) => {
         return this.mapping[dtoKey].transform(permission, instance).then((value) => {
           if (value !== undefined) {
             dto[dtoKey] = value
@@ -98,7 +98,7 @@ class Transformer {
         })
       })
 
-      let defaultsSet = new Promise((resolve, reject) => {
+      const defaultsSet = new Promise((resolve, reject) => {
         if (!this.hasDefault) {
           resolve()
         }
@@ -196,8 +196,8 @@ class Transformer {
    * @return {Transformer} a new Tranformer with the merged mapping
    */
   extend (mapping) {
-    let mergedMapping = { ...this.mapping, ...mapping }
-    let transformer = new Transformer(mergedMapping)
+    const mergedMapping = { ...this.mapping, ...mapping }
+    const transformer = new Transformer(mergedMapping)
     transformer.defaultBuilder = this.defaultBuilder
     transformer.defaultMask = this.defaultMask
     transformer.defaultAttributes = this.defaultAttributes

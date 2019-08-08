@@ -4,7 +4,7 @@ const { expect } = require('chai')
 
 const { utils } = require('../../src/utils')
 
-let delegate = utils.fieldDelegate()
+const delegate = utils.fieldDelegate()
 
 function fieldDelegate () {
   const key = 'someKey'

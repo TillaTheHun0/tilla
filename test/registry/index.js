@@ -5,7 +5,7 @@ import { expect } from 'chai'
 import { registry, Transformer } from '../../src'
 
 function registerTransformer () {
-  let transformer = new Transformer({})
+  const transformer = new Transformer({})
 
   registry.register('key', transformer)
 
@@ -13,7 +13,7 @@ function registerTransformer () {
 }
 
 function getTransformer () {
-  let transformer = new Transformer({})
+  const transformer = new Transformer({})
 
   registry.register('key', transformer)
 
@@ -22,7 +22,7 @@ function getTransformer () {
 }
 
 function clearRegistry () {
-  let transformer = new Transformer({})
+  const transformer = new Transformer({})
 
   registry.register('key', transformer)
 

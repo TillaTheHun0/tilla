@@ -4,15 +4,15 @@ import { expect } from 'chai'
 import { CustomFieldMapper } from '../../src/fieldMapper'
 
 function wrapsBuilder () {
-  let customMapper = new CustomFieldMapper((instance, key, isList) => {
-    let value = instance[key]
+  const customMapper = new CustomFieldMapper((instance, key, isList) => {
+    const value = instance[key]
     if (isList) {
       return value + 2
     }
     return value + 1
   })
 
-  let obj = {
+  const obj = {
     value: 1
   }
 
@@ -28,19 +28,19 @@ function wrapsBuilder () {
 }
 
 function wrapsInPromise (done) {
-  let customMapper = new CustomFieldMapper((instance, key, isList) => {
-    let value = instance[key]
+  const customMapper = new CustomFieldMapper((instance, key, isList) => {
+    const value = instance[key]
     if (isList) {
       return value + 2
     }
     return value + 1
   })
 
-  let obj = {
+  const obj = {
     value: 1
   }
 
-  let result = customMapper.map(obj, 'value')
+  const result = customMapper.map(obj, 'value')
 
   result.then((value) => {
     expect(value).to.be.equal(2)
@@ -49,15 +49,15 @@ function wrapsInPromise (done) {
 }
 
 function callsGetOnInstance (done) {
-  let customMapper = new CustomFieldMapper((instance, key, isList) => {
-    let value = instance[key]
+  const customMapper = new CustomFieldMapper((instance, key, isList) => {
+    const value = instance[key]
     if (isList) {
       return value + 2
     }
     return value + 1
   })
 
-  let obj = {
+  const obj = {
     get: () => {
       return {
         value: 1
@@ -65,7 +65,7 @@ function callsGetOnInstance (done) {
     }
   }
 
-  let result = customMapper.map(obj, 'value')
+  const result = customMapper.map(obj, 'value')
 
   result.then((value) => {
     expect(value).to.be.equal(2)

@@ -49,7 +49,7 @@ class SubTransformFieldMapper extends FieldMapper {
       resolve()
     }).then(() => {
       if (isList) {
-        let list = instance[key]
+        const list = instance[key]
         if (!list) {
           return Promise.resolve(list)
         }

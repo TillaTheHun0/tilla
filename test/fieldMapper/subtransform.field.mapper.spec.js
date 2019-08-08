@@ -5,13 +5,13 @@ import { expect } from 'chai'
 import { SubTransformFieldMapper } from '../../src/fieldMapper'
 import { Transformer, fieldDelegate, Permissions, registry } from '../../src'
 
-let delegate = fieldDelegate()
+const delegate = fieldDelegate()
 
 const subTransformerKey = 'subTransformer'
 
 function setup () {
   registry.clear()
-  let subTransformer = new Transformer({
+  const subTransformer = new Transformer({
     value: delegate('value').always().passthrough(),
     secret: delegate('secret').atOrAbovePrivate().passthrough()
   })
@@ -23,9 +23,9 @@ function setup () {
 function setTransformerFromRegistry (done) {
   setup()
 
-  let subFieldTransformer = new SubTransformFieldMapper(subTransformerKey, Permissions.PUBLIC)
+  const subFieldTransformer = new SubTransformFieldMapper(subTransformerKey, Permissions.PUBLIC)
 
-  let obj = {
+  const obj = {
     sub: {
       value: 1,
       secret: 100
@@ -41,14 +41,14 @@ function setTransformerFromRegistry (done) {
 }
 
 function setTransformerDirectly (done) {
-  let subTransformer = new Transformer({
+  const subTransformer = new Transformer({
     value: delegate('value').always().passthrough(),
     secret: delegate('secret').atOrAbovePrivate().passthrough()
   })
 
-  let subFieldTransformer = new SubTransformFieldMapper(subTransformer, Permissions.PUBLIC)
+  const subFieldTransformer = new SubTransformFieldMapper(subTransformer, Permissions.PUBLIC)
 
-  let obj = {
+  const obj = {
     sub: {
       value: 1,
       secret: 100
@@ -62,16 +62,16 @@ function setTransformerDirectly (done) {
 }
 
 function setTransformerFromThunk (done) {
-  let subTransformer = new Transformer({
+  const subTransformer = new Transformer({
     value: delegate('value').always().passthrough(),
     secret: delegate('secret').atOrAbovePrivate().passthrough()
   })
 
-  let subFieldTransformer = new SubTransformFieldMapper(() => {
+  const subFieldTransformer = new SubTransformFieldMapper(() => {
     return Promise.resolve(subTransformer)
   }, Permissions.PUBLIC)
 
-  let obj = {
+  const obj = {
     sub: {
       value: 1,
       secret: 100
@@ -85,9 +85,9 @@ function setTransformerFromThunk (done) {
 }
 
 function setTransformerErr (done) {
-  let subFieldTransformer = new SubTransformFieldMapper(null, Permissions.PUBLIC)
+  const subFieldTransformer = new SubTransformFieldMapper(null, Permissions.PUBLIC)
 
-  let obj = {
+  const obj = {
     sub: {
       value: 1,
       secret: 100
@@ -103,9 +103,9 @@ function setTransformerErr (done) {
 function setPublicField (done) {
   setup()
 
-  let subFieldTransformer = new SubTransformFieldMapper(subTransformerKey, Permissions.PUBLIC)
+  const subFieldTransformer = new SubTransformFieldMapper(subTransformerKey, Permissions.PUBLIC)
 
-  let obj = {
+  const obj = {
     sub: {
       value: 1,
       secret: 100
@@ -122,9 +122,9 @@ function setPublicField (done) {
 function setPrivateField (done) {
   setup()
 
-  let subFieldTransformer = new SubTransformFieldMapper(subTransformerKey, Permissions.PRIVATE)
+  const subFieldTransformer = new SubTransformFieldMapper(subTransformerKey, Permissions.PRIVATE)
 
-  let obj = {
+  const obj = {
     sub: {
       value: 1,
       secret: 100
@@ -141,9 +141,9 @@ function setPrivateField (done) {
 function transformList (done) {
   setup()
 
-  let subFieldTransformer = new SubTransformFieldMapper(subTransformerKey, Permissions.PRIVATE)
+  const subFieldTransformer = new SubTransformFieldMapper(subTransformerKey, Permissions.PRIVATE)
 
-  let obj = {
+  const obj = {
     sub: [
       {
         value: 1,
@@ -157,7 +157,7 @@ function transformList (done) {
   }
 
   subFieldTransformer.map(obj, 'sub', true).then((result) => {
-    let [res1, res2] = result
+    const [res1, res2] = result
     expect(res1.value).to.be.equal(1)
     expect(res1.secret).to.be.equal(100)
 
@@ -170,9 +170,9 @@ function transformList (done) {
 function callGet (done) {
   setup()
 
-  let subFieldTransformer = new SubTransformFieldMapper(subTransformerKey, Permissions.PRIVATE)
+  const subFieldTransformer = new SubTransformFieldMapper(subTransformerKey, Permissions.PRIVATE)
 
-  let obj = {
+  const obj = {
     sub: {
       get: () => {
         return {
@@ -193,9 +193,9 @@ function callGet (done) {
 function callGetOnList (done) {
   setup()
 
-  let subFieldTransformer = new SubTransformFieldMapper(subTransformerKey, Permissions.PRIVATE)
+  const subFieldTransformer = new SubTransformFieldMapper(subTransformerKey, Permissions.PRIVATE)
 
-  let obj = {
+  const obj = {
     sub: [
       {
         get: () => {
@@ -217,7 +217,7 @@ function callGetOnList (done) {
   }
 
   subFieldTransformer.map(obj, 'sub', true).then((result) => {
-    let [res1, res2] = result
+    const [res1, res2] = result
     expect(res1.value).to.be.equal(1)
     expect(res1.secret).to.be.equal(100)
 
@@ -230,9 +230,9 @@ function callGetOnList (done) {
 function resolveFalsey (done) {
   setup()
 
-  let subFieldTransformer = new SubTransformFieldMapper(subTransformerKey, Permissions.PRIVATE)
+  const subFieldTransformer = new SubTransformFieldMapper(subTransformerKey, Permissions.PRIVATE)
 
-  let obj = {
+  const obj = {
     sub: [
       {
         value: 1,
