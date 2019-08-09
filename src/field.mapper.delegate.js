@@ -102,7 +102,7 @@ class FieldMapperDelegate {
   /**
    * Assign a CustomFieldMapper to the current permission masking
    *
-   * @param {function (instance: Object, key: String, isList: boolean)} builder - the builder function to use when building this field
+   * @param {function (Object, String, boolean): FieldMapperDelegate} builder - the builder function to use when building this field
    *
    * @return {FieldMapperDelegate} this instance, so that calls can be chained
    */

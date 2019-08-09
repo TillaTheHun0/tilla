@@ -171,7 +171,7 @@ class Transformer {
    * Set the defaultMask for each field in defaultAttributes to a CustomFieldMapper using the provided
    * builder
    *
-   * @param {function (instance: Object, key: string, isList: boolean)} builder - the builder function
+   * @param {function (Object, string, boolean):Transformer} builder - the builder function
    * to use in the CustomFieldMapper
    *
    * @return {Transformer} this instance, so that calls can be chained

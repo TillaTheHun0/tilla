@@ -8,7 +8,7 @@ class CustomFieldMapper extends FieldMapper {
    * Sometimes the src key is not needed, ie. in the case that the transformed
    * value is derived from multiple keys on the instance
    *
-   * @param {function (instance: Object, ?key: String, ?isList: boolean)} builder - the custom builder function.
+   * @param {function (Object, ?String, ?boolean): CustomFieldMapper} builder - the custom builder function.
    * Must take at least one argument (instance)
    */
   constructor (builder) {
