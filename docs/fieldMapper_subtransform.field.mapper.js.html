@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: fieldMapper/subtransform.field.mapper.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: fieldMapper/subtransform.field.mapper.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>'use strict'
+
+import Promise from 'bluebird'
+
+import { FieldMapper } from './field.mapper'
+import { Transformer } from '../transformer'
+import { registry } from '../registry'
+
+/**
+ * A FieldMapper that uses a Transformer to map the field
+ */
+class SubTransformFieldMapper extends FieldMapper {
+  /**
+  * @param {String | Transformer | function (): Promise&lt;Transformer> } transformKey -
+  *  If a String, it should be a key to locate the Transformer in the TransformerRegistry
+  *  - The Transformer instance to use to perform the transformation
+  *  - A function which returns a Promise&lt;Transformer>
+  * @param {Permissions} permission - the permission to bind to the transformer function on the dto.
+  */
+  constructor (transformKey, permission) {
+    super()
+    this.transformer = null
+    this.transformKey = transformKey
+    this.permission = permission
+  }
+
+  /**
+  * Transform the field on the instance, using another {@link Transformer}. This can be used when transforming
+  * eargerly loaded relations on an instance ie. Family -> Person or obviously values
+  * we would like to transform using a prebuilt {@link Transformer}.
+  *
+  * If the value being transformed is an Instance (Sequelize), we call its
+  * get() method to invoke all getters on fields and strip other Sequelize stuff off of
+  * the data before transforming it. @see http://docs.sequelizejs.com/class/lib/model.js~Model.html#instance-method-get
+  *
+  * @param {Object} instance - the source object.
+  * @param {?String} key - a key on the source object that can be used to retrieve the field value.
+  * @param {?boolean} isList - whether the value being transformed should be iterated into the builder.
+  *
+  * @return {Promise} a Promise that resolves to the transformed value.
+  */
+  builder (instance, key, isList) {
+    // Transformer binds once at runtime
+    return new Promise((resolve) => {
+      if (!this.transformer) {
+        resolve(this._setTransformer())
+        return
+      }
+      resolve()
+    }).then(() => {
+      if (isList) {
+        const list = instance[key]
+        if (!list) {
+          return Promise.resolve(list)
+        }
+        return Promise.map(list, (cur) => {
+          // check if value at this key is another Instance and must call get
+          if (typeof cur.get === 'function') {
+            return this.transformer.transform(this.permission, cur.get())
+          }
+          return this.transformer.transform(this.permission, cur)
+        })
+      }
+      // Key may not be on the instance
+      if (!instance[key]) {
+        return Promise.resolve(instance[key])
+      }
+
+      // check if value at this key is another Instance and must call get
+      if (typeof instance[key].get === 'function') {
+        return this.transformer.transform(this.permission, instance[key].get())
+      }
+      return this.transformer.transform(this.permission, instance[key])
+    })
+  }
+
+  _setTransformer () {
+    // Using registry
+    if (typeof this.transformKey === 'string') {
+      this.transformer = registry.getTransformer(this.transformKey)
+      return Promise.resolve()
+    }
+
+    // Passed Transformer directly
+    if (this.transformKey instanceof Transformer) {
+      this.transformer = this.transformKey
+      return Promise.resolve()
+    }
+
+    // Passed thunk which returns Promise&lt;Transformer>
+    if (typeof this.transformKey === 'function') {
+      return this.transformKey().then((transformer) => {
+        this.transformer = transformer
+      })
+    }
+
+    throw new Error('No transformKey provided')
+  }
+}
+
+export { SubTransformFieldMapper }
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="CustomFieldMapper.html">CustomFieldMapper</a></li><li><a href="FieldMapperDelegate.html">FieldMapperDelegate</a></li><li><a href="PassthroughFieldMapper.html">PassthroughFieldMapper</a></li><li><a href="SubTransformFieldMapper.html">SubTransformFieldMapper</a></li><li><a href="Transformer.html">Transformer</a></li><li><a href="TransformerRegistry.html">TransformerRegistry</a></li></ul><h3>Global</h3><ul><li><a href="global.html#defaultRankings">defaultRankings</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Thu Aug 08 2019 22:12:41 GMT-0400 (Eastern Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
