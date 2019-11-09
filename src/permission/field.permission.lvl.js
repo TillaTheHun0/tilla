@@ -1,4 +1,3 @@
-'use strict'
 
 export const PUBLIC = 'PUBLIC'
 export const PRIVILEGED = 'PRIVILEGED'

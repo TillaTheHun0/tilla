@@ -1,4 +1,3 @@
-'use strict'
 
 describe('FieldMapperDelegate', () => {
   const tests = require('./fieldMapperDelegate')

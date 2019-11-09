@@ -1,4 +1,3 @@
-'use strict'
 
 import { PUBLIC, PRIVILEGED, PRIVATE, ADMIN } from './field.permission.lvl'
 

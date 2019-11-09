@@ -1,4 +1,3 @@
-'use strict'
 
 /**
  * A registry that can be used to register all Transformers. This registry

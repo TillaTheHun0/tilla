@@ -1,4 +1,3 @@
-'use strict'
 
 describe('Utils', () => {
   const tests = require('./utils')

@@ -1,4 +1,3 @@
-'use strict'
 
 import { FieldMapper } from './field.mapper'
 import { PassthroughFieldMapper } from './passthrough.field.mapper'

@@ -1,4 +1,3 @@
-'use strict'
 
 import { FieldMapperDelegate } from './field.mapper.delegate'
 

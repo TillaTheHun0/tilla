@@ -1,4 +1,3 @@
-'use strict'
 
 describe('Registry', () => {
   const tests = require('./registry')

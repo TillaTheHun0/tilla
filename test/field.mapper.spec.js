@@ -1,4 +1,3 @@
-'use strict'
 
 describe('FieldMapper', () => {
   const fieldMapperTests = require('./fieldMapper/field.mapper.spec')

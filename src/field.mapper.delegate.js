@@ -1,5 +1,3 @@
-'use strict'
-
 import { PassthroughFieldMapper, CustomFieldMapper, SubTransformFieldMapper } from './fieldMapper'
 import { PermissionRanking } from './permission'
 

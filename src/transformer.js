@@ -1,4 +1,3 @@
-'use strict'
 
 import Promise from 'bluebird'
 import { registry } from './registry'

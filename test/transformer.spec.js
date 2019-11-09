@@ -1,4 +1,3 @@
-'use strict'
 
 describe('Transformer', () => {
   const tests = require('./transformer')
