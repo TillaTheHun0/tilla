@@ -73,17 +73,17 @@ class SubTransformFieldMapper extends FieldMapper {
     })
   }
 
-  async _setTransformer () {
+  _setTransformer () {
     // Using registry
     if (typeof this.transformKey === 'string') {
       this.transformer = registry.getTransformer(this.transformKey)
-      return
+      return Promise.resolve()
     }
 
     // Passed Transformer directly
     if (this.transformKey instanceof Transformer) {
       this.transformer = this.transformKey
-      return
+      return Promise.resolve()
     }
 
     // Passed thunk which returns Promise<Transformer>
