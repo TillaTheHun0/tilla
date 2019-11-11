@@ -25,7 +25,6 @@
   "license": "MIT",
   "dependencies": {
     "@babel/polyfill": "^7.4.4",
-    "bluebird": "^3.5.5",
     "debug": "^4.1.1"
   },
   "devDependencies": {

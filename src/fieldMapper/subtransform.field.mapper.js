@@ -1,9 +1,8 @@
 
-import Promise from 'bluebird'
-
 import { FieldMapper } from './field.mapper'
 import { Transformer } from '../transformer'
 import { registry } from '../registry'
+import { promiseMap } from '../utils'
 
 /**
  * A FieldMapper that uses a Transformer to map the field
@@ -52,7 +51,8 @@ class SubTransformFieldMapper extends FieldMapper {
         if (!list) {
           return Promise.resolve(list)
         }
-        return Promise.map(list, (cur) => {
+
+        return promiseMap(list, cur => {
           // check if value at this key is another Instance and must call get
           if (typeof cur.get === 'function') {
             return this.transformer.transform(this.permission, cur.get())
@@ -73,17 +73,17 @@ class SubTransformFieldMapper extends FieldMapper {
     })
   }
 
-  _setTransformer () {
+  async _setTransformer () {
     // Using registry
     if (typeof this.transformKey === 'string') {
       this.transformer = registry.getTransformer(this.transformKey)
-      return Promise.resolve()
+      return
     }
 
     // Passed Transformer directly
     if (this.transformKey instanceof Transformer) {
       this.transformer = this.transformKey
-      return Promise.resolve()
+      return
     }
 
     // Passed thunk which returns Promise<Transformer>

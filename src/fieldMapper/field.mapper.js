@@ -1,6 +1,4 @@
 
-import Promise from 'bluebird'
-
 class FieldMapper {
   /**
    * Call the builder passing in the instance, key on the instance to transform and

@@ -1,6 +1,6 @@
 
-import Promise from 'bluebird'
 import { registry } from './registry'
+import { promiseMap } from './utils'
 
 const PASSTHROUGH = 'PASSTHROUGH'
 const BUILD_WITH = 'BUILD_WITH'
@@ -89,7 +89,7 @@ class Transformer {
     const dto = {}
 
     const doTransform = async (permission, instance) => {
-      const transformations = Promise.map(Object.keys(this.mapping), (dtoKey) => {
+      const transformations = promiseMap(Object.keys(this.mapping), dtoKey => {
         return this.mapping[dtoKey].transform(permission, instance).then((value) => {
           if (value !== undefined) {
             dto[dtoKey] = value
@@ -118,9 +118,10 @@ class Transformer {
 
         // Run each default attribute through provided builder
         if (this.defaultMask === BUILD_WITH) {
-          return Promise.map(this.defaultAttributes, (key) => {
+          return promiseMap(this.defaultAttributes, (key) => {
             if (!this.mapping[key]) {
-              return Promise.method(() => this.defaultBuilder(instance, key))().then(value => {
+              return (
+                async () => this.defaultBuilder(instance, key))().then(value => {
                 dto[key] = value
               })
             }
@@ -130,7 +131,8 @@ class Transformer {
       })
 
       // await transformations to finish before dto is returned
-      return Promise.join(transformations, defaultsSet, () => dto)
+      return Promise.all([transformations, defaultsSet])
+        .then(() => dto)
     }
 
     // curry

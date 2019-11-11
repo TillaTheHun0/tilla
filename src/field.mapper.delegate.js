@@ -15,8 +15,8 @@ class FieldMapperDelegate {
    * @param {Array<String>} permissionRanking - a custom permission ranking to use to build
    * the permission api.
    */
-  constructor (sourceKey, permissionRanking) {
-    this.permissionRanking = permissionRanking || PermissionRanking
+  constructor (sourceKey, permissionRanking = PermissionRanking) {
+    this.permissionRanking = permissionRanking
 
     if (!permissionRanking) {
       this._defaultPermissionRanking = true
