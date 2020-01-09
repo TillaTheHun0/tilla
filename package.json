@@ -37,7 +37,7 @@
     "@commitlint/config-conventional": "^8.2.0",
     "chai": "^4.2.0",
     "coveralls": "^3.0.7",
-    "husky": "^3.0.9",
+    "husky": "^4.0.2",
     "jsdoc": "^3.6.3",
     "mocha": "^6.2.2",
     "nyc": "^14.1.1",
