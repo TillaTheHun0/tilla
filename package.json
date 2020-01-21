@@ -9,7 +9,7 @@
     "build": "npm run clean && npx tsc",
     "bump": "npx standard-version",
     "clean": "npx rimraf dist",
-    "docs": "npx rimraf docs && npx jsdoc src -r -R ./README.md -d docs",
+    "docs": "npx rimraf docs && npx typedoc --out docs --readme ./README.md src",
     "prepare": "npm run build",
     "lint": "npx eslint \"**/*.{ts,js}\"",
     "lint:fix": "npx eslint --fix \"**/*.{ts,js}\"",
@@ -43,6 +43,7 @@
     "rimraf": "^3.0.0",
     "standard-version": "^7.0.1",
     "ts-jest": "^24.3.0",
+    "typedoc": "^0.16.7",
     "typescript": "^3.7.5"
   }
 }
