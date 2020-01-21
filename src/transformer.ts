@@ -1,9 +1,13 @@
 
 import { registry } from './registry'
 import { promiseMap } from './utils'
+import { FieldMapper } from './fieldMapper'
 
 const PASSTHROUGH = 'PASSTHROUGH'
 const BUILD_WITH = 'BUILD_WITH'
+
+type CurriedTransform = (instance: any) => Promise<any>
+type TransformReturn = Promise<any> | CurriedTransform
 
 /**
  * This is the main class of Tilla. To use it, just import it
@@ -57,13 +61,21 @@ const BUILD_WITH = 'BUILD_WITH'
  **/
 
 class Transformer {
+  defaultBuilder?: FieldMapper
+  defaultMask?: string
+  defaultAttributes?: string[]
+  hasDefault?: boolean = false
+
+  mapping: Record<string, any>
+
   /**
    * @param {String | Object} if a string the key to use to register this transformer in the internal Transformer registry. If it's an object, it will be used as a mapping object
    * @param {Object} the mapping object, if a registry key is provided as the first argument
    */
-  constructor (registryName, mapping) {
+  constructor (registryName: string | Record<string, any>, mapping?: Record<string, any>) {
     if (typeof registryName === 'string') {
       // add to registry
+      // @ts-ignore
       registry.register(registryName, this)
       this.mapping = mapping || {}
     } else {
@@ -71,8 +83,6 @@ class Transformer {
       mapping = registryName
       this.mapping = mapping || {}
     }
-    this.defaultBuilder = undefined
-    this.defaultMask = undefined
   }
 
   /**
@@ -85,12 +95,12 @@ class Transformer {
    *
    * @return {Promise} a Promise that resolves to the transformed object
    */
-  transform (permission, instance) {
-    const dto = {}
+  transform (permission: string, instance?: any): TransformReturn {
+    const dto: Record<string, any> = {}
 
-    const doTransform = async (permission, instance) => {
-      const transformations = promiseMap(Object.keys(this.mapping), dtoKey => {
-        return this.mapping[dtoKey].transform(permission, instance).then((value) => {
+    const doTransform = async (permission: string, instance: any) => {
+      const transformations = promiseMap(Object.keys(this.mapping), (dtoKey: string) => {
+        return this.mapping[dtoKey].transform(permission, instance).then((value: any) => {
           if (value !== undefined) {
             dto[dtoKey] = value
           }
@@ -117,11 +127,12 @@ class Transformer {
         }
 
         // Run each default attribute through provided builder
-        if (this.defaultMask === BUILD_WITH) {
-          return promiseMap(this.defaultAttributes, (key) => {
+        if (this.defaultMask === BUILD_WITH && this.defaultBuilder) {
+          return promiseMap(this.defaultAttributes, (key: string) => {
             if (!this.mapping[key]) {
               return (
-                async () => this.defaultBuilder(instance, key))().then(value => {
+                async () => this.defaultBuilder!(instance, key, false)
+              )().then(value => {
                 dto[key] = value
               })
             }
@@ -137,7 +148,7 @@ class Transformer {
 
     // curry
     if (!instance) {
-      return instance => doTransform(permission, instance)
+      return (instance: any) => doTransform(permission, instance)
     }
 
     return doTransform(permission, instance)
@@ -149,7 +160,7 @@ class Transformer {
    * @param {Array<String>} attributes - array of attribute names
    * to transform by default
    */
-  byDefault (attributes) {
+  byDefault (attributes?: string[]) {
     this.defaultAttributes = attributes
     this.hasDefault = true
     return this
@@ -177,7 +188,7 @@ class Transformer {
    *
    * @return {Transformer} this instance, so that calls can be chained
    */
-  BUILD_WITH (builder) {
+  BUILD_WITH (builder: FieldMapper) {
     if (!this.hasDefault) {
       throw new Error('Default flag not set')
     }
@@ -196,7 +207,7 @@ class Transformer {
    *
    * @return {Transformer} a new Tranformer with the merged mapping
    */
-  extend (mapping) {
+  extend (mapping: Record<string, any>) {
     const mergedMapping = { ...this.mapping, ...mapping }
     const transformer = new Transformer(mergedMapping)
     transformer.defaultBuilder = this.defaultBuilder
