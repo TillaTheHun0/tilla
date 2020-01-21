@@ -10,8 +10,8 @@
     "bump": "npx standard-version",
     "docs": "npx rimraf docs && npx jsdoc src -r -R ./README.md -d docs",
     "prepare": "npm run build",
-    "lint": "npx standard \"**/*.js\"",
-    "test": "npm run lint && nyc mocha --require @babel/register",
+    "lint": "npx eslint \"**/*.{ts,js}\"",
+    "lint:fix": "npx eslint --fix \"**/*.{ts,js}\"",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "keywords": [
@@ -32,24 +32,18 @@
     "@typescript-eslint/eslint-plugin": "^2.17.0",
     "@typescript-eslint/parser": "^2.17.0",
     "@commitlint/cli": "^8.2.0",
-    "@commitlint/config-conventional": "^8.2.0",
-    "chai": "^4.2.0",
-    "coveralls": "^3.0.7",
-    "husky": "^3.0.9",
+    "eslint": "^6.8.0",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-plugin-import": "^2.20.0",
+    "eslint-plugin-node": "^11.0.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
     "jsdoc": "^3.6.3",
     "mocha": "^6.2.2",
     "nyc": "^14.1.1",
     "rimraf": "^3.0.0",
-    "standard": "^14.3.1",
+    "standard-version": "^7.0.1",
     "ts-jest": "^24.3.0",
     "typescript": "^3.7.5"
-    "typescript": "^3.7.4"
-    "env": [
-      "mocha"
-    ],
-    "ignore": [
-      "/docs/**",
-      "/dist/**"
-    ]
   }
 }
