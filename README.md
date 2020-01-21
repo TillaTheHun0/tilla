@@ -1,12 +1,17 @@
 # Tilla
 
-[![Coverage Status](https://coveralls.io/repos/github/TillaTheHun0/tilla/badge.svg?branch=development)](https://coveralls.io/github/TillaTheHun0/tilla?branch=development) [![Build Status](https://travis-ci.org/TillaTheHun0/tilla.svg?branch=development)](https://travis-ci.org/TillaTheHun0/tilla?branch=development) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com) [![npm version](https://img.shields.io/npm/v/tilla.svg)](https://www.npmjs.com/package/tilla) [![License](https://img.shields.io/npm/l/tilla.svg?maxAge=2592000?style=plastic)](https://github.com/TillaTheHun0/tilla/blob/master/LICENSE) [![Greenkeeper badge](https://badges.greenkeeper.io/TillaTheHun0/tilla.svg)](https://greenkeeper.io/) [![Document](https://doc.esdoc.org/github.com/TillaTheHun0/tilla/badge.svg)](https://doc.esdoc.org/github.com/TillaTheHun0/tilla/)
+## This is Version 2 Docs
+
+If you're looking for version 1 docs. Check out the [v1](https://github.com/TillaTheHun0/tilla/tree/v1) branch
+
+[![Coverage Status](https://coveralls.io/repos/github/TillaTheHun0/tilla/badge.svg?branch=development)](https://coveralls.io/github/TillaTheHun0/tilla?branch=development) [![Build Status](https://travis-ci.org/TillaTheHun0/tilla.svg?branch=development)](https://travis-ci.org/TillaTheHun0/tilla?branch=development) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com) [![TypeScript](https://camo.githubusercontent.com/21132e0838961fbecb75077042aa9b15bc0bf6f9/68747470733a2f2f62616467656e2e6e65742f62616467652f4275696c74253230576974682f547970655363726970742f626c7565)](https://www.typescriptlang.org/) [![npm version](https://img.shields.io/npm/v/tilla.svg)](https://www.npmjs.com/package/tilla) [![License](https://img.shields.io/npm/l/tilla.svg?maxAge=2592000?style=plastic)](https://github.com/TillaTheHun0/tilla/blob/master/LICENSE) [![Greenkeeper badge](https://badges.greenkeeper.io/TillaTheHun0/tilla.svg)](https://greenkeeper.io/)
 
 
 Tilla transforms objects, based on the rules you specify. It has a fluid, composable API, and non-blocking transformations. It also comes
 packaged with sensible default permission levels, and a registry to keep track of all of your Transformers that can easily be tied into other parts of your app.
 
 ## Table of Contents
+
 - [Installation](#installation)
 - [Documentation](#docs)
 - [Features](#features)
@@ -40,30 +45,44 @@ I wanted to have a fluid, easy to read, chainable API to build Transformers with
 
 ```javascript
 
-import { fieldDelegate, Transformer, PermissionLvl } from 'tilla'
+import {
+  fieldDelegate, Transformer, Permissions,
+  always, atOrAbove, passthrough, buildWith, subTransform
+} from 'tilla'
 
 const fd = fieldDelegate() // use the built permission levels
 
 const addressTransformer = new Transformer({
-  street: fd('street').always().passthrough(),
-  city: fd('city').always().passthrough(),
-  state: fd('state').always().passthrough()
-  otherThing: fd('otherThing').atOrAbovePrivate()
+  street: fd('street', always(passthrough())),
+  city: fd('city', always(passthrough())),
+  state: fd('state', always(passthrough()))
+  otherThing: fd('otherThing', atOrAbove(Permissions.PRIVATE, passthrough()))
 })
 
 const personTransformer = new Transformer({
   // always directly map src.firstName -> dest.firstName
-  firstName: fd('firstName').always().passthrough(),
+  firstName: fd('firstName',
+    always(passthrough())
+  ),
   // computed field using a custom builder
-  name: fd().always().buildWith(src => `${src.firstName} ${src.lastName}`),
+  name: fd(undefined, always(
+    buildWith(src => `${src.firstName} ${src.lastName}`
+  )),
   // multiple mapping strategies, based on permission
-  age: fd('age').whenPrivate().passthrough().whenPublic().buildWith((src, key) => src[key] - 10)
+  age: fd('age',
+    when(Permissions.PRIVATE, passthrough()),
+    when(Permissions.PUBLIC, buildWith(
+      (src, key) => src[key] - 10
+    ))
+  ),
   // Use another Transformer to map the field
-  address: fd().always().subTransform(addressTransformer),
+  address: fd('address', always(
+    subTransform(addressTransformer)
+  ),
   // only mapped if permission level is >=PRIVATE
-  ssn: fd().atOrAbovePrivate().passthrough()
+  ssn: fd('ssn', atOrAbove(Permission.PRIVATE, passthrough())),
   // only mapped if permission level === PRIVATE
-  phoneNumber: fd().restrictToPrivate().passthrough()
+  phoneNumber: fd('phoneNumber', restrictTo(Permissions.PRIVATE, passthrough()))
 })
 
 let person = {
@@ -79,7 +98,7 @@ let person = {
 }
 
 // Transformers.transform() always returns a Promise
-personTransformer.transform(PermissionLvl.PUBLIC, person).then((personDto) => {
+personTransformer.transform(Permissions.PUBLIC, person).then((personDto) => {
   /*
   {
     firstName: 'John'
@@ -94,16 +113,15 @@ personTransformer.transform(PermissionLvl.PUBLIC, person).then((personDto) => {
 
 ```
 
-Tilla is used to transform objects. It's great for building DTOs and controlling access to certain fields on those DTOs. The core of Tilla are `Transformers` and `FieldDelegates`. `Transformers` describe the shape of the result object while `FieldDelegates` tell the transformer _how_ to map each field.
+Tilla is used to transform objects. It's great for building DTOs and controlling access to certain fields on those DTOs. The core of Tilla are `Transformers` and `FieldMapperDelegates`. `Transformers` describe the shape of the result object while `FieldMapperDelegates` tell the transformer _how_ to map each field.
 
-You can think of a `Transformer` as a collection of key'd `FieldDelegates`. Call `transform()`
+ADD SECTION HERE ABOUT RULE BUILDERS
+
+You can think of a `Transformer` as a collection of key'd `FieldMapperDelegates`. Call `transform()`
 on a `Transformer` and provide the permission lvl and object to transform. This will return a `Promise` that will resolve with the transformed object.
 
 `passthrough()` simply returns the value off of the source object with no altering. `buildWith()` accepts a
-custom builder function that is called to transform the field. The `builder` function is passed `src`, `key`, and `isList`,
-`src` being the source object, `key` being the key on the src object, if provided, and `isList` indicating whether the key on the src contains a list of items. 
-
-`isList` is used under the hood for transforming lists of objects using another `Transformer`, called `SubTransformers`, but you can also use it for your own use case.
+custom builder function that is called to transform the field.
 
 ### Field Masking & Permissions
 
@@ -113,30 +131,41 @@ By default `Tilla` ships with 4 permission levels: `PUBLIC`, `PRIVILEGED`, `PRIV
 
 ```javascript
 
-import { fieldDelegate, Transformer, PermissionLvl } from 'tilla'
+import {
+  fieldDelegate, Transformer, Permissions,
+  when, atOrAbove, passthrough, buildWith
+} from 'tilla'
 
 const fd = fieldDelegate() // use the built permission levels
 
 let oldPersonTransformer = new Transformer({
   // different transformations for PUBLIC and PRIVATE permission levels.
-  age: fd('age').whenPrivate().passthrough().whenPublic().buildWith((src, key) => {
-    let age = src[key]
-    return age ? age - 10 : null
-  }),
-  name: fd().always().buildWith((src) => {
-    return `${src.firstName} ${src.lastName}`
-  }),
+  age: fd('age',
+    when(Permissions.PRIVATE, passthrough())
+    when(Perissions.PUBLIC, buildWith(
+      (src, key) => {
+        let age = src[key]
+        return age ? age - 10 : null
+      }
+    ))
+  ),
+  name: fd(undefined, always(buildWith(
+    src => `${src.firstName} ${src.lastName}`
+  ))),
   // only transformations at PRIVATE and above permission lvls will have this field
-  ssn: fd('ssn').atOrAbovePrivate().passthrough()
+  ssn: fd('ssn', atOrAbove(Permissions.PRIVATE, passthrough()))
 })
 
 ```
 
-You can specify your own permission ranking and `Tilla` will build that `permission` API on the `FieldDelegate` instance. For example, you could specify a ranking of [`USER`, `EMPLOYEE`, `MANAGER`] and `Tilla` will add API's `whenUser()`, `atOrAboveUser()`, `restrictToUser()`, `whenEmployee()`, `atOrAboveEmployee()`, `restrictToEmployee()`, `whenManager()`, `atOrAboveManager()`, `restrictToManager()`. Specify a ranking like so:
+You can specify your own permission ranking, when instantiating the `fieldDelegate`. and `Tilla` will ensure that ranking is enforced throughout the entire `FieldDelegate` chain.
 
 ```javascript
 
-import { fieldDelegate, Transformer, PermissionLvl } from 'tilla'
+import {
+  fieldDelegate, Transformer, Permissions,
+  when, atOrAbove, passthrough, buildWith
+} from 'tilla'
 
 let ranking = ['USER', 'EMPLOYEE', 'MANAGER']
 
@@ -144,46 +173,56 @@ const fd = fieldDelegate(ranking) // pass your ranking to the util wrapper
 
 let oldPersonTransformer = new Transformer({
   // different transformations for PUBLIC and PRIVATE permission levels.
-  age: fd('age').whenEmployee().passthrough().whenUser().buildWith((src, key) => {
-    let age = src[key]
-    return age ? age - 10 : null
-  }),
-  name: fd().always().buildWith((src) => {
-    return `${src.firstName} ${src.lastName}`
-  }),
+  age: fd('age',
+    when('EMPLOYEE', passthrough()),
+    when('USER', buildWith(
+      (src, key) => {
+        let age = src[key]
+        return age ? age - 10 : null
+      }
+    ))
+  ),
+  name: fd(undefined, always(buildWith(
+    src => `${src.firstName} ${src.lastName}`
+  ))),
   // only transformations at PRIVATE and above permission lvls will have this field
-  ssn: fd('ssn').atOrAboveManager().passthrough()
+  ssn: fd('ssn', atOrAbove('MANAGER', passthrough())),
+  // Will throw an ERROR because this permission lvl does not exist in the provided ranking
+  broken: fd('broken', atOrAbove('BOGUS_LEVEL', passthrough()))
 })
 
 ```
 
 ### Can I Use a Transformer to Map a field?
 
-Yes! This is called a 'subTransform'. You may want to do this for an eagerly loaded association. For example, a `Person` may have an eagerly loaded `Address`. With `Tilla` you can specify each of these `Transformer`s and then specify a `SubTransformation` in the `Person` `Transformer` for the key, `address`. You can specify a string which will 
+Yes! This is called a 'subTransform'. You may want to do this for an attached association. For example, a `Person` may have an eagerly loaded `Address`. With `Tilla` you can specify each of these `Transformer`s and then specify a `SubTransformation` in the `Person` `Transformer` for the key, `address`. You can specify a string which will
 search the built in Transformer registry, a `Transformer`, or a function that returns a Promise that resolves to a `Transformer`.
 
 ```javascript
 
-import { fieldDelegate, Transformer, PermissionLvl } from 'tilla'
+import {
+  fieldDelegate, Transformer, Permissions,
+  always, atOrAbove, passthrough, subTransform
+} from 'tilla'
 
 const fd = fieldDelegate() // use the built permission levels
 
 let addressTransformer = new Transformer({
-  street: fd('street').always().passthrough(),
-  city: fd('city').always().passthrough(),
-  state: fd('state').always().passthrough()
-  otherThing: fd('otherThing').atOrAbovePrivate()
+  street: fd('street', always(passthrough())),
+  city: fd('city', always(passthrough())),
+  state: fd('state', always(passthrough())),
+  otherThing: fd('otherThing', atOrAbove(Permissions.PRIVATE, passthrough()))
 })
 
 let personTransformer = new Transformer({
-  age: fd('age').always().passthrough(),
+  age: fd('age', always(passthrough())),
   /*...*/
   // Subtransform from the registry
-  address: fd('address').always().subTransform('address')
+  address: fd('address', always(subTransform('address')))
   // OR directly provide the transformer
-  address: fd('address').always().subTransform(addressTransformer)
-  // OR
-  address: fd('address').always().subTransform(() => Promise.resolve(addressTransformer))
+  address: fd('address', always(subTransform(addressTransformer)))
+  // OR a Thunk that returns a Transformer
+  address: fd('address', always(subTransform(async () => addressTransformer)))
 })
 
 let person = {
@@ -199,7 +238,7 @@ let person = {
   }
 }
 
-personTransformer.transform(PermissionLvl.PUBLIC, person).then((publicPersonDto) => { // public permission lvl
+personTransformer.transform(Permissions.PUBLIC, person).then((publicPersonDto) => { // public permission lvl
   /*
   {
     age: 22,
@@ -213,7 +252,7 @@ personTransformer.transform(PermissionLvl.PUBLIC, person).then((publicPersonDto)
   */
 })
 
-personTransformer.transform(PermissionLvl.PRIVATE, person).then((privatePersonDto) => { // private permission lvl
+personTransformer.transform(Permissions.PRIVATE, person).then((privatePersonDto) => { // private permission lvl
   /*
   {
     age: 22,
@@ -231,28 +270,31 @@ personTransformer.transform(PermissionLvl.PRIVATE, person).then((privatePersonDt
 
 ```
 
-`Transformer` has another constructor that accepts a string, the registry string, and an object, the field mapping. This will automatically add that `Transformer` instance to the internal registry at the key. However, you can also use your own registry system separate from `tilla`
+`Transformer` has another constructor that accepts a string, the registry string, and an object, the field mapping. This will automatically add that `Transformer` instance to the internal registry at the key. However, you can also use your own registry system separate from `tilla`.
 
-All the permission APIs work the same with `SubTransform`. *The permissions for the parent propogate down to the `SubTransformation`*, be default. This is the default behavior. To override this, you can specify a permission lvl to use for the SubTransformation when defining the transformer.
+All the permission APIs work the same with `SubTransform`. **The permission provided to the parent propogates down to the `subTransform`**. This is the default behavior. To override this, you can specify a permission lvl to use for the SubTransformation when defining the transformer.
 
 ```javascript
 
-import { fieldDelegate, Transformer, PermissionLvl } from 'tilla'
+import {
+  fieldDelegate, Transformer, Permissions,
+  always, atOrAbove, passthrough, subTransform
+} from 'tilla'
 
 const fd = fieldDelegate() // use the built permission levels
 
 let addressTransformer = new Transformer({
-  street: fd('street').always().passthrough(),
-  city: fd('city').always().passthrough(),
-  state: fd('state').always().passthrough()
-  otherThing: fd('otherThing').atOrAbovePrivate()
+  street: fd('street', always(passthrough())),
+  city: fd('city', always(passthrough())),
+  state: fd('state', always(passthrough())),
+  otherThing: fd('otherThing', atOrAbove(Permissions.PRIVATE, passthrough()))
 })
 
 let personTransformer = new Transformer({
-  age: fd('age').always().passthrough(),
+  age: fd('age', always(passthrough())),
   /*...*/
   // transform with PUBLIC permission lvl, regardless of the parents permission lvl
-  address: fd('address').always().subTransform(addressTransformer, PermissionLvl.PUBLIC)
+  address: fd('address', always(subTransform(addressTransformer, Permissions.PUBLIC)))
 })
 
 let person = {
@@ -269,7 +311,7 @@ let person = {
 }
 
 // public permission lvl
-personTransformer.transform(PermissionLvl.PUBLIC, person).then((publicPersonDto) => {
+personTransformer.transform(Permissions.PUBLIC, person).then((publicPersonDto) => {
   /*
   {
     age: 22,
@@ -284,7 +326,7 @@ personTransformer.transform(PermissionLvl.PUBLIC, person).then((publicPersonDto)
 })
 
 // private permission lvl
-personTransformer.transform(PermissionLvl.PRIVATE, person).then((privatePersonDto) => {
+personTransformer.transform(Permissions.PRIVATE, person).then((privatePersonDto) => {
   /*
   {
     age: 22,
@@ -304,19 +346,25 @@ personTransformer.transform(PermissionLvl.PRIVATE, person).then((privatePersonDt
 
 ### Can a Transformer be used to transform a list of object?
 
-Yes! It is common to have a list of objects to transform using a specified Transformer. For example, a `Person` could have multiple `Car`s that are eagerly loaded. To specify a list of objects to transform with a common `Transformer`, simply call `asList()` on the `FieldDelegate`.
+Yes! It is common to have a list of objects to transform using a specified Transformer. For example, a `Person` could have multiple `Car`s that are eagerly loaded. To specify a list of objects to transform with a common `Transformer`, simply add `asList()` Rule on the chain provided to the `FieldMapperDelegate`.
 
 ``` javascript
 
-import { fieldDelegate, Transformer, PermissionLvl } from 'tilla'
+import {
+  fieldDelegate, Transformer, Permissions,
+  always, passthrough, subTransform, asList
+} from 'tilla'
 
 const fd = fieldDelegate() // use the built permission levels
 
 let personTransformer = new Transformer({
-  age: fd('age').always().passthrough(),
+  age: fd('age', always(passthrough())),
   /*...*/
   // will transform each object in the list with the Transformer registerd at 'car' in the registry
-  cars: fd('cars').always().subTransform('car').asList()
+  cars: fd('cars', always(
+    subTransform('car'),
+    asList()
+  ))
 })
 
 ```
@@ -327,20 +375,25 @@ Yes! `Transformers` have a method `byDefault()` that will accept an Array of str
 
 ```javascript
 
-import { fieldDelegate, Transformer, PermissionLvl } from 'tilla'
+import {
+  fieldDelegate, Transformer, Permissions,
+  always, passthrough, buildWith
+} from 'tilla'
 
 const fd = fieldDelegate() // use the built permission levels
 
 let personTransformer = new Transformer({
   // Special transformation cases here
-  name: fd().always().buildWith((src) => {
-    return `${src.firstName} ${src.lastName}`
-  }),
-  city: fd('homeCity').always().passthrough()
-  state: fd('address').always().buildWith((src, key) => {
-    let address = src[key]
-    return address ? address.state : address
-  })
+  name: fd(undefined, always(buildWith(
+    src => `${src.firstName} ${src.lastName}`
+  ))),
+  city: fd('homeCity', always(passthrough())),
+  state: fd('address', always(buildWith(
+    (src, key) => {
+      let address = src[key]
+      return address ? address.state : address
+    }
+  )))
   // .BUILD_WITH() can also be used and follows the same builder API as customer field builders
 }).byDefault(['age', 'height']).PASSTHROUGH()
 
@@ -352,31 +405,33 @@ Yes! You can extend an exisiting `Transformer` by calling `extend()` and passing
 
 ``` javascript
 
-import { fieldDelegate, Transformer, PermissionLvl } from 'tilla'
+import {
+  fieldDelegate, Transformer, Permissions,
+  always, passthrough, buildWith
+} from 'tilla'
 
 const fd = fieldDelegate() // use the built permission levels
 
 let personTransformer = new Transformer({
   // Special transformation cases here
-  name: fd().always().buildWith((src) => {
-    return `${src.firstName} ${src.lastName}`
-  }),
-  city: fd('homeCity').always().passthrough()
-  state: fd('address').always().buildWith((src, key) => {
-    let address = src[key]
-    return address ? address.state : address
-  })
+  name: fd(undefined, always(buildWith(
+    src => `${src.firstName} ${src.lastName}`
+  ))),
+  city: fd('homeCity', always(passthrough()))
 }).byDefault(['age', 'height']).PASSTHROUGH()
 
 // childTransformer will have all attributes of personTransformer, add a favoriteToy fieldDelegate, and override the name transformer
 let childTransformer = personTransformer.extend({
-  favoriteToy: fd('favoriteToy').always().passthrough()
-  name: fd('name').always().buildWith((src) => {
-    return `Lil' ${src.firstName}`
-  })
+  favoriteToy: fd('favoriteToy', always(passthrough())),
+  name: fd('name', always(buildWith(
+    src => `Lil' ${src.firstName}`
+  )))
 })
-
 ```
+
+### Writing Your Own Rules For Transforming
+
+SECTION HERE ON WRITING OWN RULES
 
 ### Transformer Registry
 
@@ -397,8 +452,11 @@ const attachTransformer = (transformerKey) => {
     next()
   }
 }
-
 ```
+
+The registry also provides a `subscribe()` api that allows you to listen for changes to the registry.
+
+FINISH HERE
 
 ## TODO
 

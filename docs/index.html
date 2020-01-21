@@ -67,7 +67,11 @@
 				<a href="#tilla" id="tilla" style="color: inherit; text-decoration: none;">
 					<h1>Tilla</h1>
 				</a>
-				<p><a href="https://coveralls.io/github/TillaTheHun0/tilla?branch=development"><img src="https://coveralls.io/repos/github/TillaTheHun0/tilla/badge.svg?branch=development" alt="Coverage Status"></a> <a href="https://travis-ci.org/TillaTheHun0/tilla?branch=development"><img src="https://travis-ci.org/TillaTheHun0/tilla.svg?branch=development" alt="Build Status"></a> <a href="https://standardjs.com"><img src="https://img.shields.io/badge/code_style-standard-brightgreen.svg" alt="JavaScript Style Guide"></a> <a href="https://www.npmjs.com/package/tilla"><img src="https://img.shields.io/npm/v/tilla.svg" alt="npm version"></a> <a href="https://github.com/TillaTheHun0/tilla/blob/master/LICENSE"><img src="https://img.shields.io/npm/l/tilla.svg?maxAge=2592000?style=plastic" alt="License"></a> <a href="https://greenkeeper.io/"><img src="https://badges.greenkeeper.io/TillaTheHun0/tilla.svg" alt="Greenkeeper badge"></a> <a href="https://doc.esdoc.org/github.com/TillaTheHun0/tilla/"><img src="https://doc.esdoc.org/github.com/TillaTheHun0/tilla/badge.svg" alt="Document"></a></p>
+				<a href="#this-is-version-2-docs" id="this-is-version-2-docs" style="color: inherit; text-decoration: none;">
+					<h2>This is Version 2 Docs</h2>
+				</a>
+				<p>If you&#39;re looking for version 1 docs. Check out the <a href="https://github.com/TillaTheHun0/tilla/tree/v1">v1</a> branch</p>
+				<p><a href="https://coveralls.io/github/TillaTheHun0/tilla?branch=development"><img src="https://coveralls.io/repos/github/TillaTheHun0/tilla/badge.svg?branch=development" alt="Coverage Status"></a> <a href="https://travis-ci.org/TillaTheHun0/tilla?branch=development"><img src="https://travis-ci.org/TillaTheHun0/tilla.svg?branch=development" alt="Build Status"></a> <a href="https://standardjs.com"><img src="https://img.shields.io/badge/code_style-standard-brightgreen.svg" alt="JavaScript Style Guide"></a> <a href="https://www.typescriptlang.org/"><img src="https://camo.githubusercontent.com/21132e0838961fbecb75077042aa9b15bc0bf6f9/68747470733a2f2f62616467656e2e6e65742f62616467652f4275696c74253230576974682f547970655363726970742f626c7565" alt="TypeScript"></a> <a href="https://www.npmjs.com/package/tilla"><img src="https://img.shields.io/npm/v/tilla.svg" alt="npm version"></a> <a href="https://github.com/TillaTheHun0/tilla/blob/master/LICENSE"><img src="https://img.shields.io/npm/l/tilla.svg?maxAge=2592000?style=plastic" alt="License"></a> <a href="https://greenkeeper.io/"><img src="https://badges.greenkeeper.io/TillaTheHun0/tilla.svg" alt="Greenkeeper badge"></a></p>
 				<p>Tilla transforms objects, based on the rules you specify. It has a fluid, composable API, and non-blocking transformations. It also comes
 				packaged with sensible default permission levels, and a registry to keep track of all of your Transformers that can easily be tied into other parts of your app.</p>
 				<a href="#table-of-contents" id="table-of-contents" style="color: inherit; text-decoration: none;">
@@ -108,30 +112,44 @@
 					<h2>Usage</h2>
 				</a>
 				<pre><code class="language-javascript">
-<span class="hljs-keyword">import</span> { fieldDelegate, Transformer, PermissionLvl } <span class="hljs-keyword">from</span> <span class="hljs-string">'tilla'</span>
+<span class="hljs-keyword">import</span> {
+  fieldDelegate, Transformer, Permissions,
+  always, atOrAbove, passthrough, buildWith, subTransform
+} <span class="hljs-keyword">from</span> <span class="hljs-string">'tilla'</span>
 
 <span class="hljs-keyword">const</span> fd = fieldDelegate() <span class="hljs-comment">// use the built permission levels</span>
 
 <span class="hljs-keyword">const</span> addressTransformer = <span class="hljs-keyword">new</span> Transformer({
-  <span class="hljs-attr">street</span>: fd(<span class="hljs-string">'street'</span>).always().passthrough(),
-  <span class="hljs-attr">city</span>: fd(<span class="hljs-string">'city'</span>).always().passthrough(),
-  <span class="hljs-attr">state</span>: fd(<span class="hljs-string">'state'</span>).always().passthrough()
-  <span class="hljs-attr">otherThing</span>: fd(<span class="hljs-string">'otherThing'</span>).atOrAbovePrivate()
+  <span class="hljs-attr">street</span>: fd(<span class="hljs-string">'street'</span>, always(passthrough())),
+  <span class="hljs-attr">city</span>: fd(<span class="hljs-string">'city'</span>, always(passthrough())),
+  <span class="hljs-attr">state</span>: fd(<span class="hljs-string">'state'</span>, always(passthrough()))
+  <span class="hljs-attr">otherThing</span>: fd(<span class="hljs-string">'otherThing'</span>, atOrAbove(Permissions.PRIVATE, passthrough()))
 })
 
 <span class="hljs-keyword">const</span> personTransformer = <span class="hljs-keyword">new</span> Transformer({
   <span class="hljs-comment">// always directly map src.firstName -&gt; dest.firstName</span>
-  <span class="hljs-attr">firstName</span>: fd(<span class="hljs-string">'firstName'</span>).always().passthrough(),
+  <span class="hljs-attr">firstName</span>: fd(<span class="hljs-string">'firstName'</span>,
+    always(passthrough())
+  ),
   <span class="hljs-comment">// computed field using a custom builder</span>
-  <span class="hljs-attr">name</span>: fd().always().buildWith(<span class="hljs-function"><span class="hljs-params">src</span> =&gt;</span> <span class="hljs-string">`<span class="hljs-subst">${src.firstName}</span> <span class="hljs-subst">${src.lastName}</span>`</span>),
+  <span class="hljs-attr">name</span>: fd(<span class="hljs-literal">undefined</span>, always(
+    buildWith(<span class="hljs-function"><span class="hljs-params">src</span> =&gt;</span> <span class="hljs-string">`<span class="hljs-subst">${src.firstName}</span> <span class="hljs-subst">${src.lastName}</span>`</span>
+  )),
   <span class="hljs-comment">// multiple mapping strategies, based on permission</span>
-  <span class="hljs-attr">age</span>: fd(<span class="hljs-string">'age'</span>).whenPrivate().passthrough().whenPublic().buildWith(<span class="hljs-function">(<span class="hljs-params">src, key</span>) =&gt;</span> src[key] - <span class="hljs-number">10</span>)
+  <span class="hljs-attr">age</span>: fd(<span class="hljs-string">'age'</span>,
+    when(Permissions.PRIVATE, passthrough()),
+    when(Permissions.PUBLIC, buildWith(
+      <span class="hljs-function">(<span class="hljs-params">src, key</span>) =&gt;</span> src[key] - <span class="hljs-number">10</span>
+    ))
+  ),
   <span class="hljs-comment">// Use another Transformer to map the field</span>
-  <span class="hljs-attr">address</span>: fd().always().subTransform(addressTransformer),
+  <span class="hljs-attr">address</span>: fd(<span class="hljs-string">'address'</span>, always(
+    subTransform(addressTransformer)
+  ),
   <span class="hljs-comment">// only mapped if permission level is &gt;=PRIVATE</span>
-  <span class="hljs-attr">ssn</span>: fd().atOrAbovePrivate().passthrough()
+  <span class="hljs-attr">ssn</span>: fd(<span class="hljs-string">'ssn'</span>, atOrAbove(Permission.PRIVATE, passthrough())),
   <span class="hljs-comment">// only mapped if permission level === PRIVATE</span>
-  <span class="hljs-attr">phoneNumber</span>: fd().restrictToPrivate().passthrough()
+  <span class="hljs-attr">phoneNumber</span>: fd(<span class="hljs-string">'phoneNumber'</span>, restrictTo(Permissions.PRIVATE, passthrough()))
 })
 
 <span class="hljs-keyword">let</span> person = {
@@ -147,7 +165,7 @@
 }
 
 <span class="hljs-comment">// Transformers.transform() always returns a Promise</span>
-personTransformer.transform(PermissionLvl.PUBLIC, person).then(<span class="hljs-function">(<span class="hljs-params">personDto</span>) =&gt;</span> {
+personTransformer.transform(Permissions.PUBLIC, person).then(<span class="hljs-function">(<span class="hljs-params">personDto</span>) =&gt;</span> {
   <span class="hljs-comment">/*
   {
     firstName: 'John'
@@ -160,39 +178,49 @@ personTransformer.transform(PermissionLvl.PUBLIC, person).then(<span class="hljs
   */</span>
 })
 </code></pre>
-				<p>Tilla is used to transform objects. It&#39;s great for building DTOs and controlling access to certain fields on those DTOs. The core of Tilla are <code>Transformers</code> and <code>FieldDelegates</code>. <code>Transformers</code> describe the shape of the result object while <code>FieldDelegates</code> tell the transformer <em>how</em> to map each field.</p>
-				<p>You can think of a <code>Transformer</code> as a collection of key&#39;d <code>FieldDelegates</code>. Call <code>transform()</code>
+				<p>Tilla is used to transform objects. It&#39;s great for building DTOs and controlling access to certain fields on those DTOs. The core of Tilla are <code>Transformers</code> and <code>FieldMapperDelegates</code>. <code>Transformers</code> describe the shape of the result object while <code>FieldMapperDelegates</code> tell the transformer <em>how</em> to map each field.</p>
+				<p>ADD SECTION HERE ABOUT RULE BUILDERS</p>
+				<p>You can think of a <code>Transformer</code> as a collection of key&#39;d <code>FieldMapperDelegates</code>. Call <code>transform()</code>
 				on a <code>Transformer</code> and provide the permission lvl and object to transform. This will return a <code>Promise</code> that will resolve with the transformed object.</p>
 				<p><code>passthrough()</code> simply returns the value off of the source object with no altering. <code>buildWith()</code> accepts a
-					custom builder function that is called to transform the field. The <code>builder</code> function is passed <code>src</code>, <code>key</code>, and <code>isList</code>,
-				<code>src</code> being the source object, <code>key</code> being the key on the src object, if provided, and <code>isList</code> indicating whether the key on the src contains a list of items. </p>
-				<p><code>isList</code> is used under the hood for transforming lists of objects using another <code>Transformer</code>, called <code>SubTransformers</code>, but you can also use it for your own use case.</p>
+				custom builder function that is called to transform the field.</p>
 				<a href="#field-masking-amp-permissions" id="field-masking-amp-permissions" style="color: inherit; text-decoration: none;">
 					<h3>Field Masking &amp; Permissions</h3>
 				</a>
 				<p>By default <code>Tilla</code> ships with 4 permission levels: <code>PUBLIC</code>, <code>PRIVILEGED</code>, <code>PRIVATE</code>, and <code>ADMIN</code> and the ranking of these fields, from least sensitive to most sensitive is [<code>PUBLIC</code>, <code>PRIVILEGED</code>, <code>PRIVATE</code>, <code>ADMIN</code>]</p>
 				<p><code>FieldMapperDelegate</code>s can set multiple masking levels for each field, based on permissions, and their chainable API makes it easy to set up complex mappings for each field on a <code>Transformer</code>. In the example above, <code>always()</code> was used for each field, which indicates a single builder for all permission levels -- &quot;&#39;Always&#39; use this method to transform the value provided&quot;. We can specify multiple methods like so:</p>
 				<pre><code class="language-javascript">
-<span class="hljs-keyword">import</span> { fieldDelegate, Transformer, PermissionLvl } <span class="hljs-keyword">from</span> <span class="hljs-string">'tilla'</span>
+<span class="hljs-keyword">import</span> {
+  fieldDelegate, Transformer, Permissions,
+  when, atOrAbove, passthrough, buildWith
+} <span class="hljs-keyword">from</span> <span class="hljs-string">'tilla'</span>
 
 <span class="hljs-keyword">const</span> fd = fieldDelegate() <span class="hljs-comment">// use the built permission levels</span>
 
 <span class="hljs-keyword">let</span> oldPersonTransformer = <span class="hljs-keyword">new</span> Transformer({
   <span class="hljs-comment">// different transformations for PUBLIC and PRIVATE permission levels.</span>
-  <span class="hljs-attr">age</span>: fd(<span class="hljs-string">'age'</span>).whenPrivate().passthrough().whenPublic().buildWith(<span class="hljs-function">(<span class="hljs-params">src, key</span>) =&gt;</span> {
-    <span class="hljs-keyword">let</span> age = src[key]
-    <span class="hljs-keyword">return</span> age ? age - <span class="hljs-number">10</span> : <span class="hljs-literal">null</span>
-  }),
-  <span class="hljs-attr">name</span>: fd().always().buildWith(<span class="hljs-function">(<span class="hljs-params">src</span>) =&gt;</span> {
-    <span class="hljs-keyword">return</span> <span class="hljs-string">`<span class="hljs-subst">${src.firstName}</span> <span class="hljs-subst">${src.lastName}</span>`</span>
-  }),
+  <span class="hljs-attr">age</span>: fd(<span class="hljs-string">'age'</span>,
+    when(Permissions.PRIVATE, passthrough())
+    when(Perissions.PUBLIC, buildWith(
+      <span class="hljs-function">(<span class="hljs-params">src, key</span>) =&gt;</span> {
+        <span class="hljs-keyword">let</span> age = src[key]
+        <span class="hljs-keyword">return</span> age ? age - <span class="hljs-number">10</span> : <span class="hljs-literal">null</span>
+      }
+    ))
+  ),
+  <span class="hljs-attr">name</span>: fd(<span class="hljs-literal">undefined</span>, always(buildWith(
+    <span class="hljs-function"><span class="hljs-params">src</span> =&gt;</span> <span class="hljs-string">`<span class="hljs-subst">${src.firstName}</span> <span class="hljs-subst">${src.lastName}</span>`</span>
+  ))),
   <span class="hljs-comment">// only transformations at PRIVATE and above permission lvls will have this field</span>
-  <span class="hljs-attr">ssn</span>: fd(<span class="hljs-string">'ssn'</span>).atOrAbovePrivate().passthrough()
+  <span class="hljs-attr">ssn</span>: fd(<span class="hljs-string">'ssn'</span>, atOrAbove(Permissions.PRIVATE, passthrough()))
 })
 </code></pre>
-				<p>You can specify your own permission ranking and <code>Tilla</code> will build that <code>permission</code> API on the <code>FieldDelegate</code> instance. For example, you could specify a ranking of [<code>USER</code>, <code>EMPLOYEE</code>, <code>MANAGER</code>] and <code>Tilla</code> will add API&#39;s <code>whenUser()</code>, <code>atOrAboveUser()</code>, <code>restrictToUser()</code>, <code>whenEmployee()</code>, <code>atOrAboveEmployee()</code>, <code>restrictToEmployee()</code>, <code>whenManager()</code>, <code>atOrAboveManager()</code>, <code>restrictToManager()</code>. Specify a ranking like so:</p>
+				<p>You can specify your own permission ranking, when instantiating the <code>fieldDelegate</code>. and <code>Tilla</code> will ensure that ranking is enforced throughout the entire <code>FieldDelegate</code> chain.</p>
 				<pre><code class="language-javascript">
-<span class="hljs-keyword">import</span> { fieldDelegate, Transformer, PermissionLvl } <span class="hljs-keyword">from</span> <span class="hljs-string">'tilla'</span>
+<span class="hljs-keyword">import</span> {
+  fieldDelegate, Transformer, Permissions,
+  when, atOrAbove, passthrough, buildWith
+} <span class="hljs-keyword">from</span> <span class="hljs-string">'tilla'</span>
 
 <span class="hljs-keyword">let</span> ranking = [<span class="hljs-string">'USER'</span>, <span class="hljs-string">'EMPLOYEE'</span>, <span class="hljs-string">'MANAGER'</span>]
 
@@ -200,43 +228,53 @@ personTransformer.transform(PermissionLvl.PUBLIC, person).then(<span class="hljs
 
 <span class="hljs-keyword">let</span> oldPersonTransformer = <span class="hljs-keyword">new</span> Transformer({
   <span class="hljs-comment">// different transformations for PUBLIC and PRIVATE permission levels.</span>
-  <span class="hljs-attr">age</span>: fd(<span class="hljs-string">'age'</span>).whenEmployee().passthrough().whenUser().buildWith(<span class="hljs-function">(<span class="hljs-params">src, key</span>) =&gt;</span> {
-    <span class="hljs-keyword">let</span> age = src[key]
-    <span class="hljs-keyword">return</span> age ? age - <span class="hljs-number">10</span> : <span class="hljs-literal">null</span>
-  }),
-  <span class="hljs-attr">name</span>: fd().always().buildWith(<span class="hljs-function">(<span class="hljs-params">src</span>) =&gt;</span> {
-    <span class="hljs-keyword">return</span> <span class="hljs-string">`<span class="hljs-subst">${src.firstName}</span> <span class="hljs-subst">${src.lastName}</span>`</span>
-  }),
+  <span class="hljs-attr">age</span>: fd(<span class="hljs-string">'age'</span>,
+    when(<span class="hljs-string">'EMPLOYEE'</span>, passthrough()),
+    when(<span class="hljs-string">'USER'</span>, buildWith(
+      <span class="hljs-function">(<span class="hljs-params">src, key</span>) =&gt;</span> {
+        <span class="hljs-keyword">let</span> age = src[key]
+        <span class="hljs-keyword">return</span> age ? age - <span class="hljs-number">10</span> : <span class="hljs-literal">null</span>
+      }
+    ))
+  ),
+  <span class="hljs-attr">name</span>: fd(<span class="hljs-literal">undefined</span>, always(buildWith(
+    <span class="hljs-function"><span class="hljs-params">src</span> =&gt;</span> <span class="hljs-string">`<span class="hljs-subst">${src.firstName}</span> <span class="hljs-subst">${src.lastName}</span>`</span>
+  ))),
   <span class="hljs-comment">// only transformations at PRIVATE and above permission lvls will have this field</span>
-  <span class="hljs-attr">ssn</span>: fd(<span class="hljs-string">'ssn'</span>).atOrAboveManager().passthrough()
+  <span class="hljs-attr">ssn</span>: fd(<span class="hljs-string">'ssn'</span>, atOrAbove(<span class="hljs-string">'MANAGER'</span>, passthrough())),
+  <span class="hljs-comment">// Will throw an ERROR because this permission lvl does not exist in the provided ranking</span>
+  <span class="hljs-attr">broken</span>: fd(<span class="hljs-string">'broken'</span>, atOrAbove(<span class="hljs-string">'BOGUS_LEVEL'</span>, passthrough()))
 })
 </code></pre>
 				<a href="#can-i-use-a-transformer-to-map-a-field" id="can-i-use-a-transformer-to-map-a-field" style="color: inherit; text-decoration: none;">
 					<h3>Can I Use a Transformer to Map a field?</h3>
 				</a>
-				<p>Yes! This is called a &#39;subTransform&#39;. You may want to do this for an eagerly loaded association. For example, a <code>Person</code> may have an eagerly loaded <code>Address</code>. With <code>Tilla</code> you can specify each of these <code>Transformer</code>s and then specify a <code>SubTransformation</code> in the <code>Person</code> <code>Transformer</code> for the key, <code>address</code>. You can specify a string which will
+				<p>Yes! This is called a &#39;subTransform&#39;. You may want to do this for an attached association. For example, a <code>Person</code> may have an eagerly loaded <code>Address</code>. With <code>Tilla</code> you can specify each of these <code>Transformer</code>s and then specify a <code>SubTransformation</code> in the <code>Person</code> <code>Transformer</code> for the key, <code>address</code>. You can specify a string which will
 				search the built in Transformer registry, a <code>Transformer</code>, or a function that returns a Promise that resolves to a <code>Transformer</code>.</p>
 				<pre><code class="language-javascript">
-<span class="hljs-keyword">import</span> { fieldDelegate, Transformer, PermissionLvl } <span class="hljs-keyword">from</span> <span class="hljs-string">'tilla'</span>
+<span class="hljs-keyword">import</span> {
+  fieldDelegate, Transformer, Permissions,
+  always, atOrAbove, passthrough, subTransform
+} <span class="hljs-keyword">from</span> <span class="hljs-string">'tilla'</span>
 
 <span class="hljs-keyword">const</span> fd = fieldDelegate() <span class="hljs-comment">// use the built permission levels</span>
 
 <span class="hljs-keyword">let</span> addressTransformer = <span class="hljs-keyword">new</span> Transformer({
-  <span class="hljs-attr">street</span>: fd(<span class="hljs-string">'street'</span>).always().passthrough(),
-  <span class="hljs-attr">city</span>: fd(<span class="hljs-string">'city'</span>).always().passthrough(),
-  <span class="hljs-attr">state</span>: fd(<span class="hljs-string">'state'</span>).always().passthrough()
-  <span class="hljs-attr">otherThing</span>: fd(<span class="hljs-string">'otherThing'</span>).atOrAbovePrivate()
+  <span class="hljs-attr">street</span>: fd(<span class="hljs-string">'street'</span>, always(passthrough())),
+  <span class="hljs-attr">city</span>: fd(<span class="hljs-string">'city'</span>, always(passthrough())),
+  <span class="hljs-attr">state</span>: fd(<span class="hljs-string">'state'</span>, always(passthrough())),
+  <span class="hljs-attr">otherThing</span>: fd(<span class="hljs-string">'otherThing'</span>, atOrAbove(Permissions.PRIVATE, passthrough()))
 })
 
 <span class="hljs-keyword">let</span> personTransformer = <span class="hljs-keyword">new</span> Transformer({
-  <span class="hljs-attr">age</span>: fd(<span class="hljs-string">'age'</span>).always().passthrough(),
+  <span class="hljs-attr">age</span>: fd(<span class="hljs-string">'age'</span>, always(passthrough())),
   <span class="hljs-comment">/*...*/</span>
   <span class="hljs-comment">// Subtransform from the registry</span>
-  <span class="hljs-attr">address</span>: fd(<span class="hljs-string">'address'</span>).always().subTransform(<span class="hljs-string">'address'</span>)
+  <span class="hljs-attr">address</span>: fd(<span class="hljs-string">'address'</span>, always(subTransform(<span class="hljs-string">'address'</span>)))
   <span class="hljs-comment">// OR directly provide the transformer</span>
-  <span class="hljs-attr">address</span>: fd(<span class="hljs-string">'address'</span>).always().subTransform(addressTransformer)
-  <span class="hljs-comment">// OR</span>
-  <span class="hljs-attr">address</span>: fd(<span class="hljs-string">'address'</span>).always().subTransform(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-built_in">Promise</span>.resolve(addressTransformer))
+  <span class="hljs-attr">address</span>: fd(<span class="hljs-string">'address'</span>, always(subTransform(addressTransformer)))
+  <span class="hljs-comment">// OR a Thunk that returns a Transformer</span>
+  <span class="hljs-attr">address</span>: fd(<span class="hljs-string">'address'</span>, always(subTransform(<span class="hljs-keyword">async</span> () =&gt; addressTransformer)))
 })
 
 <span class="hljs-keyword">let</span> person = {
@@ -252,7 +290,7 @@ personTransformer.transform(PermissionLvl.PUBLIC, person).then(<span class="hljs
   }
 }
 
-personTransformer.transform(PermissionLvl.PUBLIC, person).then(<span class="hljs-function">(<span class="hljs-params">publicPersonDto</span>) =&gt;</span> { <span class="hljs-comment">// public permission lvl</span>
+personTransformer.transform(Permissions.PUBLIC, person).then(<span class="hljs-function">(<span class="hljs-params">publicPersonDto</span>) =&gt;</span> { <span class="hljs-comment">// public permission lvl</span>
   <span class="hljs-comment">/*
   {
     age: 22,
@@ -266,7 +304,7 @@ personTransformer.transform(PermissionLvl.PUBLIC, person).then(<span class="hljs
   */</span>
 })
 
-personTransformer.transform(PermissionLvl.PRIVATE, person).then(<span class="hljs-function">(<span class="hljs-params">privatePersonDto</span>) =&gt;</span> { <span class="hljs-comment">// private permission lvl</span>
+personTransformer.transform(Permissions.PRIVATE, person).then(<span class="hljs-function">(<span class="hljs-params">privatePersonDto</span>) =&gt;</span> { <span class="hljs-comment">// private permission lvl</span>
   <span class="hljs-comment">/*
   {
     age: 22,
@@ -282,25 +320,28 @@ personTransformer.transform(PermissionLvl.PRIVATE, person).then(<span class="hlj
   */</span>
 })
 </code></pre>
-				<p><code>Transformer</code> has another constructor that accepts a string, the registry string, and an object, the field mapping. This will automatically add that <code>Transformer</code> instance to the internal registry at the key. However, you can also use your own registry system separate from <code>tilla</code></p>
-				<p>All the permission APIs work the same with <code>SubTransform</code>. <em>The permissions for the parent propogate down to the <code>SubTransformation</code></em>, be default. This is the default behavior. To override this, you can specify a permission lvl to use for the SubTransformation when defining the transformer.</p>
+				<p><code>Transformer</code> has another constructor that accepts a string, the registry string, and an object, the field mapping. This will automatically add that <code>Transformer</code> instance to the internal registry at the key. However, you can also use your own registry system separate from <code>tilla</code>.</p>
+				<p>All the permission APIs work the same with <code>SubTransform</code>. <strong>The permission provided to the parent propogates down to the <code>subTransform</code></strong>. This is the default behavior. To override this, you can specify a permission lvl to use for the SubTransformation when defining the transformer.</p>
 				<pre><code class="language-javascript">
-<span class="hljs-keyword">import</span> { fieldDelegate, Transformer, PermissionLvl } <span class="hljs-keyword">from</span> <span class="hljs-string">'tilla'</span>
+<span class="hljs-keyword">import</span> {
+  fieldDelegate, Transformer, Permissions,
+  always, atOrAbove, passthrough, subTransform
+} <span class="hljs-keyword">from</span> <span class="hljs-string">'tilla'</span>
 
 <span class="hljs-keyword">const</span> fd = fieldDelegate() <span class="hljs-comment">// use the built permission levels</span>
 
 <span class="hljs-keyword">let</span> addressTransformer = <span class="hljs-keyword">new</span> Transformer({
-  <span class="hljs-attr">street</span>: fd(<span class="hljs-string">'street'</span>).always().passthrough(),
-  <span class="hljs-attr">city</span>: fd(<span class="hljs-string">'city'</span>).always().passthrough(),
-  <span class="hljs-attr">state</span>: fd(<span class="hljs-string">'state'</span>).always().passthrough()
-  <span class="hljs-attr">otherThing</span>: fd(<span class="hljs-string">'otherThing'</span>).atOrAbovePrivate()
+  <span class="hljs-attr">street</span>: fd(<span class="hljs-string">'street'</span>, always(passthrough())),
+  <span class="hljs-attr">city</span>: fd(<span class="hljs-string">'city'</span>, always(passthrough())),
+  <span class="hljs-attr">state</span>: fd(<span class="hljs-string">'state'</span>, always(passthrough())),
+  <span class="hljs-attr">otherThing</span>: fd(<span class="hljs-string">'otherThing'</span>, atOrAbove(Permissions.PRIVATE, passthrough()))
 })
 
 <span class="hljs-keyword">let</span> personTransformer = <span class="hljs-keyword">new</span> Transformer({
-  <span class="hljs-attr">age</span>: fd(<span class="hljs-string">'age'</span>).always().passthrough(),
+  <span class="hljs-attr">age</span>: fd(<span class="hljs-string">'age'</span>, always(passthrough())),
   <span class="hljs-comment">/*...*/</span>
   <span class="hljs-comment">// transform with PUBLIC permission lvl, regardless of the parents permission lvl</span>
-  <span class="hljs-attr">address</span>: fd(<span class="hljs-string">'address'</span>).always().subTransform(addressTransformer, PermissionLvl.PUBLIC)
+  <span class="hljs-attr">address</span>: fd(<span class="hljs-string">'address'</span>, always(subTransform(addressTransformer, Permissions.PUBLIC)))
 })
 
 <span class="hljs-keyword">let</span> person = {
@@ -317,7 +358,7 @@ personTransformer.transform(PermissionLvl.PRIVATE, person).then(<span class="hlj
 }
 
 <span class="hljs-comment">// public permission lvl</span>
-personTransformer.transform(PermissionLvl.PUBLIC, person).then(<span class="hljs-function">(<span class="hljs-params">publicPersonDto</span>) =&gt;</span> {
+personTransformer.transform(Permissions.PUBLIC, person).then(<span class="hljs-function">(<span class="hljs-params">publicPersonDto</span>) =&gt;</span> {
   <span class="hljs-comment">/*
   {
     age: 22,
@@ -332,7 +373,7 @@ personTransformer.transform(PermissionLvl.PUBLIC, person).then(<span class="hljs
 })
 
 <span class="hljs-comment">// private permission lvl</span>
-personTransformer.transform(PermissionLvl.PRIVATE, person).then(<span class="hljs-function">(<span class="hljs-params">privatePersonDto</span>) =&gt;</span> {
+personTransformer.transform(Permissions.PRIVATE, person).then(<span class="hljs-function">(<span class="hljs-params">privatePersonDto</span>) =&gt;</span> {
   <span class="hljs-comment">/*
   {
     age: 22,
@@ -351,17 +392,23 @@ personTransformer.transform(PermissionLvl.PRIVATE, person).then(<span class="hlj
 				<a href="#can-a-transformer-be-used-to-transform-a-list-of-object" id="can-a-transformer-be-used-to-transform-a-list-of-object" style="color: inherit; text-decoration: none;">
 					<h3>Can a Transformer be used to transform a list of object?</h3>
 				</a>
-				<p>Yes! It is common to have a list of objects to transform using a specified Transformer. For example, a <code>Person</code> could have multiple <code>Car</code>s that are eagerly loaded. To specify a list of objects to transform with a common <code>Transformer</code>, simply call <code>asList()</code> on the <code>FieldDelegate</code>.</p>
+				<p>Yes! It is common to have a list of objects to transform using a specified Transformer. For example, a <code>Person</code> could have multiple <code>Car</code>s that are eagerly loaded. To specify a list of objects to transform with a common <code>Transformer</code>, simply add <code>asList()</code> Rule on the chain provided to the <code>FieldMapperDelegate</code>.</p>
 				<pre><code class="language-javascript">
-<span class="hljs-keyword">import</span> { fieldDelegate, Transformer, PermissionLvl } <span class="hljs-keyword">from</span> <span class="hljs-string">'tilla'</span>
+<span class="hljs-keyword">import</span> {
+  fieldDelegate, Transformer, Permissions,
+  always, passthrough, subTransform, asList
+} <span class="hljs-keyword">from</span> <span class="hljs-string">'tilla'</span>
 
 <span class="hljs-keyword">const</span> fd = fieldDelegate() <span class="hljs-comment">// use the built permission levels</span>
 
 <span class="hljs-keyword">let</span> personTransformer = <span class="hljs-keyword">new</span> Transformer({
-  <span class="hljs-attr">age</span>: fd(<span class="hljs-string">'age'</span>).always().passthrough(),
+  <span class="hljs-attr">age</span>: fd(<span class="hljs-string">'age'</span>, always(passthrough())),
   <span class="hljs-comment">/*...*/</span>
   <span class="hljs-comment">// will transform each object in the list with the Transformer registerd at 'car' in the registry</span>
-  <span class="hljs-attr">cars</span>: fd(<span class="hljs-string">'cars'</span>).always().subTransform(<span class="hljs-string">'car'</span>).asList()
+  <span class="hljs-attr">cars</span>: fd(<span class="hljs-string">'cars'</span>, always(
+    subTransform(<span class="hljs-string">'car'</span>),
+    asList()
+  ))
 })
 </code></pre>
 				<a href="#can-i-specify-a-default-for-a-set-of-fields" id="can-i-specify-a-default-for-a-set-of-fields" style="color: inherit; text-decoration: none;">
@@ -369,20 +416,25 @@ personTransformer.transform(PermissionLvl.PRIVATE, person).then(<span class="hlj
 				</a>
 				<p>Yes! <code>Transformers</code> have a method <code>byDefault()</code> that will accept an Array of string attributes. You can then specify how all of those attributes will be transformed. A common case is just mark all those fields as <code>passthrough</code>.</p>
 				<pre><code class="language-javascript">
-<span class="hljs-keyword">import</span> { fieldDelegate, Transformer, PermissionLvl } <span class="hljs-keyword">from</span> <span class="hljs-string">'tilla'</span>
+<span class="hljs-keyword">import</span> {
+  fieldDelegate, Transformer, Permissions,
+  always, passthrough, buildWith
+} <span class="hljs-keyword">from</span> <span class="hljs-string">'tilla'</span>
 
 <span class="hljs-keyword">const</span> fd = fieldDelegate() <span class="hljs-comment">// use the built permission levels</span>
 
 <span class="hljs-keyword">let</span> personTransformer = <span class="hljs-keyword">new</span> Transformer({
   <span class="hljs-comment">// Special transformation cases here</span>
-  <span class="hljs-attr">name</span>: fd().always().buildWith(<span class="hljs-function">(<span class="hljs-params">src</span>) =&gt;</span> {
-    <span class="hljs-keyword">return</span> <span class="hljs-string">`<span class="hljs-subst">${src.firstName}</span> <span class="hljs-subst">${src.lastName}</span>`</span>
-  }),
-  <span class="hljs-attr">city</span>: fd(<span class="hljs-string">'homeCity'</span>).always().passthrough()
-  <span class="hljs-attr">state</span>: fd(<span class="hljs-string">'address'</span>).always().buildWith(<span class="hljs-function">(<span class="hljs-params">src, key</span>) =&gt;</span> {
-    <span class="hljs-keyword">let</span> address = src[key]
-    <span class="hljs-keyword">return</span> address ? address.state : address
-  })
+  <span class="hljs-attr">name</span>: fd(<span class="hljs-literal">undefined</span>, always(buildWith(
+    <span class="hljs-function"><span class="hljs-params">src</span> =&gt;</span> <span class="hljs-string">`<span class="hljs-subst">${src.firstName}</span> <span class="hljs-subst">${src.lastName}</span>`</span>
+  ))),
+  <span class="hljs-attr">city</span>: fd(<span class="hljs-string">'homeCity'</span>, always(passthrough())),
+  <span class="hljs-attr">state</span>: fd(<span class="hljs-string">'address'</span>, always(buildWith(
+    <span class="hljs-function">(<span class="hljs-params">src, key</span>) =&gt;</span> {
+      <span class="hljs-keyword">let</span> address = src[key]
+      <span class="hljs-keyword">return</span> address ? address.state : address
+    }
+  )))
   <span class="hljs-comment">// .BUILD_WITH() can also be used and follows the same builder API as customer field builders</span>
 }).byDefault([<span class="hljs-string">'age'</span>, <span class="hljs-string">'height'</span>]).PASSTHROUGH()
 </code></pre>
@@ -391,30 +443,32 @@ personTransformer.transform(PermissionLvl.PRIVATE, person).then(<span class="hlj
 				</a>
 				<p>Yes! You can extend an exisiting <code>Transformer</code> by calling <code>extend()</code> and passing a map just like you would a normal <code>Transformer</code>. This will merge the two mappings and return a new <code>Transformer</code> instance.</p>
 				<pre><code class="language-javascript">
-<span class="hljs-keyword">import</span> { fieldDelegate, Transformer, PermissionLvl } <span class="hljs-keyword">from</span> <span class="hljs-string">'tilla'</span>
+<span class="hljs-keyword">import</span> {
+  fieldDelegate, Transformer, Permissions,
+  always, passthrough, buildWith
+} <span class="hljs-keyword">from</span> <span class="hljs-string">'tilla'</span>
 
 <span class="hljs-keyword">const</span> fd = fieldDelegate() <span class="hljs-comment">// use the built permission levels</span>
 
 <span class="hljs-keyword">let</span> personTransformer = <span class="hljs-keyword">new</span> Transformer({
   <span class="hljs-comment">// Special transformation cases here</span>
-  <span class="hljs-attr">name</span>: fd().always().buildWith(<span class="hljs-function">(<span class="hljs-params">src</span>) =&gt;</span> {
-    <span class="hljs-keyword">return</span> <span class="hljs-string">`<span class="hljs-subst">${src.firstName}</span> <span class="hljs-subst">${src.lastName}</span>`</span>
-  }),
-  <span class="hljs-attr">city</span>: fd(<span class="hljs-string">'homeCity'</span>).always().passthrough()
-  <span class="hljs-attr">state</span>: fd(<span class="hljs-string">'address'</span>).always().buildWith(<span class="hljs-function">(<span class="hljs-params">src, key</span>) =&gt;</span> {
-    <span class="hljs-keyword">let</span> address = src[key]
-    <span class="hljs-keyword">return</span> address ? address.state : address
-  })
+  <span class="hljs-attr">name</span>: fd(<span class="hljs-literal">undefined</span>, always(buildWith(
+    <span class="hljs-function"><span class="hljs-params">src</span> =&gt;</span> <span class="hljs-string">`<span class="hljs-subst">${src.firstName}</span> <span class="hljs-subst">${src.lastName}</span>`</span>
+  ))),
+  <span class="hljs-attr">city</span>: fd(<span class="hljs-string">'homeCity'</span>, always(passthrough()))
 }).byDefault([<span class="hljs-string">'age'</span>, <span class="hljs-string">'height'</span>]).PASSTHROUGH()
 
 <span class="hljs-comment">// childTransformer will have all attributes of personTransformer, add a favoriteToy fieldDelegate, and override the name transformer</span>
 <span class="hljs-keyword">let</span> childTransformer = personTransformer.extend({
-  <span class="hljs-attr">favoriteToy</span>: fd(<span class="hljs-string">'favoriteToy'</span>).always().passthrough()
-  <span class="hljs-attr">name</span>: fd(<span class="hljs-string">'name'</span>).always().buildWith(<span class="hljs-function">(<span class="hljs-params">src</span>) =&gt;</span> {
-    <span class="hljs-keyword">return</span> <span class="hljs-string">`Lil' <span class="hljs-subst">${src.firstName}</span>`</span>
-  })
-})
-</code></pre>
+  <span class="hljs-attr">favoriteToy</span>: fd(<span class="hljs-string">'favoriteToy'</span>, always(passthrough())),
+  <span class="hljs-attr">name</span>: fd(<span class="hljs-string">'name'</span>, always(buildWith(
+    <span class="hljs-function"><span class="hljs-params">src</span> =&gt;</span> <span class="hljs-string">`Lil' <span class="hljs-subst">${src.firstName}</span>`</span>
+  )))
+})</code></pre>
+				<a href="#writing-your-own-rules-for-transforming" id="writing-your-own-rules-for-transforming" style="color: inherit; text-decoration: none;">
+					<h3>Writing Your Own Rules For Transforming</h3>
+				</a>
+				<p>SECTION HERE ON WRITING OWN RULES</p>
 				<a href="#transformer-registry" id="transformer-registry" style="color: inherit; text-decoration: none;">
 					<h3>Transformer Registry</h3>
 				</a>
@@ -432,8 +486,9 @@ registry.register(<span class="hljs-string">'address'</span>, addressTransformer
     req.transformer = transformer <span class="hljs-comment">// then use the transformer later on in your route handling</span>
     next()
   }
-}
-</code></pre>
+}</code></pre>
+				<p>The registry also provides a <code>subscribe()</code> api that allows you to listen for changes to the registry.</p>
+				<p>FINISH HERE</p>
 				<a href="#todo" id="todo" style="color: inherit; text-decoration: none;">
 					<h2>TODO</h2>
 				</a>
