@@ -32,7 +32,7 @@ describe('FieldMapper', () => {
           }
         }
 
-        expect(subTransform(subTransformerKey, Permissions.PUBLIC)(fieldMapperDelegate)(obj, 'sub', false)).resolves.toBeDefined()
+        expect(subTransform(subTransformerKey)(fieldMapperDelegate)(obj, 'sub', false, Permissions.PUBLIC)).resolves.toBeDefined()
       })
 
       it('should lazily set the transformer directly', async () => {
@@ -43,7 +43,7 @@ describe('FieldMapper', () => {
           }
         }
 
-        expect(subTransform(subTransformer, Permissions.PUBLIC)(fieldMapperDelegate)(obj, 'sub', false)).resolves.toBeDefined()
+        expect(subTransform(subTransformer)(fieldMapperDelegate)(obj, 'sub', false, Permissions.PUBLIC)).resolves.toBeDefined()
       })
 
       it('should lazily set the transformer from thunk that returns Promise', async () => {
@@ -54,7 +54,7 @@ describe('FieldMapper', () => {
           }
         }
 
-        expect(subTransform(() => subTransformer, Permissions.PUBLIC)(fieldMapperDelegate)(obj, 'sub', false)).resolves.toBeDefined()
+        expect(subTransform(() => subTransformer)(fieldMapperDelegate)(obj, 'sub', false, Permissions.PUBLIC)).resolves.toBeDefined()
       })
 
       it('should throw error when no transformer can be set', async () => {
@@ -65,7 +65,7 @@ describe('FieldMapper', () => {
           }
         }
 
-        expect(subTransform('SOME_NONEXISTENT_TRANSFORMER', Permissions.PUBLIC)(fieldMapperDelegate)(obj, 'sub', false)).rejects.toThrow('No Valid Transformer identifier provided')
+        expect(subTransform('SOME_NONEXISTENT_TRANSFORMER')(fieldMapperDelegate)(obj, 'sub', false, Permissions.PUBLIC)).rejects.toThrow('No Valid Transformer identifier provided')
       })
 
       it('should throw if permission lvl is not found', () => {
@@ -80,7 +80,7 @@ describe('FieldMapper', () => {
           }
         }
 
-        const res = await subTransform(subTransformer, Permissions.PUBLIC)(fieldMapperDelegate)(obj, 'sub', false)
+        const res = await subTransform(subTransformer)(fieldMapperDelegate)(obj, 'sub', false, Permissions.PUBLIC)
 
         expect(res.value).toBe(1)
         expect(res.secret).toBeUndefined()
@@ -94,10 +94,25 @@ describe('FieldMapper', () => {
           }
         }
 
-        const res = await subTransform(subTransformer, Permissions.PRIVATE)(fieldMapperDelegate)(obj, 'sub', false)
+        const res = await subTransform(subTransformer)(fieldMapperDelegate)(obj, 'sub', false, Permissions.PRIVATE)
 
         expect(res.value).toBe(1)
         expect(res.secret).toBe(100)
+      })
+
+      it('should ignore the provided permission and always use its own permission lvl', async () => {
+        const obj = {
+          sub: {
+            value: 1,
+            secret: 100
+          }
+        }
+
+        // Always transforms as Public perimssion lvl, no matter what the parent passes
+        const res = await subTransform(subTransformer, Permissions.PUBLIC)(fieldMapperDelegate)(obj, 'sub', false, Permissions.PRIVATE)
+
+        expect(res.value).toBe(1)
+        expect(res.secret).toBeUndefined()
       })
 
       it('should resolve falsey values to themselves', async () => {
@@ -106,13 +121,13 @@ describe('FieldMapper', () => {
           null: null
         }
 
-        let res = await subTransform(subTransformer, Permissions.PRIVATE)(fieldMapperDelegate)(obj, 'false', false)
+        let res = await subTransform(subTransformer)(fieldMapperDelegate)(obj, 'false', false, Permissions.PRIVATE)
         expect(res).toBe(false)
 
-        res = await subTransform(subTransformer, Permissions.PRIVATE)(fieldMapperDelegate)(obj, 'null', false)
+        res = await subTransform(subTransformer)(fieldMapperDelegate)(obj, 'null', false, Permissions.PRIVATE)
         expect(res).toBeNull()
 
-        res = await subTransform(subTransformer, Permissions.PRIVATE)(fieldMapperDelegate)(obj, 'invalidKey', false)
+        res = await subTransform(subTransformer)(fieldMapperDelegate)(obj, 'invalidKey', false, Permissions.PRIVATE)
         expect(res).toBeUndefined()
       })
 
@@ -128,7 +143,7 @@ describe('FieldMapper', () => {
           }
         }
 
-        const res = await subTransform(subTransformer, Permissions.PRIVATE)(fieldMapperDelegate)(obj, 'sub', false)
+        const res = await subTransform(subTransformer)(fieldMapperDelegate)(obj, 'sub', false, Permissions.PRIVATE)
 
         expect(res.value).toBe(1)
         expect(res.secret).toBe(100)
@@ -150,7 +165,7 @@ describe('FieldMapper', () => {
           ]
         }
 
-        const res = await subTransform(subTransformer, Permissions.PRIVATE)(fieldMapperDelegate)(obj, 'sub', true)
+        const res = await subTransform(subTransformer)(fieldMapperDelegate)(obj, 'sub', true, Permissions.PRIVATE)
 
         const [res1, res2] = res
         expect(res1.value).toBe(1)
@@ -182,7 +197,7 @@ describe('FieldMapper', () => {
           ]
         }
 
-        const res = await subTransform(subTransformer, Permissions.PRIVATE)(fieldMapperDelegate)(obj, 'sub', true)
+        const res = await subTransform(subTransformer)(fieldMapperDelegate)(obj, 'sub', true, Permissions.PRIVATE)
 
         const [res1, res2] = res
         expect(res1.value).toBe(1)

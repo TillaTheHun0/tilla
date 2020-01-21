@@ -8,9 +8,9 @@ import { FieldMapper } from './types'
  * @param fieldMapper - the FieldMapper to wrap
  */
 export const flattenGet = (fieldMapper: FieldMapper): FieldMapper =>
-  async (instance, key, isList) => {
+  async (instance, key, isList, permission) => {
     if (typeof instance.get === 'function') {
-      return fieldMapper(instance.get(), key, isList)
+      return fieldMapper(instance.get(), key, isList, permission)
     }
-    return fieldMapper(instance, key, isList)
+    return fieldMapper(instance, key, isList, permission)
   }

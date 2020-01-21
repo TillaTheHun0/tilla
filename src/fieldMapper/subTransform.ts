@@ -9,16 +9,24 @@ import { flattenGet } from './_get'
 export type TransformerProvider = (...args: any[]) => Transformer | Promise<Transformer>
 
 export const subTransform: DoubleFieldMapperBuilder<string | Transformer | TransformerProvider, string> =
-  (transformerIdentifier, permission = '') =>
+  // TODO: How to make permission optional here
+  (transformerIdentifier, permission?) =>
     ({ permissionRanking }) => {
       let transformer: Transformer
 
-      if (permissionRanking.indexOf(permission) === -1) {
+      if (permission && permissionRanking.indexOf(permission) === -1) {
         throw new Error('Permission Lvl Not Found')
       }
 
       return flattenGet(
-        async (instance, key, isList) => {
+        async (instance, key, isList, runtimePermission) => {
+          // permission provided at construction time always trumps permission provided at transform time
+          const scopedPermission: string = permission || runtimePermission
+
+          if (permissionRanking.indexOf(scopedPermission) === -1) {
+            throw new Error('Permission Lvl Not Found')
+          }
+
           // Lazy load the transformer on first invocation
           if (!transformer) {
             transformer = await setTransformer(transformerIdentifier) as Transformer
@@ -28,13 +36,13 @@ export const subTransform: DoubleFieldMapperBuilder<string | Transformer | Trans
           if (isList) {
             const list = instance[key]
             return list ? promiseMap(list, (cur: any) => {
-              return transformer.transform(permission, cur)
+              return transformer.transform(scopedPermission, cur)
             }) : list
           }
 
           const val = instance[key]
 
-          return val ? transformer.transform(permission, val) : val
+          return val ? transformer.transform(scopedPermission, val) : val
         }
       )
     }

@@ -1,4 +1,6 @@
 
+import { Permissions } from '../permission'
+
 import { flattenGet } from './_get'
 
 describe('FieldMapper', () => {
@@ -6,7 +8,7 @@ describe('FieldMapper', () => {
 
   describe('flattenGet', () => {
     it('should return a Promise', () => {
-      const val = fieldMapper({ bar: '123' }, 'bar', false)
+      const val = fieldMapper({ bar: '123' }, 'bar', false, Permissions.PUBLIC)
 
       expect(val).toBeInstanceOf(Promise)
     })
@@ -16,7 +18,7 @@ describe('FieldMapper', () => {
         get: () => ({ bar: '123' })
       }
 
-      const val = await fieldMapper(foo, 'bar', false)
+      const val = await fieldMapper(foo, 'bar', false, Permissions.PUBLIC)
 
       expect(val).toBe(foo.get().bar)
     })
@@ -24,7 +26,7 @@ describe('FieldMapper', () => {
     it('should passthrough to the underlying FieldMapper', async () => {
       const foo = { bar: '123' }
 
-      const val = await fieldMapper(foo, 'bar', false)
+      const val = await fieldMapper(foo, 'bar', false, Permissions.PUBLIC)
 
       expect(val).toBe(foo.bar)
     })

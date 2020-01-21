@@ -1,5 +1,6 @@
 
 import { FieldMapperDelegate } from '../fieldMapperDelegate'
+import { Permissions } from '../permission'
 
 import { buildWith } from './buildWith'
 import { FieldMapper } from './types'
@@ -17,7 +18,7 @@ describe('FieldMapper', () => {
     it('should return a Promise', () => {
       const foo = { bar: 10 }
 
-      const val = buildWith(builder)(fieldMapperDelegate)(foo, 'bar', false)
+      const val = buildWith(builder)(fieldMapperDelegate)(foo, 'bar', false, Permissions.PUBLIC)
 
       expect(val).toBeInstanceOf(Promise)
     })
@@ -25,7 +26,7 @@ describe('FieldMapper', () => {
     it('should use the custom fieldMapper', async () => {
       const foo = { bar: 10 }
 
-      const val = await buildWith(builder)(fieldMapperDelegate)(foo, 'bar', false)
+      const val = await buildWith(builder)(fieldMapperDelegate)(foo, 'bar', false, Permissions.PUBLIC)
 
       expect(val).toBe(foo.bar + 1)
     })

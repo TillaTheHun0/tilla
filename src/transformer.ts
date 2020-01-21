@@ -131,7 +131,7 @@ class Transformer {
           return promiseMap(this.defaultAttributes, (key: string) => {
             if (!this.mapping[key]) {
               return (
-                async () => this.defaultBuilder!(instance, key, false)
+                async () => this.defaultBuilder!(instance, key, false, permission)
               )().then(value => {
                 dto[key] = value
               })

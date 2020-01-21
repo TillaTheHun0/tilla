@@ -38,6 +38,6 @@ export class FieldMapperDelegate {
     }
 
     // Map calls builder so always returns a Promise
-    return fieldMapper(instance, this.sourceKey as string, this.isList)
+    return fieldMapper(instance, this.sourceKey as string, this.isList, permission)
   }
 }
