@@ -12,7 +12,7 @@
     "prepare": "npm run build",
     "lint": "npx eslint \"**/*.{ts,js}\"",
     "lint:fix": "npx eslint --fix \"**/*.{ts,js}\"",
-    "coverage": "nyc report --reporter=text-lcov | coveralls"
+    "test": "npm run lint && npx jest --silent",
   },
   "keywords": [
     "transformation",
@@ -38,8 +38,9 @@
     "eslint-plugin-node": "^11.0.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
+    "jest": "^24.9.0",
     "jsdoc": "^3.6.3",
-    "mocha": "^6.2.2",
+    "nyc": "^15.0.0",
     "nyc": "^14.1.1",
     "rimraf": "^3.0.0",
     "standard-version": "^7.0.1",
