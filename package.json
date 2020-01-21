@@ -23,9 +23,6 @@
   ],
   "author": "Tyler Hall",
   "license": "MIT",
-  "dependencies": {
-    "debug": "^4.1.1"
-  },
   "devDependencies": {
     "@commitlint/cli": "^8.3.5",
     "@commitlint/config-conventional": "^8.3.4",
