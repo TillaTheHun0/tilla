@@ -3,7 +3,8 @@ import { TransformerRegistry, registry } from './registry'
 import { Transformer } from './transformer'
 import { Permissions } from './permission'
 import { fieldDelegate } from './utils'
-import * as Rules from './ruleBuilder'
+import { when, always, asList, atOrAbove, restrictTo } from './ruleBuilder'
+import { passthrough, buildWith, subTransform } from './fieldMapper'
 
 export {
   registry,
@@ -11,5 +12,14 @@ export {
   Permissions,
   fieldDelegate,
   TransformerRegistry,
-  Rules
+  // Rules
+  when,
+  always,
+  asList,
+  atOrAbove,
+  restrictTo,
+  // Mappers
+  passthrough,
+  buildWith,
+  subTransform
 }
