@@ -90,10 +90,6 @@
 					<h2>Installation</h2>
 				</a>
 				<pre><code class="language-bash">$ npm install --save tilla</code></pre>
-				<a href="#docs" id="docs" style="color: inherit; text-decoration: none;">
-					<h2>Docs</h2>
-				</a>
-				<p><a href="https://doc.esdoc.org/github.com/TillaTheHun0/tilla/">Documentation Here</a></p>
 				<a href="#goals" id="goals" style="color: inherit; text-decoration: none;">
 					<h2>Goals</h2>
 				</a>
@@ -178,12 +174,18 @@ personTransformer.transform(Permissions.PUBLIC, person).then(<span class="hljs-f
   */</span>
 })
 </code></pre>
-				<p>Tilla is used to transform objects. It&#39;s great for building DTOs and controlling access to certain fields on those DTOs. The core of Tilla are <code>Transformers</code> and <code>FieldMapperDelegates</code>. <code>Transformers</code> describe the shape of the result object while <code>FieldMapperDelegates</code> tell the transformer <em>how</em> to map each field.</p>
-				<p>ADD SECTION HERE ABOUT RULE BUILDERS</p>
-				<p>You can think of a <code>Transformer</code> as a collection of key&#39;d <code>FieldMapperDelegates</code>. Call <code>transform()</code>
-				on a <code>Transformer</code> and provide the permission lvl and object to transform. This will return a <code>Promise</code> that will resolve with the transformed object.</p>
-				<p><code>passthrough()</code> simply returns the value off of the source object with no altering. <code>buildWith()</code> accepts a
-				custom builder function that is called to transform the field.</p>
+				<p>Tilla is used to transform objects. It&#39;s great for building DTOs and controlling access to certain fields on those DTOs. The core of Tilla is <code>Transformers</code>, <code>Rules</code>, and <code>FieldMappers</code>. <code>Transformers</code> describe the shape of the result object, <code>Rules</code> tell the <code>Transformer</code> <em>when</em> to map each field, and <code>FieldMappers</code> tell the <code>Rule</code> <em>how</em> to map each field.</p>
+				<p><strong><code>FieldMappers</code> are grouped into <code>Rules</code> which are grouped together in a <code>FieldMapperDelegate</code> which are further grouped together in a <code>Transformer</code>.</strong></p>
+				<pre><code class="language-bash">Transformer {
+  [
+    fieldMapperDelegate(
+      [
+        rule(fieldMapper?)
+      ]
+    )
+  ]
+}</code></pre>
+				<p>Call <code>transform()</code> on a <code>Transformer</code> and provide the permission lvl and object to transform. This will return a <code>Promise</code> that will resolve with the transformed object.</p>
 				<a href="#field-masking-amp-permissions" id="field-masking-amp-permissions" style="color: inherit; text-decoration: none;">
 					<h3>Field Masking &amp; Permissions</h3>
 				</a>
@@ -465,10 +467,89 @@ personTransformer.transform(Permissions.PRIVATE, person).then(<span class="hljs-
     <span class="hljs-function"><span class="hljs-params">src</span> =&gt;</span> <span class="hljs-string">`Lil' <span class="hljs-subst">${src.firstName}</span>`</span>
   )))
 })</code></pre>
-				<a href="#writing-your-own-rules-for-transforming" id="writing-your-own-rules-for-transforming" style="color: inherit; text-decoration: none;">
-					<h3>Writing Your Own Rules For Transforming</h3>
+				<a href="#can-i-write-my-own-custom-rules-and-mappers" id="can-i-write-my-own-custom-rules-and-mappers" style="color: inherit; text-decoration: none;">
+					<h3>Can I write my own custom rules and mappers?</h3>
 				</a>
-				<p>SECTION HERE ON WRITING OWN RULES</p>
+				<p>Yes you can! Most use cases are covered by the Rules and FieldMappers provided by <code>tilla</code>, but you might want to write your own. A <code>Rule</code> and a <code>FieldMapper</code> are nothing more than functions. Here are their APIs:</p>
+				<pre><code class="language-typescript"><span class="hljs-keyword">type</span> Rule = <span class="hljs-function">(<span class="hljs-params">fieldMapperDelegate: FieldMapperDelegate</span>) =&gt;</span> FieldMapperDelegate
+
+<span class="hljs-keyword">type</span> FieldMapper = <span class="hljs-function">(<span class="hljs-params">fieldMapperDelegate: FieldMapperDelegate</span>) =&gt;</span>
+  (instance: <span class="hljs-built_in">any</span>, key: <span class="hljs-built_in">string</span>, isList: <span class="hljs-built_in">boolean</span>, permission: <span class="hljs-built_in">string</span>) =&gt;
+    <span class="hljs-built_in">Promise</span>&lt;returnType&gt;</code></pre>
+				<p>Notice that both <code>Rule</code> and <code>FieldMapper</code> eventually receive the <code>FieldMapperDelegate</code> instance. This enables both <code>Rule</code> or <code>FieldMapper</code> to access and/or mutate the state maintained by the delegate that is used later on when <code>tranform</code> is called.</p>
+				<p>Any function that implements either of those APIs can be used as a <code>Rule</code> or a <code>FieldMapper</code>, respectively! Let&#39;s show an example.</p>
+				<a href="#eitheror-custom-rule-example" id="eitheror-custom-rule-example" style="color: inherit; text-decoration: none;">
+					<h4>EitherOr Custom Rule Example</h4>
+				</a>
+				<p>Say I want a rule that will only transform a field <em>only if</em> the permission lvl is <code>PUBLIC</code> or <code>ADMIN</code>. You could of course implement this as a list of rules that <code>tilla</code> already provides:</p>
+				<pre><code class="language-javascript"><span class="hljs-keyword">import</span> {
+  fieldDelegate, Permissions, when, passthrough
+} <span class="hljs-keyword">from</span> <span class="hljs-string">'tilla'</span>
+
+<span class="hljs-keyword">const</span> fd = fieldDelegate() <span class="hljs-comment">// use the built permission levels</span>
+
+fd(<span class="hljs-string">'name'</span>,
+  when(Permissions.PUBLIC, passthrough()),
+  when(Permissions.ADMIN, passthrough())
+)</code></pre>
+				<p>But, let&#39;s write a <em>single</em> Rule that accomplishes this:</p>
+				<pre><code class="language-javascript"><span class="hljs-keyword">import</span> {
+  fieldDelegate, Permissions, passthrough
+} <span class="hljs-keyword">from</span> <span class="hljs-string">'tilla'</span>
+
+<span class="hljs-keyword">const</span> fd = fieldDelegate() <span class="hljs-comment">// use the built permission levels</span>
+
+<span class="hljs-comment">// Our custom Rule</span>
+<span class="hljs-keyword">const</span> eitherOr = <span class="hljs-function">(<span class="hljs-params">eitherPermission, orPermission, fieldMapper</span>) =&gt;</span> <span class="hljs-function"><span class="hljs-params">fieldMapperDelegate</span> =&gt;</span> {
+  <span class="hljs-keyword">const</span> { delegateMap } = fieldMapperDelegate
+
+  delegateMap[eitherPermission] = fieldMapper(fieldDelegateMapper)
+  delegateMap[orPermission] = fieldMapper(fieldDelegateMapper)
+
+  <span class="hljs-keyword">return</span> fieldDelegateMapper
+}
+
+<span class="hljs-comment">// using our custom Rule</span>
+fd(<span class="hljs-string">'age'</span>, eitherOr(Permissions.PUBLIC, Permissions.ADMIN, passthrough()))</code></pre>
+				<p>Now whenever we call <code>transform</code>, the fieldDelegate will only map the field, as a <code>passthrough()</code>, only if the provided permission is either <code>PUBLIC</code> <em>or</em> <code>ADMIN</code></p>
+				<a href="#addmapper-custom-fieldmapper-example" id="addmapper-custom-fieldmapper-example" style="color: inherit; text-decoration: none;">
+					<h4>addMapper Custom FieldMapper Example</h4>
+				</a>
+				<p>Let&#39;s extend out last example. Say we wanted a <code>FieldMapper</code> that simply adds a provided number to the value that it was mapping. Again, you could implement this using the <code>buildWith</code> mapper <code>tilla</code> already provides:</p>
+				<pre><code class="language-javascript"><span class="hljs-keyword">import</span> {
+  fieldDelegate, Permissions, buildWith
+} <span class="hljs-keyword">from</span> <span class="hljs-string">'tilla'</span>
+
+<span class="hljs-keyword">const</span> fd = fieldDelegate() <span class="hljs-comment">// use the built permission levels</span>
+
+<span class="hljs-keyword">const</span> addMapper = <span class="hljs-function"><span class="hljs-params">n</span> =&gt;</span> buildWith(<span class="hljs-keyword">async</span> (instance, key) =&gt; instance[key] + n)
+
+fd(<span class="hljs-string">'name'</span>,
+  when(Permissions.PUBLIC, addMapper(<span class="hljs-number">1</span>)),
+  when(Permissions.ADMIN, addMapper(<span class="hljs-number">2</span>))
+)</code></pre>
+				<p>But let&#39;s write our own mapper that accomplishes this:</p>
+				<pre><code class="language-javascript"><span class="hljs-keyword">import</span> {
+  fieldDelegate, Permissions
+} <span class="hljs-keyword">from</span> <span class="hljs-string">'tilla'</span>
+
+<span class="hljs-keyword">const</span> fd = fieldDelegate() <span class="hljs-comment">// use the built permission levels</span>
+
+<span class="hljs-comment">// Our custom Rule</span>
+<span class="hljs-keyword">const</span> eitherOr = <span class="hljs-function">(<span class="hljs-params">eitherPermission, orPermission, fieldMapper</span>) =&gt;</span> <span class="hljs-function"><span class="hljs-params">fieldMapperDelegate</span> =&gt;</span> {
+  <span class="hljs-keyword">const</span> { delegateMap } = fieldMapperDelegate
+
+  delegateMap[eitherPermission] = fieldMapper(fieldDelegateMapper)
+  delegateMap[orPermission] = fieldMapper(fieldDelegateMapper)
+
+  <span class="hljs-keyword">return</span> fieldDelegateMapper
+}
+
+<span class="hljs-keyword">const</span> addMapper = <span class="hljs-function"><span class="hljs-params">n</span> =&gt;</span> <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-keyword">async</span> (instance, key) =&gt; instance[key] + n
+
+<span class="hljs-comment">// using our custom Rule AND custom FieldMapper</span>
+fd(<span class="hljs-string">'age'</span>, eitherOr(Permissions.PUBLIC, Permissions.ADMIN, addMapper(<span class="hljs-number">1</span>)))</code></pre>
+				<p>Now whenever we call <code>transform</code>, the fieldDelegate will only map the field, adding 1 to it&#39;s value, only if the provided permission is either <code>PUBLIC</code> <em>or</em> <code>ADMIN</code></p>
 				<a href="#transformer-registry" id="transformer-registry" style="color: inherit; text-decoration: none;">
 					<h3>Transformer Registry</h3>
 				</a>
@@ -483,12 +564,30 @@ registry.register(<span class="hljs-string">'address'</span>, addressTransformer
 <span class="hljs-keyword">const</span> attachTransformer = <span class="hljs-function">(<span class="hljs-params">transformerKey</span>) =&gt;</span> {
   <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">req, res, next</span>) =&gt;</span> {
     <span class="hljs-keyword">let</span> transformer = registry.transformer(transformerKey)
-    req.transformer = transformer <span class="hljs-comment">// then use the transformer later on in your route handling</span>
+    req.transformer = transformer <span class="hljs-comment">// then use the transformer later on</span>
     next()
   }
 }</code></pre>
-				<p>The registry also provides a <code>subscribe()</code> api that allows you to listen for changes to the registry.</p>
-				<p>FINISH HERE</p>
+				<p>The registry also provides a <code>subscribe(observer)</code> api that allows you to listen for changes to the registry. The registry emits events on <code>register</code> and <code>clear</code></p>
+				<pre><code class="language-javascript"><span class="hljs-keyword">import</span> { registry } <span class="hljs-keyword">from</span> <span class="hljs-string">'tilla'</span>
+
+<span class="hljs-keyword">const</span> unsubscribe = registry.subscribe(<span class="hljs-function">(<span class="hljs-params">{ message, registry}</span>) =&gt;</span> {
+  <span class="hljs-built_in">console</span>.log(message)
+})
+
+registry.register(<span class="hljs-string">'person'</span>, personTransformer)
+
+<span class="hljs-comment">// produces 'Registered transform at key: person' in the logs</span>
+
+<span class="hljs-comment">// later on</span>
+unsubscribe() <span class="hljs-comment">// unsubscribes the observer from the registry</span></code></pre>
+				<p>the observer can be a function with single arity or an object that conforms to the or an object that satisfies this interface:</p>
+				<pre><code class="language-typescript"><span class="hljs-keyword">interface</span> Observer&lt;T&gt; {
+  closed?: <span class="hljs-built_in">boolean</span>;
+  next: <span class="hljs-function">(<span class="hljs-params">value: T</span>) =&gt;</span> <span class="hljs-built_in">void</span>;
+  error: <span class="hljs-function">(<span class="hljs-params">err: <span class="hljs-built_in">any</span></span>) =&gt;</span> <span class="hljs-built_in">void</span>;
+  complete: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-built_in">void</span>;
+}</code></pre>
 				<a href="#todo" id="todo" style="color: inherit; text-decoration: none;">
 					<h2>TODO</h2>
 				</a>

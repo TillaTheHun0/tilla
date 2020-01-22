@@ -26,11 +26,8 @@ packaged with sensible default permission levels, and a registry to keep track o
 $ npm install --save tilla
 ```
 
-## Docs
-
-[Documentation Here](https://doc.esdoc.org/github.com/TillaTheHun0/tilla/)
-
 ## Goals
+
 I wanted to have a fluid, easy to read, chainable API to build Transformers with sensible defaults. I wanted permissions to be incorporated in the Transformer API itself and allow the user to provide their own domain specific permissions and permission ranking that would cascade down to sub-transformations. All transformations should be completely asynchronous, down to the field level. Looking at the Transformer code should give an idea as to the shape of the resultant object produced by that Transformer. It should also be easy to transform fields on an object using other Transformers, in other words Sub-transformations, and these would be lazy loaded at runtime.
 
 ## Features
@@ -113,15 +110,23 @@ personTransformer.transform(Permissions.PUBLIC, person).then((personDto) => {
 
 ```
 
-Tilla is used to transform objects. It's great for building DTOs and controlling access to certain fields on those DTOs. The core of Tilla are `Transformers` and `FieldMapperDelegates`. `Transformers` describe the shape of the result object while `FieldMapperDelegates` tell the transformer _how_ to map each field.
+Tilla is used to transform objects. It's great for building DTOs and controlling access to certain fields on those DTOs. The core of Tilla is `Transformers`, `Rules`, and `FieldMappers`. `Transformers` describe the shape of the result object, `Rules` tell the `Transformer` _when_ to map each field, and `FieldMappers` tell the `Rule` _how_ to map each field.
 
-ADD SECTION HERE ABOUT RULE BUILDERS
+**`FieldMappers` are grouped into `Rules` which are grouped together in a `FieldMapperDelegate` which are further grouped together in a `Transformer`.**
 
-You can think of a `Transformer` as a collection of key'd `FieldMapperDelegates`. Call `transform()`
-on a `Transformer` and provide the permission lvl and object to transform. This will return a `Promise` that will resolve with the transformed object.
+```bash
+Transformer {
+  [
+    fieldMapperDelegate(
+      [
+        rule(fieldMapper?)
+      ]
+    )
+  ]
+}
+```
 
-`passthrough()` simply returns the value off of the source object with no altering. `buildWith()` accepts a
-custom builder function that is called to transform the field.
+Call `transform()` on a `Transformer` and provide the permission lvl and object to transform. This will return a `Promise` that will resolve with the transformed object.
 
 ### Field Masking & Permissions
 
@@ -429,9 +434,109 @@ let childTransformer = personTransformer.extend({
 })
 ```
 
-### Writing Your Own Rules For Transforming
+### Can I write my own custom rules and mappers?
 
-SECTION HERE ON WRITING OWN RULES
+Yes you can! Most use cases are covered by the Rules and FieldMappers provided by `tilla`, but you might want to write your own. A `Rule` and a `FieldMapper` are nothing more than functions. Here are their APIs:
+
+```typescript
+type Rule = (fieldMapperDelegate: FieldMapperDelegate) => FieldMapperDelegate
+
+type FieldMapper = (fieldMapperDelegate: FieldMapperDelegate) =>
+  (instance: any, key: string, isList: boolean, permission: string) =>
+    Promise<returnType>
+```
+
+Notice that both `Rule` and `FieldMapper` eventually receive the `FieldMapperDelegate` instance. This enables both `Rule` or `FieldMapper` to access and/or mutate the state maintained by the delegate that is used later on when `tranform` is called.
+
+Any function that implements either of those APIs can be used as a `Rule` or a `FieldMapper`, respectively! Let's show an example.
+
+#### EitherOr Custom Rule Example
+
+Say I want a rule that will only transform a field _only if_ the permission lvl is `PUBLIC` or `ADMIN`. You could of course implement this as a list of rules that `tilla` already provides:
+
+```javascript
+import {
+  fieldDelegate, Permissions, when, passthrough
+} from 'tilla'
+
+const fd = fieldDelegate() // use the built permission levels
+
+fd('name',
+  when(Permissions.PUBLIC, passthrough()),
+  when(Permissions.ADMIN, passthrough())
+)
+```
+
+But, let's write a _single_ Rule that accomplishes this:
+
+```javascript
+import {
+  fieldDelegate, Permissions, passthrough
+} from 'tilla'
+
+const fd = fieldDelegate() // use the built permission levels
+
+// Our custom Rule
+const eitherOr = (eitherPermission, orPermission, fieldMapper) => fieldMapperDelegate => {
+  const { delegateMap } = fieldMapperDelegate
+
+  delegateMap[eitherPermission] = fieldMapper(fieldDelegateMapper)
+  delegateMap[orPermission] = fieldMapper(fieldDelegateMapper)
+
+  return fieldDelegateMapper
+}
+
+// using our custom Rule
+fd('age', eitherOr(Permissions.PUBLIC, Permissions.ADMIN, passthrough()))
+```
+
+Now whenever we call `transform`, the fieldDelegate will only map the field, as a `passthrough()`, only if the provided permission is either `PUBLIC` _or_ `ADMIN`
+
+#### addMapper Custom FieldMapper Example
+
+Let's extend out last example. Say we wanted a `FieldMapper` that simply adds a provided number to the value that it was mapping. Again, you could implement this using the `buildWith` mapper `tilla` already provides:
+
+```javascript
+import {
+  fieldDelegate, Permissions, buildWith
+} from 'tilla'
+
+const fd = fieldDelegate() // use the built permission levels
+
+const addMapper = n => buildWith(async (instance, key) => instance[key] + n)
+
+fd('name',
+  when(Permissions.PUBLIC, addMapper(1)),
+  when(Permissions.ADMIN, addMapper(2))
+)
+```
+
+But let's write our own mapper that accomplishes this:
+
+```javascript
+import {
+  fieldDelegate, Permissions
+} from 'tilla'
+
+const fd = fieldDelegate() // use the built permission levels
+
+// Our custom Rule
+const eitherOr = (eitherPermission, orPermission, fieldMapper) => fieldMapperDelegate => {
+  const { delegateMap } = fieldMapperDelegate
+
+  delegateMap[eitherPermission] = fieldMapper(fieldDelegateMapper)
+  delegateMap[orPermission] = fieldMapper(fieldDelegateMapper)
+
+  return fieldDelegateMapper
+}
+
+const addMapper = n => () => async (instance, key) => instance[key] + n
+
+// using our custom Rule AND custom FieldMapper
+fd('age', eitherOr(Permissions.PUBLIC, Permissions.ADMIN, addMapper(1)))
+```
+
+Now whenever we call `transform`, the fieldDelegate will only map the field, adding 1 to it's value, only if the provided permission is either `PUBLIC` _or_ `ADMIN`
 
 ### Transformer Registry
 
@@ -448,15 +553,39 @@ import { registry } from 'tilla'
 const attachTransformer = (transformerKey) => {
   return (req, res, next) => {
     let transformer = registry.transformer(transformerKey)
-    req.transformer = transformer // then use the transformer later on in your route handling
+    req.transformer = transformer // then use the transformer later on
     next()
   }
 }
 ```
 
-The registry also provides a `subscribe()` api that allows you to listen for changes to the registry.
+The registry also provides a `subscribe(observer)` api that allows you to listen for changes to the registry. The registry emits events on `register` and `clear`
 
-FINISH HERE
+```javascript
+import { registry } from 'tilla'
+
+const unsubscribe = registry.subscribe(({ message, registry}) => {
+  console.log(message)
+})
+
+registry.register('person', personTransformer)
+
+// produces 'Registered transform at key: person' in the logs
+
+// later on
+unsubscribe() // unsubscribes the observer from the registry
+```
+
+the observer can be a function with single arity or an object that conforms to the or an object that satisfies this interface:
+
+```typescript
+interface Observer<T> {
+  closed?: boolean;
+  next: (value: T) => void;
+  error: (err: any) => void;
+  complete: () => void;
+}
+```
 
 ## TODO
 
@@ -467,8 +596,9 @@ FINISH HERE
 Submit an issue or a PR
 
 ## License
+
 MIT
 
 ## Name
-I couldn't find any open npm module names that I liked that weren't already taken. As a result, I used a shotened version of my name :p. If you have a better idea, please make a suggestion!
 
+I couldn't find any open npm module names that I liked that weren't already taken. As a result, I used a shotened version of my name :p. If you have a better idea, please make a suggestion!
