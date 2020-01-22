@@ -74,7 +74,7 @@ class TransformerRegistry {
    * @param observer - the observer
    */
   subscribe (observer: IObserver | Next) {
-    let _observer
+    let _observer: IObserver
     if (typeof observer === 'function') {
       _observer = {
         error: () => {},
@@ -87,7 +87,21 @@ class TransformerRegistry {
       _observer = observer
     }
 
-    this.observers.push(_observer as IObserver)
+    if (!observer) {
+      throw new Error('observer not correct shape')
+    }
+
+    this.observers.push(_observer!)
+
+    let called = false
+    // return a function that removes the observer
+    return () => {
+      // only call unsubscribe once
+      if (called) return
+      const index = this.observers.findIndex((observer: IObserver) => observer === _observer)
+      this.observers.splice(index, 1)
+      called = true
+    }
   }
 
   private emit (message: string) {

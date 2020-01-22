@@ -31,7 +31,7 @@ describe('Registry', () => {
     expect(registry.registry).toMatchObject({})
   })
 
-  it('should notify subscribers', () => {
+  it('should notify observers', () => {
     const fn = jest.fn()
     const obs = {
       next: jest.fn(),
@@ -48,5 +48,20 @@ describe('Registry', () => {
 
     expect(fn).toHaveBeenCalled()
     expect(obs.next).toHaveBeenCalled()
+  })
+
+  it('should unsubscribe the observer', () => {
+    const fn = jest.fn()
+
+    const unsubscrbe = registry.subscribe(fn)
+
+    // immediatley unsubscribe
+    unsubscrbe()
+
+    const transformer = new Transformer({})
+    registry.register('key', transformer)
+
+    expect(fn).not.toHaveBeenCalled()
+    expect(() => unsubscrbe()).not.toThrow()
   })
 })
