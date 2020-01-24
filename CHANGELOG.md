@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.1.0](https://github.com/TillaTheHun0/tilla/compare/v2.0.0...v2.1.0) (2020-01-24)
+
+
+### Features
+
+* **field-delegate:** make sourceKey arg optional ([9336019](https://github.com/TillaTheHun0/tilla/commit/9336019314bc992aa649cfa9c72c618719082b2e))
+
 ## [2.0.0](https://github.com/TillaTheHun0/tilla/compare/v1.0.3...v2.0.0) (2020-01-22)
 
 
