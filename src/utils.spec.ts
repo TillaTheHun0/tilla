@@ -1,17 +1,43 @@
 
 import { utils } from './utils'
-import { always } from './ruleBuilder'
+import { always, when } from './ruleBuilder'
 import { passthrough } from './fieldMapper'
+import { Permissions } from './permission'
 
 const delegate = utils.fieldDelegate()
 
 describe('Utils', () => {
   it('should return a FieldDelegate instance with source and empty map', () => {
-    const key = 'someKey'
+    const key: string = 'someKey'
     const fieldDelegate = delegate(key, always(passthrough()))
 
     expect(fieldDelegate.sourceKey).toBe(key)
     expect(fieldDelegate.delegateMap).toBeDefined()
+  })
+
+  it('should allow not providing a sourceKey and instead only Rules', () => {
+    const fieldDelegate = delegate(
+      when(Permissions.PUBLIC, passthrough()),
+      when(Permissions.PRIVATE, passthrough())
+    )
+
+    expect(fieldDelegate.sourceKey).toBeUndefined()
+    expect(fieldDelegate.delegateMap).toBeDefined()
+    expect(fieldDelegate.delegateMap[Permissions.PUBLIC]).toBeDefined()
+    expect(fieldDelegate.delegateMap[Permissions.PRIVATE]).toBeDefined()
+  })
+
+  it('should allow undefined as first arg', () => {
+    const fieldDelegate = delegate(
+      undefined,
+      when(Permissions.PUBLIC, passthrough()),
+      when(Permissions.PRIVATE, passthrough())
+    )
+
+    expect(fieldDelegate.sourceKey).toBeUndefined()
+    expect(fieldDelegate.delegateMap).toBeDefined()
+    expect(fieldDelegate.delegateMap[Permissions.PUBLIC]).toBeDefined()
+    expect(fieldDelegate.delegateMap[Permissions.PRIVATE]).toBeDefined()
   })
 
   it('should return keys of rawAttributes', () => {
