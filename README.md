@@ -62,7 +62,7 @@ const personTransformer = new Transformer({
     always(passthrough())
   ),
   // computed field using a custom builder
-  name: fd(undefined, always(
+  name: fd(always(
     buildWith(src => `${src.firstName} ${src.lastName}`
   )),
   // multiple mapping strategies, based on permission
@@ -154,7 +154,7 @@ let oldPersonTransformer = new Transformer({
       }
     ))
   ),
-  name: fd(undefined, always(buildWith(
+  name: fd(always(buildWith(
     src => `${src.firstName} ${src.lastName}`
   ))),
   // only transformations at PRIVATE and above permission lvls will have this field
@@ -187,7 +187,7 @@ let oldPersonTransformer = new Transformer({
       }
     ))
   ),
-  name: fd(undefined, always(buildWith(
+  name: fd(always(buildWith(
     src => `${src.firstName} ${src.lastName}`
   ))),
   // only transformations at PRIVATE and above permission lvls will have this field
@@ -389,7 +389,7 @@ const fd = fieldDelegate() // use the built permission levels
 
 let personTransformer = new Transformer({
   // Special transformation cases here
-  name: fd(undefined, always(buildWith(
+  name: fd(always(buildWith(
     src => `${src.firstName} ${src.lastName}`
   ))),
   city: fd('homeCity', always(passthrough())),
@@ -419,7 +419,7 @@ const fd = fieldDelegate() // use the built permission levels
 
 let personTransformer = new Transformer({
   // Special transformation cases here
-  name: fd(undefined, always(buildWith(
+  name: fd(always(buildWith(
     src => `${src.firstName} ${src.lastName}`
   ))),
   city: fd('homeCity', always(passthrough()))
